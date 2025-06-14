@@ -19,6 +19,10 @@ public class Hero : MonoBehaviour
     [SerializeField] GameObject SR;
     [SerializeField] GameObject WarningUI;
     [SerializeField] GameObject PauseUI;
+    [SerializeField] GameObject PistleGameSeanUI;
+    [SerializeField] GameObject ARGameSeanUI;
+    [SerializeField] GameObject SMGGameSeanUI;
+    [SerializeField] GameObject SRGameSeanUI;
     [SerializeField] int Pistle_gold;
     [SerializeField] int AR_gold;
     [SerializeField] int SMG_gold;
