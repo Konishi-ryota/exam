@@ -71,13 +71,6 @@ public class Hero : MonoBehaviour
             Instantiate(bullets,muzzle.transform.position,Quaternion.identity);
             bullets.SetActive(true);
         }
-        if (Input.GetKey(KeyCode.Space) && Input.GetKey(KeyCode.LeftShift))
-        {
-            if (IncreaseChargetime <= MaxChargetime)
-            {
-                IncreaseChargetime += Time.deltaTime;
-            }
-        }
         if (Input.GetKeyDown(KeyCode.P))
         {
             PauseUI.SetActive(true);
@@ -87,6 +80,13 @@ public class Hero : MonoBehaviour
         {
             PauseUI.SetActive(false);
         }
+        //if (Input.GetKey(KeyCode.Space) && Input.GetKey(KeyCode.LeftShift))
+        //{
+        //    if (IncreaseChargetime <= MaxChargetime)
+        //    {
+        //        IncreaseChargetime += Time.deltaTime;
+        //    }
+        //}
         //else if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.LeftShift))
         //{
         //    if (IncreaseChargetime >= MaxChargetime)
