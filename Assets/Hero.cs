@@ -76,23 +76,28 @@ public class Hero : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
-            PauseUI.SetActive(true );
+            PauseUI.SetActive(true);
+
         }
-        else if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.S))
         {
-            if (IncreaseChargetime >= MaxChargetime)
-            {
-                
-            }
-            if (IncreaseChargetime < MaxChargetime && IncreaseChargetime >= MidChargetime)
-            {
-
-            }
-            if (IncreaseChargetime < MidChargetime)
-            {
-
-            }
+            PauseUI.SetActive(false);
         }
+        //else if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.LeftShift))
+        //{
+        //    if (IncreaseChargetime >= MaxChargetime)
+        //    {
+                
+        //    }
+        //    if (IncreaseChargetime < MaxChargetime && IncreaseChargetime >= MidChargetime)
+        //    {
+
+        //    }
+        //    if (IncreaseChargetime < MidChargetime)
+        //    {
+
+        //    }
+        //}
         if (H_exp > 100)
         {
             H_exp = H_exp - 100;
