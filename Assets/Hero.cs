@@ -59,10 +59,9 @@ public class Hero : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        _timer += Time.deltaTime;
+                _timer += Time.deltaTime;
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
         {
             _rig.velocity = new Vector2(Input.GetAxis("Horizontal"), 0) * H_speed;
@@ -84,49 +83,12 @@ public class Hero : MonoBehaviour
             playerIndex = (playerIndex + 1) % weaponList.Count;
             Debug.Log($"{playerIndex}");
         }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            PauseUI.SetActive(true);
-            Time.timeScale = 0;
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            PauseUI.SetActive(false);
-            Time.timeScale = 1;
-        }
-        //if (Input.GetKey(KeyCode.Space) && Input.GetKey(KeyCode.LeftShift))
-        //{
-        //    if (IncreaseChargetime <= MaxChargetime)
-        //    {
-        //        IncreaseChargetime += Time.deltaTime;
-        //    }
-        //}
-        //else if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.LeftShift))
-        //{
-        //    if (IncreaseChargetime >= MaxChargetime)
-        //    {
-                
-        //    }
-        //    if (IncreaseChargetime < MaxChargetime && IncreaseChargetime >= MidChargetime)
-        //    {
-
-        //    }
-        //    if (IncreaseChargetime < MidChargetime)
-        //    {
-
-        //    }
-        //}
-        if (H_exp > 100)
-        {
-            H_exp = H_exp - 100;
-            Level = Level + 1;
-        }
         if (HouseEnter)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 Debug.Log("1ÉLÅ[Ç™âüÇ≥ÇÍÇΩ");
-                if (Checkgold(Pistle_gold,PistleGameSceneUI))
+                if (Checkgold(Pistle_gold, PistleGameSceneUI))
                 {
                     DecreaseGold(Pistle_gold);
                     Debug.Log($"{H_Gold}");
@@ -162,6 +124,47 @@ public class Hero : MonoBehaviour
             }
         }
     }
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            PauseUI.SetActive(true);
+            Time.timeScale = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            PauseUI.SetActive(false);
+            Time.timeScale = 1;
+        }   
+        //if (Input.GetKey(KeyCode.Space) && Input.GetKey(KeyCode.LeftShift))
+        //{
+        //    if (IncreaseChargetime <= MaxChargetime)
+        //    {
+        //        IncreaseChargetime += Time.deltaTime;
+        //    }
+        //}
+        //else if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.LeftShift))
+        //{
+        //    if (IncreaseChargetime >= MaxChargetime)
+        //    {
+                
+        //    }
+        //    if (IncreaseChargetime < MaxChargetime && IncreaseChargetime >= MidChargetime)
+        //    {
+
+        //    }
+        //    if (IncreaseChargetime < MidChargetime)
+        //    {
+
+        //    }
+        //}
+        if (H_exp > 100)
+        {
+            H_exp = H_exp - 100;
+            Level = Level + 1;
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Respawn")
@@ -189,7 +192,7 @@ public class Hero : MonoBehaviour
         if (H_Gold > gold && !weaponList.Contains(weapon))
         {
             Debug.Log("çwì¸â¬î\");
-            weaponList.Add(weapon);
+            //weaponList.Add(weapon);
             return true;
         }
         else if(H_Gold < gold)
