@@ -62,27 +62,30 @@ public class Hero : MonoBehaviour
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
         {
             _rig.velocity = new Vector2(Input.GetAxis("Horizontal"), 0) * H_speed;
-
         }
-        if (Input.GetKeyDown(KeyCode.Space) && interval < _timer)
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K) && Time.timeScale > 0)
         {
-            _timer = 0;
-            Instantiate(bullets,muzzle.transform.position,Quaternion.identity);
-            bullets.SetActive(true);
-        }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            playerIndex = (playerIndex -1 + weaponList.Count)% weaponList.Count;
+            playerIndex = (playerIndex - 1 + weaponList.Count) % weaponList.Count;
             Debug.Log($"{playerIndex}");
         }
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.L) && Time.timeScale > 0)
         {
             playerIndex = (playerIndex + 1) % weaponList.Count;
             Debug.Log($"{playerIndex}");
         }
+        if (Input.GetKeyDown(KeyCode.Space) && interval < _timer && Time.timeScale > 0)
+        {
+            _timer = 0;
+            Instantiate(bullets, muzzle.transform.position, Quaternion.identity);
+            bullets.SetActive(true);
+        }
         if (HouseEnter)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Alpha1) && Time.timeScale > 0)
             {
                 Debug.Log("1ƒL[‚ª‰Ÿ‚³‚ê‚½");
                 if (Checkgold(Pistle_gold, PistleGameSceneUI))
@@ -92,7 +95,7 @@ public class Hero : MonoBehaviour
                     Buyweapon(PistleGameSceneUI);
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
+            if (Input.GetKeyDown(KeyCode.Alpha2) && Time.timeScale > 0)
             {
                 if (Checkgold(AR_gold, ARGameSceneUI))
                 {
@@ -101,7 +104,7 @@ public class Hero : MonoBehaviour
                     Buyweapon(ARGameSceneUI);
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Alpha3))
+            if (Input.GetKeyDown(KeyCode.Alpha3) && Time.timeScale > 0)
             {
                 if (Checkgold(SMG_gold, SMGGameSceneUI))
                 {
@@ -110,7 +113,7 @@ public class Hero : MonoBehaviour
                     Buyweapon(SMGGameSceneUI);
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Alpha4))
+            if (Input.GetKeyDown(KeyCode.Alpha4) && Time.timeScale > 0)
             {
                 if (Checkgold(SR_gold, SRGameSceneUI))
                 {
@@ -120,10 +123,6 @@ public class Hero : MonoBehaviour
                 }
             }
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
         if (Input.GetKeyDown(KeyCode.P))
         {
             PauseUI.SetActive(true);
