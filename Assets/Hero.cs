@@ -18,7 +18,7 @@ public class Hero : MonoBehaviour
     [SerializeField] GameObject SMG;
     [SerializeField] GameObject SR;
     [SerializeField] GameObject goldWarningUI;
-    [SerializeField] GameObject WarningUI;
+    [SerializeField] GameObject DupilicationWarningUI;
     [SerializeField] GameObject PauseUI;
     [SerializeField] GameObject PistleGameSceneUI;
     [SerializeField] GameObject ARGameSceneUI;
@@ -181,7 +181,7 @@ public class Hero : MonoBehaviour
             return true;
         }
         Debug.Log("購入不可");
-        WarningUI.SetActive(true);
+        goldWarningUI.SetActive(true);
         StartCoroutine(UIfalse());
         return false;
     }
@@ -208,6 +208,6 @@ public class Hero : MonoBehaviour
     {
         Debug.Log("UI非表示開始");
         yield return new WaitForSeconds(3);
-        WarningUI.SetActive(false);
+        goldWarningUI.SetActive(false);
     }
 }
