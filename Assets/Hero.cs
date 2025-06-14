@@ -19,10 +19,10 @@ public class Hero : MonoBehaviour
     [SerializeField] GameObject SR;
     [SerializeField] GameObject WarningUI;
     [SerializeField] GameObject PauseUI;
-    [SerializeField] GameObject PistleGameSeanUI;
-    [SerializeField] GameObject ARGameSeanUI;
-    [SerializeField] GameObject SMGGameSeanUI;
-    [SerializeField] GameObject SRGameSeanUI;
+    [SerializeField] GameObject PistleGameSceneUI;
+    [SerializeField] GameObject ARGameSceneUI;
+    [SerializeField] GameObject SMGGameSceneUI;
+    [SerializeField] GameObject SRGameSceneUI;
     [SerializeField] int Pistle_gold;
     [SerializeField] int AR_gold;
     [SerializeField] int SMG_gold;
@@ -81,7 +81,7 @@ public class Hero : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             PauseUI.SetActive(true);
-
+            Time.timeScale = 0;
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -116,7 +116,7 @@ public class Hero : MonoBehaviour
                 {
                     DecreaseGold(Pistle_gold);
                     Debug.Log($"{H_Gold}");
-
+                    Buyweapon(PistleGameSceneUI);
                 }
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -125,8 +125,8 @@ public class Hero : MonoBehaviour
                 {
                     DecreaseGold(AR_gold);
                     Debug.Log($"{H_Gold}");
+                    Buyweapon(ARGameSceneUI);
                 }
-                
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
@@ -134,6 +134,7 @@ public class Hero : MonoBehaviour
                 {
                     DecreaseGold(SMG_gold);
                     Debug.Log($"{H_Gold}");
+                    Buyweapon(SMGGameSceneUI);
                 }
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
@@ -142,6 +143,7 @@ public class Hero : MonoBehaviour
                 {
                     DecreaseGold(SR_gold);
                     Debug.Log($"{H_Gold}");
+                    Buyweapon(SRGameSceneUI);
                 }
             }
         }
@@ -194,5 +196,9 @@ public class Hero : MonoBehaviour
             H_Gold = 0;
             Debug.Log("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñ");
         }
+    }
+    public void Buyweapon(GameObject value)
+    {
+        value.gameObject.SetActive(true);
     }
 }
