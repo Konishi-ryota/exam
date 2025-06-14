@@ -18,6 +18,7 @@ public class Hero : MonoBehaviour
     [SerializeField] GameObject SMG;
     [SerializeField] GameObject SR;
     [SerializeField] GameObject WarningUI;
+    [SerializeField] GameObject PauseUI;
     [SerializeField] int Pistle_gold;
     [SerializeField] int AR_gold;
     [SerializeField] int SMG_gold;
@@ -72,6 +73,10 @@ public class Hero : MonoBehaviour
             {
                 IncreaseChargetime += Time.deltaTime;
             }
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            PauseUI.SetActive(true );
         }
         else if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.LeftShift))
         {
