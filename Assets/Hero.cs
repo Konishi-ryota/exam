@@ -179,6 +179,7 @@ public class Hero : MonoBehaviour
         }
         Debug.Log("購入不可");
         WarningUI.SetActive(true);
+        StartCoroutine(UIfalse());
         return false;
     }
 
@@ -192,13 +193,18 @@ public class Hero : MonoBehaviour
         H_Gold -= value;
         if (H_Gold <0)
         {
-            WarningUI.SetActive(true);
             H_Gold = 0;
-            Debug.Log("お金が足りません");
+            Debug.Log("お金がありません");
         }
     }
     public void Buyweapon(GameObject value)
     {
         value.gameObject.SetActive(true);
+    }
+    IEnumerator UIfalse()
+    {
+        Debug.Log("UI非表示開始");
+        yield return new WaitForSeconds(3);
+        WarningUI.SetActive(false);
     }
 }
