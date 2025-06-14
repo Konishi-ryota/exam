@@ -1,0 +1,17 @@
+diff a/Assets/Hero.cs b/Assets/Hero.cs	(rejected hunks)
+@@ -31,12 +31,10 @@
+     private int H_exp;
+     private float _timer;
+     private bool HouseEnter;
+-    [SerializeField] List<GameObject> weaponList = new();
+-    private int playerIndex;
+     private Rigidbody2D _rig = null;
+-    //[SerializeField] float MaxChargetime;
+-    //[SerializeField] float MidChargetime;
+-    //[SerializeField] float IncreaseChargetime;
++    [SerializeField] float MaxChargetime;
++    [SerializeField] float MidChargetime;
++    [SerializeField] float IncreaseChargetime;
+     [Header("HeroSettings")]
+     [SerializeField] private int H_Gold;
+     [SerializeField] private int H_hp;
