@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Principal;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static Unity.VisualScripting.Dependencies.Sqlite.SQLite3;
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
 
@@ -17,7 +20,8 @@ public class Hero : MonoBehaviour
     [SerializeField] GameObject AR;
     [SerializeField] GameObject SMG;
     [SerializeField] GameObject SR;
-    [SerializeField] GameObject WarningUI;
+    [SerializeField] GameObject goldWarningUI;
+    [SerializeField] GameObject DuplicationWarningUI;
     [SerializeField] GameObject PauseUI;
     [SerializeField] GameObject PistleGameSceneUI;
     [SerializeField] GameObject ARGameSceneUI;
@@ -31,10 +35,12 @@ public class Hero : MonoBehaviour
     private int H_exp;
     private float _timer;
     private bool HouseEnter;
+    [SerializeField] List<GameObject> weaponList = new();
+    private int playerIndex;
     private Rigidbody2D _rig = null;
-    [SerializeField] float MaxChargetime;
-    [SerializeField] float MidChargetime;
-    [SerializeField] float IncreaseChargetime;
+    //[SerializeField] float MaxChargetime;
+    //[SerializeField] float MidChargetime;
+    //[SerializeField] float IncreaseChargetime;
     [Header("HeroSettings")]
     [SerializeField] private int H_Gold;
     [SerializeField] private int H_hp;
@@ -53,7 +59,6 @@ public class Hero : MonoBehaviour
         _timer = interval;
         //H_exp = enemy.E_exp;
         //H_Gold = enemy.E_Gold;
-        
     }
 
     // Update is called once per frame
@@ -64,6 +69,16 @@ public class Hero : MonoBehaviour
         {
             _rig.velocity = new Vector2(Input.GetAxis("Horizontal"), 0) * H_speed;
 
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            playerIndex = (playerIndex - 1 + weaponList.Count) % weaponList.Count;
+            Debug.Log($"{playerIndex}");
+        }
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            playerIndex = (playerIndex + 1) % weaponList.Count;
+            Debug.Log($"{playerIndex}");
         }
         if (Input.GetKeyDown(KeyCode.Space) && interval < _timer)
         {
@@ -112,7 +127,7 @@ public class Hero : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 Debug.Log("1キーが押された");
-                if (Checkgold(Pistle_gold))
+                if (Checkgold(Pistle_gold,PistleGameSceneUI))
                 {
                     DecreaseGold(Pistle_gold);
                     Debug.Log($"{H_Gold}");
@@ -121,7 +136,7 @@ public class Hero : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                if (Checkgold(AR_gold))
+                if (Checkgold(AR_gold,ARGameSceneUI))
                 {
                     DecreaseGold(AR_gold);
                     Debug.Log($"{H_Gold}");
@@ -130,7 +145,7 @@ public class Hero : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                if (Checkgold(SMG_gold))
+                if (Checkgold(SMG_gold,SMGGameSceneUI))
                 {
                     DecreaseGold(SMG_gold);
                     Debug.Log($"{H_Gold}");
@@ -139,11 +154,11 @@ public class Hero : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                if (Checkgold(SR_gold))
+                if (Checkgold(SR_gold,SRGameSceneUI))
                 {
+                    Buyweapon(SRGameSceneUI);
                     DecreaseGold(SR_gold);
                     Debug.Log($"{H_Gold}");
-                    Buyweapon(SRGameSceneUI);
                 }
             }
         }
@@ -170,16 +185,28 @@ public class Hero : MonoBehaviour
             SR.SetActive(false);
         }
     }
-    private bool Checkgold(int value)
+    private bool Checkgold(int gold,GameObject weapon)
     {
-        if (H_Gold > value)
+        if (H_Gold > gold &&!weaponList.Contains(weapon))
         {
             Debug.Log("購入可能");
+            weaponList.Add(weapon);
             return true;
         }
+        else if (H_Gold < gold)
+        {
         Debug.Log("購入不可");
-        WarningUI.SetActive(true);
+        goldWarningUI.SetActive(true);
         StartCoroutine(UIfalse());
+        return false;
+        }
+        else if (weaponList.Contains(weapon))
+        {
+        Debug.Log("購入不可");
+        DuplicationWarningUI.SetActive(true);
+        StartCoroutine(UIfalse());
+        return false;
+        }
         return false;
     }
 
@@ -200,11 +227,16 @@ public class Hero : MonoBehaviour
     public void Buyweapon(GameObject value)
     {
         value.gameObject.SetActive(true);
+        //if (!weaponList.Contains(value))
+        //{
+        //    weaponList.Add(value);
+        //}
     }
     IEnumerator UIfalse()
     {
         Debug.Log("UI非表示開始");
         yield return new WaitForSeconds(3);
-        WarningUI.SetActive(false);
+        goldWarningUI.SetActive(false);
+        DuplicationWarningUI.SetActive(false);
     }
 }
