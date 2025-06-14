@@ -125,7 +125,7 @@ public class Hero : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 Debug.Log("1ƒL[‚ª‰Ÿ‚³‚ê‚½");
-                if (Checkgold(Pistle_gold))
+                if (Checkgold(Pistle_gold,PistleGameSceneUI))
                 {
                     DecreaseGold(Pistle_gold);
                     Debug.Log($"{H_Gold}");
@@ -134,7 +134,7 @@ public class Hero : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                if (Checkgold(AR_gold))
+                if (Checkgold(AR_gold, ARGameSceneUI))
                 {
                     DecreaseGold(AR_gold);
                     Debug.Log($"{H_Gold}");
@@ -143,7 +143,7 @@ public class Hero : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                if (Checkgold(SMG_gold))
+                if (Checkgold(SMG_gold, SMGGameSceneUI))
                 {
                     DecreaseGold(SMG_gold);
                     Debug.Log($"{H_Gold}");
@@ -152,7 +152,7 @@ public class Hero : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                if (Checkgold(SR_gold))
+                if (Checkgold(SR_gold, SRGameSceneUI))
                 {
                     DecreaseGold(SR_gold);
                     Debug.Log($"{H_Gold}");
@@ -183,16 +183,28 @@ public class Hero : MonoBehaviour
             SR.SetActive(false);
         }
     }
-    private bool Checkgold(int value)
+    private bool Checkgold(int gold,GameObject weapon)
     {
-        if (H_Gold > value)
+        if (H_Gold > gold && !weaponList.Contains(weapon))
         {
             Debug.Log("w“ü‰Â”\");
+            weaponList.Add(weapon);
             return true;
         }
+        else if(H_Gold < gold)
+        {
         Debug.Log("w“ü•s‰Â");
         goldWarningUI.SetActive(true);
         StartCoroutine(UIfalse());
+            return false;
+        }
+        else if (weaponList.Contains(weapon))
+        {
+            Debug.Log("w“ü•s‰Â");
+            DupilicationWarningUI.SetActive(true);
+            StartCoroutine(UIfalse());
+            return false;
+        }
         return false;
     }
 
