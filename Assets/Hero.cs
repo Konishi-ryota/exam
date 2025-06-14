@@ -55,13 +55,11 @@ public class Hero : MonoBehaviour
     void Update()
     {
         _timer += Time.deltaTime;
-        //if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
-        //{
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
+        {
             _rig.velocity = new Vector2(Input.GetAxis("Horizontal"), 0) * H_speed;
 
-        //}
-        leftHorizontalAxis = Input.GetAxis("StickHorizontal");
-        _rig.velocity = new Vector2(leftHorizontalAxis, 0) * H_speed;
+        }
         if (Input.GetKeyDown(KeyCode.Space) && interval < _timer)
         {
             _timer = 0;
@@ -104,6 +102,7 @@ public class Hero : MonoBehaviour
                 {
                     DecreaseGold(Pistle_gold);
                     Debug.Log($"{H_Gold}");
+
                 }
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
