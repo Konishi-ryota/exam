@@ -74,6 +74,16 @@ public class Hero : MonoBehaviour
             Instantiate(bullets,muzzle.transform.position,Quaternion.identity);
             bullets.SetActive(true);
         }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            playerIndex = (playerIndex -1 + weaponList.Count)% weaponList.Count;
+            Debug.Log($"{playerIndex}");
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            playerIndex = (playerIndex + 1) % weaponList.Count;
+            Debug.Log($"{playerIndex}");
+        }
         if (Input.GetKeyDown(KeyCode.P))
         {
             PauseUI.SetActive(true);
