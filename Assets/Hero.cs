@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Security.Principal;
 using UnityEngine;
 using UnityEngine.UI;
-using static Unity.VisualScripting.Dependencies.Sqlite.SQLite3;
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
 
@@ -43,8 +42,6 @@ public class Hero : MonoBehaviour
     [SerializeField] private int H_attackPower = 3;
     [SerializeField] private float interval = 1f;
     private float leftHorizontalAxis;
-    [SerializeField] public List<GameObject> weaponList = new();
-    private int playerIndex = 0;
     #endregion
 
 
@@ -56,6 +53,7 @@ public class Hero : MonoBehaviour
         _timer = interval;
         //H_exp = enemy.E_exp;
         //H_Gold = enemy.E_Gold;
+        
     }
 
     // Update is called once per frame
