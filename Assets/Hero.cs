@@ -17,6 +17,7 @@ public class Hero : MonoBehaviour
     [SerializeField] GameObject AR;
     [SerializeField] GameObject SMG;
     [SerializeField] GameObject SR;
+    [SerializeField] GameObject goldWarningUI;
     [SerializeField] GameObject WarningUI;
     [SerializeField] GameObject PauseUI;
     [SerializeField] GameObject PistleGameSceneUI;
@@ -31,10 +32,12 @@ public class Hero : MonoBehaviour
     private int H_exp;
     private float _timer;
     private bool HouseEnter;
+    [SerializeField] List<GameObject> weaponList = new();
+    private int playerIndex;
     private Rigidbody2D _rig = null;
-    [SerializeField] float MaxChargetime;
-    [SerializeField] float MidChargetime;
-    [SerializeField] float IncreaseChargetime;
+    //[SerializeField] float MaxChargetime;
+    //[SerializeField] float MidChargetime;
+    //[SerializeField] float IncreaseChargetime;
     [Header("HeroSettings")]
     [SerializeField] private int H_Gold;
     [SerializeField] private int H_hp;
