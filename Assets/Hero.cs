@@ -92,6 +92,7 @@ public class Hero : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S))
         {
             PauseUI.SetActive(false);
+            Time.timeScale = 1;
         }
         //if (Input.GetKey(KeyCode.Space) && Input.GetKey(KeyCode.LeftShift))
         //{
@@ -231,5 +232,6 @@ public class Hero : MonoBehaviour
         Debug.Log("UI”ñ•\Ž¦ŠJŽn");
         yield return new WaitForSeconds(3);
         goldWarningUI.SetActive(false);
+        DupilicationWarningUI.SetActive(false);
     }
 }
