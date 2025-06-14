@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Principal;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
 
@@ -41,7 +42,6 @@ public class Hero : MonoBehaviour
     [SerializeField] private int H_speed;
     [SerializeField] private int H_attackPower = 3;
     [SerializeField] private float interval = 1f;
-    private float leftHorizontalAxis;
     #endregion
 
 
@@ -85,10 +85,14 @@ public class Hero : MonoBehaviour
         }
         if (HouseEnter)
         {
+            int pistle = 1;
+            int AR = 1;
+            int SMG = 1;
+            int SR = 1;
             if (Input.GetKeyDown(KeyCode.Alpha1) && Time.timeScale > 0)
             {
                 Debug.Log("1ƒL[‚ª‰Ÿ‚³‚ê‚½");
-                if (Checkgold(Pistle_gold))
+                if (Checkgold(Pistle_gold,pistle))
                 {
                     DecreaseGold(Pistle_gold);
                     Debug.Log($"{H_Gold}");
@@ -97,7 +101,7 @@ public class Hero : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha2) && Time.timeScale > 0)
             {
-                if (Checkgold(AR_gold))
+                if (Checkgold(AR_gold,AR))
                 {
                     DecreaseGold(AR_gold);
                     Debug.Log($"{H_Gold}");
@@ -106,7 +110,7 @@ public class Hero : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha3) && Time.timeScale > 0)
             {
-                if (Checkgold(SMG_gold))
+                if (Checkgold(SMG_gold,SMG))
                 {
                     DecreaseGold(SMG_gold);
                     Debug.Log($"{H_Gold}");
@@ -115,7 +119,7 @@ public class Hero : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha4) && Time.timeScale > 0)
             {
-                if (Checkgold(SR_gold))
+                if (Checkgold(SR_gold,SR))
                 {
                     DecreaseGold(SR_gold);
                     Debug.Log($"{H_Gold}");
@@ -161,21 +165,23 @@ public class Hero : MonoBehaviour
             SR.SetActive(false);
         }
     }
-    private bool Checkgold(int gold)
+    private bool Checkgold(int gold,int keyCount)
     {
-        if (H_Gold > gold)
+        if (H_Gold > gold && keyCount < 2)
         {
+            keyCount++;
             Debug.Log("w“ü‰Â”\");
+            Debug.Log($"{keyCount}");
             return true;
         }
-        else if(H_Gold < gold)
+        else if(H_Gold < gold || keyCount > 1)
         {
-        Debug.Log("w“ü•s‰Â");
-        goldWarningUI.SetActive(true);
-        StartCoroutine(UIfalse());
+            Debug.Log("w“ü•s‰Â");
+            goldWarningUI.SetActive(true);
+            StartCoroutine(UIfalse());
             return false;
         }
-        return false;
+            return false;
     }
 
     public void AddGold(int value)
