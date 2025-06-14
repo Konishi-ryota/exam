@@ -35,9 +35,6 @@ public class Hero : MonoBehaviour
     [SerializeField] List<GameObject> weaponList = new();
     private int playerIndex;
     private Rigidbody2D _rig = null;
-    //[SerializeField] float MaxChargetime;
-    //[SerializeField] float MidChargetime;
-    //[SerializeField] float IncreaseChargetime;
     [Header("HeroSettings")]
     [SerializeField] private int H_Gold;
     [SerializeField] private int H_hp;
@@ -137,28 +134,6 @@ public class Hero : MonoBehaviour
             PauseUI.SetActive(false);
             Time.timeScale = 1;
         }   
-        //if (Input.GetKey(KeyCode.Space) && Input.GetKey(KeyCode.LeftShift))
-        //{
-        //    if (IncreaseChargetime <= MaxChargetime)
-        //    {
-        //        IncreaseChargetime += Time.deltaTime;
-        //    }
-        //}
-        //else if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.LeftShift))
-        //{
-        //    if (IncreaseChargetime >= MaxChargetime)
-        //    {
-                
-        //    }
-        //    if (IncreaseChargetime < MaxChargetime && IncreaseChargetime >= MidChargetime)
-        //    {
-
-        //    }
-        //    if (IncreaseChargetime < MidChargetime)
-        //    {
-
-        //    }
-        //}
         if (H_exp > 100)
         {
             H_exp = H_exp - 100;
