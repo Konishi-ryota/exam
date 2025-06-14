@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Principal;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static Unity.VisualScripting.Dependencies.Sqlite.SQLite3;
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
 
@@ -42,6 +44,8 @@ public class Hero : MonoBehaviour
     [SerializeField] private int H_attackPower = 3;
     [SerializeField] private float interval = 1f;
     private float leftHorizontalAxis;
+    [SerializeField] public List<GameObject> weaponList = new();
+    private int playerIndex = 0;
     #endregion
 
 
@@ -53,7 +57,6 @@ public class Hero : MonoBehaviour
         _timer = interval;
         //H_exp = enemy.E_exp;
         //H_Gold = enemy.E_Gold;
-        
     }
 
     // Update is called once per frame
@@ -64,6 +67,16 @@ public class Hero : MonoBehaviour
         {
             _rig.velocity = new Vector2(Input.GetAxis("Horizontal"), 0) * H_speed;
 
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            playerIndex = (playerIndex - 1 + weaponList.Count) % weaponList.Count;
+            Debug.Log($"{playerIndex}");
+        }
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            playerIndex = (playerIndex + 1) % weaponList.Count;
+            Debug.Log($"{playerIndex}");
         }
         if (Input.GetKeyDown(KeyCode.Space) && interval < _timer)
         {
@@ -117,6 +130,7 @@ public class Hero : MonoBehaviour
                     DecreaseGold(Pistle_gold);
                     Debug.Log($"{H_Gold}");
                     Buyweapon(PistleGameSceneUI);
+                    weaponList.Add(PistleGameSceneUI);
                 }
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -126,6 +140,7 @@ public class Hero : MonoBehaviour
                     DecreaseGold(AR_gold);
                     Debug.Log($"{H_Gold}");
                     Buyweapon(ARGameSceneUI);
+                    weaponList.Add(ARGameSceneUI);
                 }
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
@@ -135,6 +150,7 @@ public class Hero : MonoBehaviour
                     DecreaseGold(SMG_gold);
                     Debug.Log($"{H_Gold}");
                     Buyweapon(SMGGameSceneUI);
+                    weaponList.Add(ARGameSceneUI);
                 }
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
@@ -144,6 +160,7 @@ public class Hero : MonoBehaviour
                     DecreaseGold(SR_gold);
                     Debug.Log($"{H_Gold}");
                     Buyweapon(SRGameSceneUI);
+                    weaponList.Add(SRGameSceneUI);
                 }
             }
         }
