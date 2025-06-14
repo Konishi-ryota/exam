@@ -88,7 +88,7 @@ public class Hero : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha1) && Time.timeScale > 0)
             {
                 Debug.Log("1ƒL[‚ª‰Ÿ‚³‚ê‚½");
-                if (Checkgold(Pistle_gold, PistleGameSceneUI))
+                if (Checkgold(Pistle_gold))
                 {
                     DecreaseGold(Pistle_gold);
                     Debug.Log($"{H_Gold}");
@@ -97,7 +97,7 @@ public class Hero : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha2) && Time.timeScale > 0)
             {
-                if (Checkgold(AR_gold, ARGameSceneUI))
+                if (Checkgold(AR_gold))
                 {
                     DecreaseGold(AR_gold);
                     Debug.Log($"{H_Gold}");
@@ -106,7 +106,7 @@ public class Hero : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha3) && Time.timeScale > 0)
             {
-                if (Checkgold(SMG_gold, SMGGameSceneUI))
+                if (Checkgold(SMG_gold))
                 {
                     DecreaseGold(SMG_gold);
                     Debug.Log($"{H_Gold}");
@@ -115,7 +115,7 @@ public class Hero : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha4) && Time.timeScale > 0)
             {
-                if (Checkgold(SR_gold, SRGameSceneUI))
+                if (Checkgold(SR_gold))
                 {
                     DecreaseGold(SR_gold);
                     Debug.Log($"{H_Gold}");
@@ -161,12 +161,11 @@ public class Hero : MonoBehaviour
             SR.SetActive(false);
         }
     }
-    private bool Checkgold(int gold,GameObject weapon)
+    private bool Checkgold(int gold)
     {
-        if (H_Gold > gold && !weaponList.Contains(weapon))
+        if (H_Gold > gold)
         {
             Debug.Log("w“ü‰Â”\");
-            //weaponList.Add(weapon);
             return true;
         }
         else if(H_Gold < gold)
@@ -174,13 +173,6 @@ public class Hero : MonoBehaviour
         Debug.Log("w“ü•s‰Â");
         goldWarningUI.SetActive(true);
         StartCoroutine(UIfalse());
-            return false;
-        }
-        else if (weaponList.Contains(weapon))
-        {
-            Debug.Log("w“ü•s‰Â");
-            DupilicationWarningUI.SetActive(true);
-            StartCoroutine(UIfalse());
             return false;
         }
         return false;
