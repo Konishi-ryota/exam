@@ -160,10 +160,17 @@ public class Hero : MonoBehaviour
             keycount++;
             return true;
         }
-        else if(H_Gold < gold || keycount == 1)
+        else if(H_Gold < gold)
         {
             Debug.Log("çwì¸ïsâ¬");
             goldWarningUI.SetActive(true);
+            StartCoroutine(UIfadeout());
+            return false;
+        }
+        else if (keycount > 0)
+        {
+            Debug.Log("çwì¸ïsâ¬");
+            DupilicationWarningUI.SetActive(true);
             StartCoroutine(UIfadeout());
             return false;
         }
@@ -186,7 +193,6 @@ public class Hero : MonoBehaviour
     }
     public void Buyweapon(GameObject value)
     {
-        bool cantBuy = false;
         value.gameObject.SetActive(true);
     }
     public void weaponController()
