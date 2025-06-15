@@ -532,7 +532,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c85ed4a8bbecd814ca611fefa9039893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullets: {fileID: 3664872825406189446, guid: 361d1009926a255408c9470ec918df85, type: 3}
+  PistleBullet: {fileID: 2942750727778017050, guid: fd89dbea0baba28439ee201492f8f20f, type: 3}
+  ARBullet: {fileID: 5926479981425292926, guid: b77bd978f1b1eac4381e1bc89c100f01, type: 3}
+  SMGBullet: {fileID: 4131524342702767348, guid: d819419501ab0284999cc608e4d41d44, type: 3}
+  SRBullet: {fileID: 8119670483859545646, guid: ddb74927f0893e04d8a29c4bedab04eb, type: 3}
   muzzle: {fileID: 1020624077}
   Pistle: {fileID: 1153522157}
   AR: {fileID: 1888874705}
@@ -562,7 +565,8 @@ MonoBehaviour:
   H_hp: 0
   H_speed: 5
   H_attackPower: 3
-  interval: 5
+  playerIndex: 0
+  interval: 1
 --- !u!50 &313564461
 Rigidbody2D:
   serializedVersion: 4
