@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Security.Principal;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +14,10 @@ public class Hero : MonoBehaviour
     #region@•Ï”
     public int AttackPower => H_attackPower;
 
-    [SerializeField] GameObject bullets;
+    [SerializeField] GameObject PistleBullet;
+    [SerializeField] GameObject ARBullet;
+    [SerializeField] GameObject SMGBullet;
+    [SerializeField] GameObject SRBullet;
     [SerializeField] GameObject muzzle;
     [SerializeField] GameObject Pistle;
     [SerializeField] GameObject AR;
@@ -96,8 +100,7 @@ public class Hero : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && _bullet.interval < _timer && Time.timeScale > 0)
         {
             _timer = 0;
-            Instantiate(bullets, muzzle.transform.position, Quaternion.identity);
-            bullets.SetActive(true);
+            bulletshot();
         }
         if (HouseEnter)
         {
@@ -162,6 +165,25 @@ public class Hero : MonoBehaviour
             AR.SetActive(false);
             SMG.SetActive(false);
             SR.SetActive(false);
+        }
+    }
+    public void bulletshot()
+    {
+        if (playerIndex == 0)
+        {
+            Instantiate(PistleBullet);
+        }
+        if (playerIndex == 1)
+        {
+            Instantiate(ARBullet);
+        }
+        if (playerIndex == 2)
+        {
+            Instantiate(SMGBullet);
+        }
+        if (playerIndex == 3)
+        {
+            Instantiate(SRBullet);
         }
     }
     private bool Checkbuy(int gold, ref int keycount)
