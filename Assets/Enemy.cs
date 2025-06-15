@@ -13,13 +13,14 @@ public class Enemy : MonoBehaviour
     public int E_exp;
     public int E_Gold;
     private Hero _hero;
+    private Bullet _bullet;
 
     // Start is called before the first frame update
     void Start()
     {
         _rig = GetComponent<Rigidbody2D>();
         Application.targetFrameRate = 60;
-        Bullet bullet =FindObjectOfType<Bullet>();
+        _bullet =FindObjectOfType<Bullet>();
         //E_damage = bullet.bulletAttack;
 
         _hero = FindAnyObjectByType<Hero>();

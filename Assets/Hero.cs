@@ -34,23 +34,26 @@ public class Hero : MonoBehaviour
     [SerializeField] int AR_gold;
     [SerializeField] int SMG_gold;
     [SerializeField] int SR_gold;
-    int _pistlecount = 0;
-    int _ARcount = 0;
-    int _SMGcount = 0;
-    int _SRcount = 0;
-    private int Level;
-    private int H_exp;
-    private float _timer;
-    private bool HouseEnter;
     [SerializeField] GameObject[] weaponList;
-    private int playerIndex;
-    private Rigidbody2D _rig = null;
+   
     [Header("HeroSettings")]
     [SerializeField] private int H_Gold;
     [SerializeField] private int H_hp;
     [SerializeField] private int H_speed;
     [SerializeField] private int H_attackPower = 3;
     [SerializeField] private float interval = 1f;
+
+    private int _pistlecount = 0;
+    private int _ARcount = 0;
+    private int _SMGcount = 0;
+    private int _SRcount = 0;
+    private int playerIndex;
+    private Rigidbody2D _rig = null;
+    private int Level;
+    private int H_exp;
+    private float _timer;
+    private bool HouseEnter;
+    private Enemy _enemy;
     #endregion
 
 
@@ -58,7 +61,7 @@ public class Hero : MonoBehaviour
     void Start()
     {
         _rig = GetComponent<Rigidbody2D>();
-        Enemy enemy =FindObjectOfType<Enemy>();
+        _enemy =FindObjectOfType<Enemy>();
         _timer = interval;
         //H_exp = enemy.E_exp;
         //H_Gold = enemy.E_Gold;
