@@ -173,22 +173,22 @@ public class Hero : MonoBehaviour
     {
         if (playerIndex == 0 && interval > _timer)
         {
-            Instantiate(PistleBullet);
+            Instantiate(PistleBullet,muzzle.transform.position,Quaternion.identity);
             PistleBullet.SetActive(true);
         }
         if (playerIndex == 1 && interval > _timer)
         {
-            Instantiate(ARBullet);
+            Instantiate(ARBullet, muzzle.transform.position, Quaternion.identity);
             ARBullet.SetActive(true);
         }
         if (playerIndex == 2 && interval > _timer)
         {
-            Instantiate(SMGBullet);
+            Instantiate(SMGBullet, muzzle.transform.position, Quaternion.identity);
             SMGBullet.SetActive(true);
         }
         if (playerIndex == 3 && interval > _timer)
         {
-            Instantiate(SRBullet);
+            Instantiate(SRBullet, muzzle.transform.position, Quaternion.identity);
             SRBullet.SetActive(true);
         }
     }
