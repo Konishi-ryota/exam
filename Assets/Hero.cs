@@ -55,10 +55,11 @@ public class Hero : MonoBehaviour
     private Rigidbody2D _rig = null;
     private int Level;
     private int H_exp;
-    private float _timer;
+    private float _timer = 0;
     private bool HouseEnter;
     private Enemy _enemy;
     private Bullet _bullet;
+    public float interval = 1f;
     #endregion
 
 
@@ -68,7 +69,7 @@ public class Hero : MonoBehaviour
         _rig = GetComponent<Rigidbody2D>();
         _enemy =FindObjectOfType<Enemy>();
         _bullet = FindObjectOfType<Bullet>();
-        _timer = _bullet.interval;
+        _timer =interval;
         //H_exp = enemy.E_exp;
         //H_Gold = enemy.E_Gold;
         
@@ -97,9 +98,10 @@ public class Hero : MonoBehaviour
             Debug.Log($"{playerIndex}");
             weaponController();
         }
-        if (Input.GetKeyDown(KeyCode.Space) && _bullet.interval < _timer && Time.timeScale > 0)
+        if (Input.GetKeyDown(KeyCode.Space) && /*_bullet.interval < _timer &&*/ Time.timeScale > 0) 
         {
             _timer = 0;
+            Debug.Log("ŽËŒ‚");
             bulletshot();
         }
         if (HouseEnter)
@@ -169,21 +171,25 @@ public class Hero : MonoBehaviour
     }
     public void bulletshot()
     {
-        if (playerIndex == 0)
+        if (playerIndex == 0 && interval > _timer)
         {
             Instantiate(PistleBullet);
+            PistleBullet.SetActive(true);
         }
-        if (playerIndex == 1)
+        if (playerIndex == 1 && interval > _timer)
         {
             Instantiate(ARBullet);
+            ARBullet.SetActive(true);
         }
-        if (playerIndex == 2)
+        if (playerIndex == 2 && interval > _timer)
         {
             Instantiate(SMGBullet);
+            SMGBullet.SetActive(true);
         }
-        if (playerIndex == 3)
+        if (playerIndex == 3 && interval > _timer)
         {
             Instantiate(SRBullet);
+            SRBullet.SetActive(true);
         }
     }
     private bool Checkbuy(int gold, ref int keycount)
