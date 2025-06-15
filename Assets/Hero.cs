@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Principal;
@@ -37,7 +38,7 @@ public class Hero : MonoBehaviour
     private int H_exp;
     private float _timer;
     private bool HouseEnter;
-    [SerializeField] List<GameObject> weaponList = new();
+    [SerializeField] GameObject[] weaponList;
     private int playerIndex;
     private Rigidbody2D _rig = null;
     [Header("HeroSettings")]
@@ -73,12 +74,12 @@ public class Hero : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K) && Time.timeScale > 0)
         {
-            playerIndex = (playerIndex - 1 + weaponList.Count) % weaponList.Count;
+            playerIndex = (playerIndex - 1 + weaponList.Length) % weaponList.Length;
             Debug.Log($"{playerIndex}");
         }
         if (Input.GetKeyDown(KeyCode.L) && Time.timeScale > 0)
         {
-            playerIndex = (playerIndex + 1) % weaponList.Count;
+            playerIndex = (playerIndex + 1) % weaponList.Length;
             Debug.Log($"{playerIndex}");
         }
         if (Input.GetKeyDown(KeyCode.Space) && interval < _timer && Time.timeScale > 0)
@@ -89,13 +90,13 @@ public class Hero : MonoBehaviour
         }
         if (HouseEnter)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1) &&Checkbuy(Pistle_gold, ref _pistlecount))
+            if (Input.GetKeyDown(KeyCode.Alpha1) && Checkbuy(Pistle_gold, ref _pistlecount))
             {
                     DecreaseGold(Pistle_gold);
                     Debug.Log($"{H_Gold}");
                     Buyweapon(PistleGameSceneUI);
             }
-            if (Input.GetKeyDown(KeyCode.Alpha2)&& Checkbuy(AR_gold, ref _ARcount))
+            if (Input.GetKeyDown(KeyCode.Alpha2) && Checkbuy(AR_gold, ref _ARcount))
             {
                     DecreaseGold(AR_gold);
                     Debug.Log($"{H_Gold}");
@@ -197,7 +198,10 @@ public class Hero : MonoBehaviour
     }
     public void weaponController()
     {
-
+        if (playerIndex == 0)
+        {
+            
+        }
     }
     IEnumerator UIfadeout()
     {
