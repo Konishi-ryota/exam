@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5236619964380074776}
   - component: {fileID: 9105795108804680566}
+  - component: {fileID: -4242060688266696670}
   m_Layer: 0
   m_Name: PistleBullet
   m_TagString: Untagged
@@ -84,3 +85,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-4242060688266696670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2942750727778017050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 448af91a816592244829a7faee6032b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpeed: 0
+  PistlebulletAttack: 0
+  ARbulletAttack: 0
+  SMGbulletAttack: 0
+  SRbulletAttack: 0
+  interval: 1

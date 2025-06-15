@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6193158043349705794}
   - component: {fileID: 5841963828825734652}
+  - component: {fileID: -4851853693538210359}
   m_Layer: 0
   m_Name: ARBullet
   m_TagString: Untagged
@@ -84,3 +85,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-4851853693538210359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5926479981425292926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 448af91a816592244829a7faee6032b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpeed: 0
+  PistlebulletAttack: 0
+  ARbulletAttack: 0
+  SMGbulletAttack: 0
+  SRbulletAttack: 0
+  interval: 1
