@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Bullet : MonoBehaviour
 {
@@ -12,10 +11,19 @@ public class Bullet : MonoBehaviour
     public int SRbulletAttack;
     public float interval = 1f;
 
+    [SerializeField] GameObject PistleBullet;
+    [SerializeField] GameObject ARBullet;
+    [SerializeField] GameObject SMGBullet;
+    [SerializeField] GameObject SRBullet;
+
+    private Hero _hero;
+    private int _index;
+
     // Start is called before the first frame update
     void Start()
     {
-      
+        _hero = FindObjectOfType<Hero>();
+        _index = _hero.playerIndex;
     }
 
     // Update is called once per frame
@@ -27,8 +35,11 @@ public class Bullet : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    public void bulletSettings()
+    public void bulletshot()
     {
-
+        if (_index == 0)
+        {
+            Instantiate(PistleBullet);
+        }
     }
 }
