@@ -29,6 +29,10 @@ public class Hero : MonoBehaviour
     [SerializeField] int AR_gold;
     [SerializeField] int SMG_gold;
     [SerializeField] int SR_gold;
+    int _pistlecount = 0;
+    int _ARcount = 0;
+    int _SMGcount = 0;
+    int _SRcount = 0;
     private int Level;
     private int H_exp;
     private float _timer;
@@ -85,46 +89,29 @@ public class Hero : MonoBehaviour
         }
         if (HouseEnter)
         {
-            int pistle = 1;
-            int AR = 1;
-            int SMG = 1;
-            int SR = 1;
-            if (Input.GetKeyDown(KeyCode.Alpha1) && Time.timeScale > 0)
+            if (Input.GetKeyDown(KeyCode.Alpha1) &&Checkbuy(Pistle_gold, ref _pistlecount))
             {
-                Debug.Log("1キーが押された");
-                if (Checkgold(Pistle_gold,pistle))
-                {
                     DecreaseGold(Pistle_gold);
                     Debug.Log($"{H_Gold}");
                     Buyweapon(PistleGameSceneUI);
-                }
             }
-            if (Input.GetKeyDown(KeyCode.Alpha2) && Time.timeScale > 0)
+            if (Input.GetKeyDown(KeyCode.Alpha2)&& Checkbuy(AR_gold, ref _ARcount))
             {
-                if (Checkgold(AR_gold,AR))
-                {
                     DecreaseGold(AR_gold);
                     Debug.Log($"{H_Gold}");
                     Buyweapon(ARGameSceneUI);
-                }
             }
-            if (Input.GetKeyDown(KeyCode.Alpha3) && Time.timeScale > 0)
+            if (Input.GetKeyDown(KeyCode.Alpha3) && Checkbuy(SMG_gold,ref _SMGcount))
             {
-                if (Checkgold(SMG_gold,SMG))
-                {
                     DecreaseGold(SMG_gold);
                     Debug.Log($"{H_Gold}");
                     Buyweapon(SMGGameSceneUI);
-                }
             }
-            if (Input.GetKeyDown(KeyCode.Alpha4) && Time.timeScale > 0)
+            if (Input.GetKeyDown(KeyCode.Alpha4) && Checkbuy(SR_gold,ref _SRcount))
             {
-                if (Checkgold(SR_gold,SR))
-                {
                     DecreaseGold(SR_gold);
                     Debug.Log($"{H_Gold}");
                     Buyweapon(SRGameSceneUI);
-                }
             }
         }
         if (Input.GetKeyDown(KeyCode.P))
@@ -165,25 +152,24 @@ public class Hero : MonoBehaviour
             SR.SetActive(false);
         }
     }
-    private bool Checkgold(int gold,int keyCount)
+    private bool Checkbuy(int gold, ref int keycount)
     {
-        if (H_Gold > gold && keyCount < 2)
+        if (H_Gold > gold && keycount == 0)
         {
-            keyCount++;
             Debug.Log("購入可能");
-            Debug.Log($"{keyCount}");
+            keycount++;
             return true;
         }
-        else if(H_Gold < gold || keyCount > 1)
+        else if(H_Gold < gold || keycount == 1)
         {
             Debug.Log("購入不可");
             goldWarningUI.SetActive(true);
-            StartCoroutine(UIfalse());
+            StartCoroutine(UIfadeout());
             return false;
         }
             return false;
     }
-
+    
     public void AddGold(int value)
     {
         H_Gold += value;
@@ -200,9 +186,14 @@ public class Hero : MonoBehaviour
     }
     public void Buyweapon(GameObject value)
     {
+        bool cantBuy = false;
         value.gameObject.SetActive(true);
     }
-    IEnumerator UIfalse()
+    public void weaponController()
+    {
+
+    }
+    IEnumerator UIfadeout()
     {
         Debug.Log("UI非表示開始");
         yield return new WaitForSeconds(3);
