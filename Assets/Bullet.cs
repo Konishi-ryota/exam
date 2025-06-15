@@ -41,5 +41,17 @@ public class Bullet : MonoBehaviour
         {
             Instantiate(PistleBullet);
         }
+        if (_index == 1)
+        {
+            Instantiate(ARBullet);
+        }
+        if (_index == 2)
+        {
+            Instantiate(SMGBullet);
+        }
+        if (_index == 3)
+        {
+            Instantiate(SRBullet);
+        }
     }
 }
