@@ -26,6 +26,10 @@ public class Hero : MonoBehaviour
     [SerializeField] GameObject ARGameSceneUI;
     [SerializeField] GameObject SMGGameSceneUI;
     [SerializeField] GameObject SRGameSceneUI;
+    [SerializeField] GameObject PistleselectUI;
+    [SerializeField] GameObject ARselectUI;
+    [SerializeField] GameObject SMGselectUI;
+    [SerializeField] GameObject SRSelectUI;
     [SerializeField] int Pistle_gold;
     [SerializeField] int AR_gold;
     [SerializeField] int SMG_gold;
@@ -76,11 +80,13 @@ public class Hero : MonoBehaviour
         {
             playerIndex = (playerIndex - 1 + weaponList.Length) % weaponList.Length;
             Debug.Log($"{playerIndex}");
+            weaponController();
         }
         if (Input.GetKeyDown(KeyCode.L) && Time.timeScale > 0)
         {
             playerIndex = (playerIndex + 1) % weaponList.Length;
             Debug.Log($"{playerIndex}");
+            weaponController();
         }
         if (Input.GetKeyDown(KeyCode.Space) && interval < _timer && Time.timeScale > 0)
         {
@@ -200,7 +206,31 @@ public class Hero : MonoBehaviour
     {
         if (playerIndex == 0)
         {
-            
+            PistleselectUI.SetActive(true);
+            ARselectUI.SetActive(false);
+            SMGselectUI.SetActive(false);
+            SRSelectUI.SetActive(false);
+        }
+        if (playerIndex == 1)
+        {
+            PistleselectUI.SetActive(false);
+            ARselectUI.SetActive(true);
+            SMGselectUI.SetActive(false);
+            SRSelectUI.SetActive(false);
+        }
+        if (playerIndex == 2)
+        {
+            PistleselectUI.SetActive(false);
+            SMGselectUI.SetActive(true);
+            ARselectUI.SetActive(false);
+            SRSelectUI.SetActive(false);
+        }
+        if (playerIndex == 3)
+        {
+            PistleselectUI.SetActive(false);
+            SRSelectUI.SetActive(true);
+            ARselectUI.SetActive(false);
+            SMGselectUI.SetActive(false);
         }
     }
     IEnumerator UIfadeout()
