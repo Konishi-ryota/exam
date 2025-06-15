@@ -41,19 +41,20 @@ public class Hero : MonoBehaviour
     [SerializeField] private int H_hp;
     [SerializeField] private int H_speed;
     [SerializeField] private int H_attackPower = 3;
-    [SerializeField] private float interval = 1f;
+    //[SerializeField] private float interval = 1f;
 
     private int _pistlecount = 0;
     private int _ARcount = 0;
     private int _SMGcount = 0;
     private int _SRcount = 0;
-    private int playerIndex;
+    public int playerIndex;
     private Rigidbody2D _rig = null;
     private int Level;
     private int H_exp;
     private float _timer;
     private bool HouseEnter;
     private Enemy _enemy;
+    private Bullet _bullet;
     #endregion
 
 
@@ -62,7 +63,8 @@ public class Hero : MonoBehaviour
     {
         _rig = GetComponent<Rigidbody2D>();
         _enemy =FindObjectOfType<Enemy>();
-        _timer = interval;
+        _bullet = FindObjectOfType<Bullet>();
+        _timer = _bullet.interval;
         //H_exp = enemy.E_exp;
         //H_Gold = enemy.E_Gold;
         
@@ -91,7 +93,7 @@ public class Hero : MonoBehaviour
             Debug.Log($"{playerIndex}");
             weaponController();
         }
-        if (Input.GetKeyDown(KeyCode.Space) && interval < _timer && Time.timeScale > 0)
+        if (Input.GetKeyDown(KeyCode.Space) && _bullet.interval < _timer && Time.timeScale > 0)
         {
             _timer = 0;
             Instantiate(bullets, muzzle.transform.position, Quaternion.identity);
