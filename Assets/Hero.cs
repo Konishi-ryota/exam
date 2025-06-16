@@ -23,8 +23,9 @@ public class Hero : MonoBehaviour
     [SerializeField] GameObject AR;
     [SerializeField] GameObject SMG;
     [SerializeField] GameObject SR;
-    [SerializeField] GameObject goldWarningUI;
+    [SerializeField] GameObject GoldWarningUI;
     [SerializeField] GameObject DupilicationWarningUI;
+    [SerializeField] GameObject NoWeaponWarningUI;
     [SerializeField] GameObject PauseUI;
     [SerializeField] GameObject PistleGameSceneUI;
     [SerializeField] GameObject ARGameSceneUI;
@@ -192,6 +193,10 @@ public class Hero : MonoBehaviour
             SRBullet.SetActive(true);
         }
     }
+    private bool HaveWeapon()
+    {
+
+    }
     private bool Checkbuy(int gold, ref int keycount)
     {
         if (H_Gold > gold && keycount == 0)
@@ -203,7 +208,7 @@ public class Hero : MonoBehaviour
         else if(H_Gold < gold)
         {
             Debug.Log("購入不可");
-            goldWarningUI.SetActive(true);
+            GoldWarningUI.SetActive(true);
             StartCoroutine(UIfadeout());
             return false;
         }
@@ -270,7 +275,7 @@ public class Hero : MonoBehaviour
     {
         Debug.Log("UI非表示開始");
         yield return new WaitForSeconds(3);
-        goldWarningUI.SetActive(false);
+        GoldWarningUI.SetActive(false);
         DupilicationWarningUI.SetActive(false);
     }
 }
