@@ -99,7 +99,6 @@ public class Hero : MonoBehaviour
         _ARTimer += Time.deltaTime;
         _SMGTimer += Time.deltaTime;
         _SRTimer += Time.deltaTime;
-        Debug.Log($"{_PistleTimer}");
         if (Input.GetKeyDown(KeyCode.K) && Time.timeScale > 0)
         {
             playerIndex = (playerIndex + 1) % weaponList.Length;
