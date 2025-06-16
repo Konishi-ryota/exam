@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
         if(collision.gameObject.tag == "bullet")
         {
             _rig.constraints = RigidbodyConstraints2D.FreezePositionX;
-            E_hp = E_hp - _hero.AttackPower;
+            E_hp = E_hp - _bullet.bulletAttackPower;
             Destroy(collision.gameObject); //íeä€è¡Ç∑
 
             if (E_hp <= 0)

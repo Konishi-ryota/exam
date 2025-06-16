@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public int bulletSpeed;
-    public int bulletAttack;
+    public int bulletAttackPower;
     public float interval = 1f;
 
     private Hero _hero;
