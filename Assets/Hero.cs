@@ -89,13 +89,13 @@ public class Hero : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K) && Time.timeScale > 0)
         {
-            playerIndex = (playerIndex - 1 + weaponList.Length) % weaponList.Length;
+            playerIndex = (playerIndex + 1) % weaponList.Length;
             Debug.Log($"{playerIndex}");
             WeaponController();
         }
         if (Input.GetKeyDown(KeyCode.L) && Time.timeScale > 0)
         {
-            playerIndex = (playerIndex + 1) % weaponList.Length;
+            playerIndex = (playerIndex - 1 + weaponList.Length) % weaponList.Length;
             Debug.Log($"{playerIndex}");
             WeaponController();
         }
