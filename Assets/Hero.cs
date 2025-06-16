@@ -91,12 +91,14 @@ public class Hero : MonoBehaviour
         {
             playerIndex = (playerIndex - 1 + weaponList.Length) % weaponList.Length;
             Debug.Log($"{playerIndex}");
+            HaveWeapon();
             WeaponController();
         }
         if (Input.GetKeyDown(KeyCode.L) && Time.timeScale > 0)
         {
             playerIndex = (playerIndex + 1) % weaponList.Length;
             Debug.Log($"{playerIndex}");
+            HaveWeapon();
             WeaponController();
         }
         if (Input.GetKeyDown(KeyCode.Space) && /*_bullet.interval < _timer &&*/ Time.timeScale > 0) 
@@ -193,9 +195,23 @@ public class Hero : MonoBehaviour
             SRBullet.SetActive(true);
         }
     }
-    private bool HaveWeapon()
+    private void HaveWeapon()
     {
-
+        if (playerIndex == 1 && _ARcount == 0)
+        {
+            NoWeaponWarningUI.SetActive(true);
+            StartCoroutine(UIfadeout());
+        }
+        if (playerIndex == 2 && _SMGcount == 0)
+        {
+            NoWeaponWarningUI.SetActive(true);
+            StartCoroutine(UIfadeout());
+        }
+        if (playerIndex == 3 && _SRcount== 0)
+        {
+            NoWeaponWarningUI.SetActive(true);
+            StartCoroutine(UIfadeout());
+        }
     }
     private bool Checkbuy(int gold, ref int keycount)
     {
@@ -277,5 +293,6 @@ public class Hero : MonoBehaviour
         yield return new WaitForSeconds(3);
         GoldWarningUI.SetActive(false);
         DupilicationWarningUI.SetActive(false);
+        NoWeaponWarningUI.SetActive(false);
     }
 }
