@@ -19,7 +19,6 @@ public class Hero : MonoBehaviour
     [SerializeField] GameObject SMGBullet;
     [SerializeField] GameObject SRBullet;
     [SerializeField] GameObject muzzle;
-    [SerializeField] GameObject Pistle;
     [SerializeField] GameObject AR;
     [SerializeField] GameObject SMG;
     [SerializeField] GameObject SR;
@@ -48,7 +47,6 @@ public class Hero : MonoBehaviour
     [SerializeField] private int H_attackPower = 3;
     //[SerializeField] private float interval = 1f;
 
-    private int _pistlecount = 0;
     private int _ARcount = 0;
     private int _SMGcount = 0;
     private int _SRcount = 0;
@@ -107,25 +105,19 @@ public class Hero : MonoBehaviour
         }
         if (HouseEnter)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1) && Checkbuy(Pistle_gold, ref _pistlecount))
-            {
-                    DecreaseGold(Pistle_gold);
-                    Debug.Log($"{H_Gold}");
-                    Buyweapon(PistleGameSceneUI);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha2) && Checkbuy(AR_gold, ref _ARcount))
+            if (Input.GetKeyDown(KeyCode.Alpha1) && Checkbuy(AR_gold, ref _ARcount))
             {
                     DecreaseGold(AR_gold);
                     Debug.Log($"{H_Gold}");
                     Buyweapon(ARGameSceneUI);
             }
-            if (Input.GetKeyDown(KeyCode.Alpha3) && Checkbuy(SMG_gold,ref _SMGcount))
+            if (Input.GetKeyDown(KeyCode.Alpha2) && Checkbuy(SMG_gold,ref _SMGcount))
             {
                     DecreaseGold(SMG_gold);
                     Debug.Log($"{H_Gold}");
                     Buyweapon(SMGGameSceneUI);
             }
-            if (Input.GetKeyDown(KeyCode.Alpha4) && Checkbuy(SR_gold,ref _SRcount))
+            if (Input.GetKeyDown(KeyCode.Alpha3) && Checkbuy(SR_gold,ref _SRcount))
             {
                     DecreaseGold(SR_gold);
                     Debug.Log($"{H_Gold}");
@@ -153,7 +145,6 @@ public class Hero : MonoBehaviour
         if (collision.gameObject.tag == "Respawn")
         {
             HouseEnter = true;
-            Pistle.SetActive(true);
             AR.SetActive(true);
             SMG.SetActive(true);
             SR.SetActive(true);
@@ -164,7 +155,6 @@ public class Hero : MonoBehaviour
         if (collision.gameObject.tag == "Respawn")
         {
             HouseEnter = false;
-            Pistle.SetActive(false);
             AR.SetActive(false);
             SMG.SetActive(false);
             SR.SetActive(false);
