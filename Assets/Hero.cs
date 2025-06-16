@@ -19,9 +19,9 @@ public class Hero : MonoBehaviour
     [SerializeField] GameObject SMGBullet;
     [SerializeField] GameObject SRBullet;
     [SerializeField] GameObject muzzle;
-    [SerializeField] GameObject AR;
-    [SerializeField] GameObject SMG;
-    [SerializeField] GameObject SR;
+    [SerializeField] GameObject ShopARUI;
+    [SerializeField] GameObject ShopSMGUI;
+    [SerializeField] GameObject ShopSRUI;
     [SerializeField] GameObject GoldWarningUI;
     [SerializeField] GameObject DupilicationWarningUI;
     [SerializeField] GameObject NoWeaponWarningUI;
@@ -145,9 +145,9 @@ public class Hero : MonoBehaviour
         if (collision.gameObject.tag == "Respawn")
         {
             HouseEnter = true;
-            AR.SetActive(true);
-            SMG.SetActive(true);
-            SR.SetActive(true);
+            ShopARUI.SetActive(true);
+            ShopSMGUI.SetActive(true);
+            ShopSRUI.SetActive(true);
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -155,9 +155,9 @@ public class Hero : MonoBehaviour
         if (collision.gameObject.tag == "Respawn")
         {
             HouseEnter = false;
-            AR.SetActive(false);
-            SMG.SetActive(false);
-            SR.SetActive(false);
+            ShopARUI.SetActive(false);
+            ShopSMGUI.SetActive(false);
+            ShopSRUI.SetActive(false);
         }
     }
     public void bulletshot()
