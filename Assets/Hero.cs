@@ -90,13 +90,13 @@ public class Hero : MonoBehaviour
         {
             playerIndex = (playerIndex - 1 + weaponList.Length) % weaponList.Length;
             Debug.Log($"{playerIndex}");
-            weaponController();
+            WeaponController();
         }
         if (Input.GetKeyDown(KeyCode.L) && Time.timeScale > 0)
         {
             playerIndex = (playerIndex + 1) % weaponList.Length;
             Debug.Log($"{playerIndex}");
-            weaponController();
+            WeaponController();
         }
         if (Input.GetKeyDown(KeyCode.Space) && /*_bullet.interval < _timer &&*/ Time.timeScale > 0) 
         {
@@ -235,7 +235,7 @@ public class Hero : MonoBehaviour
     {
         value.gameObject.SetActive(true);
     }
-    public void weaponController()
+    public void WeaponController()
     {
         if (playerIndex == 0)
         {
