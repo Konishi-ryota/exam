@@ -19,6 +19,7 @@ public class Hero : MonoBehaviour
     [SerializeField] GameObject SMGBullet;
     [SerializeField] GameObject SRBullet;
     [SerializeField] GameObject muzzle;
+    [SerializeField] GameObject ShopUI;
     [SerializeField] GameObject ShopARUI;
     [SerializeField] GameObject ShopSMGUI;
     [SerializeField] GameObject ShopSRUI;
@@ -145,6 +146,7 @@ public class Hero : MonoBehaviour
         if (collision.gameObject.tag == "Respawn")
         {
             HouseEnter = true;
+            ShopUI.SetActive(true);
             ShopARUI.SetActive(true);
             ShopSMGUI.SetActive(true);
             ShopSRUI.SetActive(true);
@@ -155,6 +157,7 @@ public class Hero : MonoBehaviour
         if (collision.gameObject.tag == "Respawn")
         {
             HouseEnter = false;
+            ShopUI.SetActive(false);
             ShopARUI.SetActive(false);
             ShopSMGUI.SetActive(false);
             ShopSRUI.SetActive(false);
