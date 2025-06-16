@@ -46,6 +46,11 @@ public class Hero : MonoBehaviour
     [SerializeField] private int H_hp;
     [SerializeField] private int H_speed;
     [SerializeField] private int H_attackPower = 3;
+    [SerializeField] float _PistlInterval = 3f;
+    [SerializeField] float _ARInterval = 2f;
+    [SerializeField] float _SMGInterval = 0.5f;
+    [SerializeField] float _SRInterval = 5f;
+
     //[SerializeField] private float interval = 1f;
 
     private int _ARcount = 0;
@@ -55,11 +60,13 @@ public class Hero : MonoBehaviour
     private Rigidbody2D _rig = null;
     private int Level;
     private int H_exp;
-    private float _timer = 0;
+    private float _PistleTimer;
+    private float _ARTimer;  
+    private float _SMGTimer;
+    private float _SRTimer;
     private bool HouseEnter;
     private Enemy _enemy;
     private Bullet _bullet;
-    public float interval = 1f;
     #endregion
 
 
@@ -69,7 +76,10 @@ public class Hero : MonoBehaviour
         _rig = GetComponent<Rigidbody2D>();
         _enemy =FindObjectOfType<Enemy>();
         _bullet = FindObjectOfType<Bullet>();
-        _timer =interval;
+        _PistleTimer =_PistlInterval;
+        _ARTimer = _ARInterval;
+        _SMGTimer = _SMGInterval;
+        _SMGTimer = _SRInterval;
         //H_exp = enemy.E_exp;
         //H_Gold = enemy.E_Gold;
         
@@ -77,7 +87,6 @@ public class Hero : MonoBehaviour
 
     private void FixedUpdate()
     {
-                _timer += Time.deltaTime;
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
         {
             _rig.velocity = new Vector2(Input.GetAxis("Horizontal"), 0) * H_speed;
@@ -86,6 +95,11 @@ public class Hero : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        _PistleTimer += Time.deltaTime;
+        _ARTimer += Time.deltaTime;
+        _SMGTimer += Time.deltaTime;
+        _SRTimer += Time.deltaTime;
+        Debug.Log($"{_PistleTimer}");
         if (Input.GetKeyDown(KeyCode.K) && Time.timeScale > 0)
         {
             playerIndex = (playerIndex + 1) % weaponList.Length;
@@ -98,10 +112,8 @@ public class Hero : MonoBehaviour
             Debug.Log($"{playerIndex}");
             WeaponController();
         }
-        if (Input.GetKeyDown(KeyCode.Space) && /*_bullet.interval < _timer &&*/ Time.timeScale > 0) 
+        if (Input.GetKey(KeyCode.Space) && /*_bullet.interval < _timer &&*/ Time.timeScale > 0) 
         {
-            _timer = 0;
-            Debug.Log("ŽËŒ‚");
             bulletshot();
         }
         if (HouseEnter)
@@ -165,25 +177,29 @@ public class Hero : MonoBehaviour
     }
     public void bulletshot()
     {
-        if (playerIndex == 0 && interval > _timer)
+        if (playerIndex == 0 && _PistlInterval < _PistleTimer)
         {
             Instantiate(PistleBullet,muzzle.transform.position,Quaternion.identity);
             PistleBullet.SetActive(true);
+            _PistleTimer = 0;
         }
-        if (playerIndex == 1 && interval > _timer && _ARcount > 0)
+        if (playerIndex == 1 && _ARInterval < _ARTimer && _ARcount > 0)
         {
             Instantiate(ARBullet, muzzle.transform.position, Quaternion.identity);
             ARBullet.SetActive(true);
+            _ARTimer = 0;
         }
-        if (playerIndex == 2 && interval > _timer && _SMGcount > 0)
+        if (playerIndex == 2 && _SMGInterval < _SMGTimer && _SMGcount > 0)
         {
             Instantiate(SMGBullet, muzzle.transform.position, Quaternion.identity);
             SMGBullet.SetActive(true);
+            _SMGTimer = 0;
         }
-        if (playerIndex == 3 && interval > _timer && _SRcount > 0)
+        if (playerIndex == 3 && _SRInterval < _SRTimer && _SRcount > 0)
         {
             Instantiate(SRBullet, muzzle.transform.position, Quaternion.identity);
             SRBullet.SetActive(true);
+            _SRTimer = 0;
         }
     }
     private bool Checkbuy(int gold, ref int keycount)
