@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -5039647783377894033}
   m_Layer: 0
   m_Name: SMGBullet
-  m_TagString: Untagged
+  m_TagString: bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,6 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 448af91a816592244829a7faee6032b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 5
-  bulletAttack: 0
+  bulletSpeed: 50
+  bulletAttackPower: 0
   interval: 1
