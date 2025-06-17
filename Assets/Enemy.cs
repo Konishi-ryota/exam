@@ -34,12 +34,16 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         _rig.velocity = new Vector3(E_speed, 0);
-        int rnd = 0;
-        if (Time.frameCount % 60 == 0 && CompareTag("king"))
+        //int rnd = 0;
+        //if (Time.frameCount % 60 == 0 && _hero._RemainTime > 0 /*&& CompareTag("king")*/)
+        //{
+        //    rnd = Random.Range(0, 11);
+        //    Instantiate(enemy,spawnpoint.transform.position,Quaternion.identity);
+        //    enemy.SetActive(true);
+        //}
+        if (_hero._RemainTime <= 0)
         {
-            rnd = Random.Range(0, 11);
-            Instantiate(enemy,spawnpoint);
-            enemy.SetActive(true);
+            Destroy(this.gameObject);
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
