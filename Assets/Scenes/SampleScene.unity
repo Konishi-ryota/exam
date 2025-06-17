@@ -701,14 +701,14 @@ MonoBehaviour:
   AR_gold: 10
   SMG_gold: 10
   SR_gold: 10
-  _StageTimer: 3
+  _StageTimer: 30
   weaponList:
   - {fileID: 480896921}
   - {fileID: 1007855818}
   - {fileID: 754780141}
   - {fileID: 404931112}
   H_Gold: 1000
-  H_hp: 0
+  H_hp: 100
   H_speed: 5
   PistleInterval: 1
   ARInterval: 2
