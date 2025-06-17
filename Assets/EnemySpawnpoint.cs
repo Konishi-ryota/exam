@@ -10,7 +10,7 @@ public class EnemySpawnpoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Hero _hero = FindAnyObjectByType<Hero>();
+        _hero = FindAnyObjectByType<Hero>();
     }
 
     // Update is called once per frame
@@ -22,7 +22,6 @@ public class EnemySpawnpoint : MonoBehaviour
             Hero _hero = FindAnyObjectByType<Hero>();
             rnd = Random.Range(0, 11);
             Instantiate(enemy, spawnpoint.transform.position, Quaternion.identity);
-            enemy.SetActive(true);
         }
     }
 }
