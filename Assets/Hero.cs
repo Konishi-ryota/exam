@@ -62,7 +62,7 @@ public class Hero : MonoBehaviour
     private float _ARTimer;  
     private float _SMGTimer;
     private float _SRTimer;
-    private float _timer = 0;
+    private float _battleTimer = 0;
     private bool _HouseEnter;
     private Enemy _enemy;
     private Bullet _bullet;
@@ -99,9 +99,8 @@ public class Hero : MonoBehaviour
         _SMGTimer += Time.deltaTime;
         _SRTimer += Time.deltaTime;
 
-        _timer += Time.deltaTime;
-        int remaining = _StageTimer - (int)_timer;
-        timerText.text = remaining.ToString("D2");
+        GamesceneTimer();
+
         if (Input.GetKeyDown(KeyCode.K) && Time.timeScale > 0)
         {
             _PlayerIndex = (_PlayerIndex + 1) % weaponList.Length;
@@ -176,6 +175,12 @@ public class Hero : MonoBehaviour
             ShopSMGUI.SetActive(false);
             ShopSRUI.SetActive(false);
         }
+    }
+    private void GamesceneTimer()
+    {
+        _battleTimer += Time.deltaTime;
+        int remaining = _StageTimer - (int)_battleTimer;
+        timerText.text = remaining.ToString("D2");
     }
     public void bulletshot()
     {
