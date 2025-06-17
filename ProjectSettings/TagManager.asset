@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Hero
-  - king
   - bullet
   layers:
   - Default
