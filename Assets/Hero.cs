@@ -120,24 +120,34 @@ public class Hero : MonoBehaviour
         }
         if (_HouseEnter)
         {
+            ShopUI.SetActive(true);
+            ShopARUI.SetActive(true);
+            ShopSMGUI.SetActive(true);
+            ShopSRUI.SetActive(true);
             if (Input.GetKeyDown(KeyCode.Alpha1) && Checkbuy(AR_gold, ref _ARcount))
             {
-                    DecreaseGold(AR_gold);
-                    Debug.Log($"{H_Gold}");
-                    Buyweapon(ARGameSceneUI);
+                DecreaseGold(AR_gold);
+                Debug.Log($"{H_Gold}");
+                Buyweapon(ARGameSceneUI);
             }
-            if (Input.GetKeyDown(KeyCode.Alpha2) && Checkbuy(SMG_gold,ref _SMGcount))
+            if (Input.GetKeyDown(KeyCode.Alpha2) && Checkbuy(SMG_gold, ref _SMGcount))
             {
-                    DecreaseGold(SMG_gold);
-                    Debug.Log($"{H_Gold}");
-                    Buyweapon(SMGGameSceneUI);
+                DecreaseGold(SMG_gold);
+                Debug.Log($"{H_Gold}");
+                Buyweapon(SMGGameSceneUI);
             }
-            if (Input.GetKeyDown(KeyCode.Alpha3) && Checkbuy(SR_gold,ref _SRcount))
+            if (Input.GetKeyDown(KeyCode.Alpha3) && Checkbuy(SR_gold, ref _SRcount))
             {
-                    DecreaseGold(SR_gold);
-                    Debug.Log($"{H_Gold}");
-                    Buyweapon(SRGameSceneUI);
+                DecreaseGold(SR_gold);
+                Debug.Log($"{H_Gold}");
+                Buyweapon(SRGameSceneUI);
             }
+        } else if (!_HouseEnter)
+        {
+            ShopUI.SetActive(false);
+            ShopARUI.SetActive(false);
+            ShopSMGUI.SetActive(false);
+            ShopSRUI.SetActive(false);
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -155,41 +165,21 @@ public class Hero : MonoBehaviour
            _Level =_Level + 1;
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Respawn")
-        {
-            _HouseEnter = true;
-            ShopUI.SetActive(true);
-            ShopARUI.SetActive(true);
-            ShopSMGUI.SetActive(true);
-            ShopSRUI.SetActive(true);
-        }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Respawn")
-        {
-            _HouseEnter = false;
-            ShopUI.SetActive(false);
-            ShopARUI.SetActive(false);
-            ShopSMGUI.SetActive(false);
-            ShopSRUI.SetActive(false);
-        }
-    }
     private void GamesceneTimer()
     {
         _Timer += Time.deltaTime;
         int remaining = _StageTimer - (int)_Timer;
-        timerText.text = remaining.ToString("D2");
+        timerText.text ="残り時間 "+ remaining.ToString("D2")+ "秒";
         if (remaining <= 0)
         {
-            transform.position = new Vector2(10 , -2.5f);
+            _HouseEnter = true;
+            _StageTimer = 0;
+            _Timer = 0;
+            timerText.text = "Sを押してスタート";
             if (Input.GetKeyDown(KeyCode.S))
             {
-                transform.position = new Vector2(-1, -2.5f);
+                _HouseEnter = false;
                 _StageTimer = 3;
-                _Timer = 0;
                 return;
             }
         }
