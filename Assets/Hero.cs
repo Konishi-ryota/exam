@@ -34,10 +34,12 @@ public class Hero : MonoBehaviour
     [SerializeField] GameObject ARselectUI;
     [SerializeField] GameObject SMGselectUI;
     [SerializeField] GameObject SRSelectUI;
+    [SerializeField] Text timerText;
     [SerializeField] int Pistle_gold;
     [SerializeField] int AR_gold;
     [SerializeField] int SMG_gold;
     [SerializeField] int SR_gold;
+    [SerializeField] int _StageTimer = 30;
     [SerializeField] GameObject[] weaponList;
    
     [Header("HeroSettings")]
@@ -60,6 +62,7 @@ public class Hero : MonoBehaviour
     private float _ARTimer;  
     private float _SMGTimer;
     private float _SRTimer;
+    private float _timer = 0;
     private bool _HouseEnter;
     private Enemy _enemy;
     private Bullet _bullet;
@@ -95,6 +98,10 @@ public class Hero : MonoBehaviour
         _ARTimer += Time.deltaTime;
         _SMGTimer += Time.deltaTime;
         _SRTimer += Time.deltaTime;
+
+        _timer += Time.deltaTime;
+        int remaining = _StageTimer - (int)_timer;
+        timerText.text = remaining.ToString("D2");
         if (Input.GetKeyDown(KeyCode.K) && Time.timeScale > 0)
         {
             _PlayerIndex = (_PlayerIndex + 1) % weaponList.Length;
