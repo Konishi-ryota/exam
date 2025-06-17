@@ -12,7 +12,6 @@ using static UnityEngine.GraphicsBuffer;
 public class Hero : MonoBehaviour
 {
     #region@•Ï”
-    public int AttackPower => H_attackPower;
 
     [SerializeField] GameObject PistleBullet;
     [SerializeField] GameObject ARBullet;
@@ -45,26 +44,25 @@ public class Hero : MonoBehaviour
     [SerializeField] private int H_Gold;
     [SerializeField] private int H_hp;
     [SerializeField] private int H_speed;
-    [SerializeField] private int H_attackPower = 3;
-    [SerializeField] float _PistlInterval = 3f;
-    [SerializeField] float _ARInterval = 2f;
-    [SerializeField] float _SMGInterval = 0.5f;
-    [SerializeField] float _SRInterval = 5f;
+    [SerializeField] float PistlInterval = 3f;
+    [SerializeField] float ARInterval = 2f;
+    [SerializeField] float SMGInterval = 0.5f;
+    [SerializeField] float SRInterval = 5f;
 
     //[SerializeField] private float interval = 1f;
 
     private int _ARcount = 0;
     private int _SMGcount = 0;
     private int _SRcount = 0;
-    public int playerIndex = 0;
+    public int _PlayerIndex = 0;
     private Rigidbody2D _rig = null;
-    private int Level;
-    private int H_exp;
+    private int _Level;
+    private int _HeroExp;
     private float _PistleTimer;
     private float _ARTimer;  
     private float _SMGTimer;
     private float _SRTimer;
-    private bool HouseEnter;
+    private bool _HouseEnter;
     private Enemy _enemy;
     private Bullet _bullet;
     #endregion
@@ -76,10 +74,10 @@ public class Hero : MonoBehaviour
         _rig = GetComponent<Rigidbody2D>();
         _enemy =FindObjectOfType<Enemy>();
         _bullet = FindObjectOfType<Bullet>();
-        _PistleTimer =_PistlInterval;
-        _ARTimer = _ARInterval;
-        _SMGTimer = _SMGInterval;
-        _SMGTimer = _SRInterval;
+        _PistleTimer =PistlInterval;
+        _ARTimer = ARInterval;
+        _SMGTimer = SMGInterval;
+        _SMGTimer = SRInterval;
         //H_exp = enemy.E_exp;
         //H_Gold = enemy.E_Gold;
         
@@ -101,21 +99,21 @@ public class Hero : MonoBehaviour
         _SRTimer += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.K) && Time.timeScale > 0)
         {
-            playerIndex = (playerIndex + 1) % weaponList.Length;
-            Debug.Log($"{playerIndex}");
+            _PlayerIndex = (_PlayerIndex + 1) % weaponList.Length;
+            Debug.Log($"{_PlayerIndex}");
             WeaponController();
         }
         if (Input.GetKeyDown(KeyCode.L) && Time.timeScale > 0)
         {
-            playerIndex = (playerIndex - 1 + weaponList.Length) % weaponList.Length;
-            Debug.Log($"{playerIndex}");
+            _PlayerIndex = (_PlayerIndex - 1 + weaponList.Length) % weaponList.Length;
+            Debug.Log($"{_PlayerIndex}");
             WeaponController();
         }
-        if (Input.GetKey(KeyCode.Space) && /*_bullet.interval < _timer &&*/ Time.timeScale > 0) 
+        if (Input.GetKey(KeyCode.Space) && Time.timeScale > 0) 
         {
             bulletshot();
         }
-        if (HouseEnter)
+        if (_HouseEnter)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1) && Checkbuy(AR_gold, ref _ARcount))
             {
@@ -146,17 +144,17 @@ public class Hero : MonoBehaviour
             PauseUI.SetActive(false);
             Time.timeScale = 1;
         }   
-        if (H_exp > 100)
+        if (_HeroExp > 100)
         {
-            H_exp = H_exp - 100;
-            Level = Level + 1;
+            _HeroExp = _HeroExp - 100;
+           _Level =_Level + 1;
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Respawn")
         {
-            HouseEnter = true;
+            _HouseEnter = true;
             ShopUI.SetActive(true);
             ShopARUI.SetActive(true);
             ShopSMGUI.SetActive(true);
@@ -167,7 +165,7 @@ public class Hero : MonoBehaviour
     {
         if (collision.gameObject.tag == "Respawn")
         {
-            HouseEnter = false;
+            _HouseEnter = false;
             ShopUI.SetActive(false);
             ShopARUI.SetActive(false);
             ShopSMGUI.SetActive(false);
@@ -176,25 +174,25 @@ public class Hero : MonoBehaviour
     }
     public void bulletshot()
     {
-        if (playerIndex == 0 && _PistlInterval < _PistleTimer)
+        if (_PlayerIndex == 0 && PistlInterval < _PistleTimer)
         {
             Instantiate(PistleBullet,muzzle.transform.position,Quaternion.identity);
             PistleBullet.SetActive(true);
             _PistleTimer = 0;
         }
-        if (playerIndex == 1 && _ARInterval < _ARTimer && _ARcount > 0)
+        if (_PlayerIndex == 1 && ARInterval < _ARTimer && _ARcount > 0)
         {
             Instantiate(ARBullet, muzzle.transform.position, Quaternion.identity);
             ARBullet.SetActive(true);
             _ARTimer = 0;
         }
-        if (playerIndex == 2 && _SMGInterval < _SMGTimer && _SMGcount > 0)
+        if (_PlayerIndex == 2 && SMGInterval < _SMGTimer && _SMGcount > 0)
         {
             Instantiate(SMGBullet, muzzle.transform.position, Quaternion.identity);
             SMGBullet.SetActive(true);
             _SMGTimer = 0;
         }
-        if (playerIndex == 3 && _SRInterval < _SRTimer && _SRcount > 0)
+        if (_PlayerIndex == 3 && SRInterval < _SRTimer && _SRcount > 0)
         {
             Instantiate(SRBullet, muzzle.transform.position, Quaternion.identity);
             SRBullet.SetActive(true);
@@ -246,14 +244,14 @@ public class Hero : MonoBehaviour
     }
     public void WeaponController()
     {
-        if (playerIndex == 0)
+        if (_PlayerIndex == 0)
         {
             PistleselectUI.SetActive(true);
             ARselectUI.SetActive(false);
             SMGselectUI.SetActive(false);
             SRSelectUI.SetActive(false);
         }
-        if (playerIndex == 1)
+        if (_PlayerIndex == 1)
         {
             PistleselectUI.SetActive(false);
             ARselectUI.SetActive(true);
@@ -265,7 +263,7 @@ public class Hero : MonoBehaviour
                 StartCoroutine(UIfadeout());
             }
         }
-        if (playerIndex == 2)
+        if (_PlayerIndex == 2)
         {
             PistleselectUI.SetActive(false);
             SMGselectUI.SetActive(true);
@@ -277,7 +275,7 @@ public class Hero : MonoBehaviour
                 StartCoroutine(UIfadeout());
             }
         }
-        if (playerIndex == 3)
+        if (_PlayerIndex == 3)
         {
             PistleselectUI.SetActive(false);
             SRSelectUI.SetActive(true);
