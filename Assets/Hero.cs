@@ -42,9 +42,9 @@ public class Hero : MonoBehaviour
     [SerializeField] public int _StageTimer = 30;
     [SerializeField] GameObject[] weaponList;
 
-    [Header("HeroSettings")]
+    [Header("プレイヤー設定")]
     [SerializeField] private int H_Gold;
-    [SerializeField] private int H_hp;
+    [SerializeField] public int H_hp;
     [SerializeField] private int H_speed;
     [SerializeField] float PistleInterval;
     [SerializeField] float ARInterval;
@@ -164,12 +164,16 @@ public class Hero : MonoBehaviour
             _HeroExp = _HeroExp - 100;
            _Level =_Level + 1;
         }
+        if (H_hp <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
     private void GamesceneTimer()
     {
         _Timer += Time.deltaTime;
         _RemainTime = _StageTimer - (int)_Timer;
-        timerText.text = "残り時間 " + _RemainTime.ToString("D2") + "秒";
+        timerText.text = "残り時間 " + _RemainTime.ToString("D2") + " 秒";
         if (_RemainTime <= 0)
         {
             _HouseEnter = true;
@@ -217,20 +221,17 @@ public class Hero : MonoBehaviour
     {
         if (H_Gold > gold && keycount == 0)
         {
-            Debug.Log("購入可能");
             keycount++;
             return true;
         }
         else if(H_Gold < gold)
         {
-            Debug.Log("購入不可");
             GoldWarningUI.SetActive(true);
             StartCoroutine(UIfadeout());
             return false;
         }
         else if (keycount > 0)
         {
-            Debug.Log("購入不可");
             DupilicationWarningUI.SetActive(true);
             StartCoroutine(UIfadeout());
             return false;
@@ -249,7 +250,6 @@ public class Hero : MonoBehaviour
         if (H_Gold <0)
         {
             H_Gold = 0;
-            Debug.Log("お金がありません");
         }
     }
     public void Buyweapon(GameObject value)
@@ -304,7 +304,6 @@ public class Hero : MonoBehaviour
     }
     IEnumerator UIfadeout()
     {
-        Debug.Log("UI非表示開始");
         yield return new WaitForSeconds(3);
         GoldWarningUI.SetActive(false);
         DupilicationWarningUI.SetActive(false);
