@@ -39,17 +39,17 @@ public class Hero : MonoBehaviour
     [SerializeField] int AR_gold;
     [SerializeField] int SMG_gold;
     [SerializeField] int SR_gold;
-    [SerializeField] int _StageTimer = 30;
+    [SerializeField] public int _StageTimer = 30;
     [SerializeField] GameObject[] weaponList;
 
     [Header("HeroSettings")]
     [SerializeField] private int H_Gold;
     [SerializeField] private int H_hp;
     [SerializeField] private int H_speed;
-    [SerializeField] float PistlInterval = 3f;
-    [SerializeField] float ARInterval = 2f;
-    [SerializeField] float SMGInterval = 0.5f;
-    [SerializeField] float SRInterval = 5f;
+    [SerializeField] float PistleInterval;
+    [SerializeField] float ARInterval;
+    [SerializeField] float SMGInterval;
+    [SerializeField] float SRInterval;
 
     private int _ARcount = 0;
     private int _SMGcount = 0;
@@ -63,6 +63,7 @@ public class Hero : MonoBehaviour
     private float _SMGTimer;
     private float _SRTimer;
     private float _Timer = 0;
+    public int _RemainTime;
 
     private bool _HouseEnter;
     private Enemy _enemy;
@@ -76,7 +77,7 @@ public class Hero : MonoBehaviour
         _rig = GetComponent<Rigidbody2D>();
         _enemy =FindObjectOfType<Enemy>();
         _bullet = FindObjectOfType<Bullet>();
-        _PistleTimer =PistlInterval;
+        _PistleTimer =PistleInterval;
         _ARTimer = ARInterval;
         _SMGTimer = SMGInterval;
         _SMGTimer = SRInterval;
@@ -101,7 +102,6 @@ public class Hero : MonoBehaviour
         _SRTimer += Time.deltaTime;
 
         GamesceneTimer();
-
         if (Input.GetKeyDown(KeyCode.K) && Time.timeScale > 0)
         {
             _PlayerIndex = (_PlayerIndex + 1) % weaponList.Length;
@@ -168,25 +168,27 @@ public class Hero : MonoBehaviour
     private void GamesceneTimer()
     {
         _Timer += Time.deltaTime;
-        int remaining = _StageTimer - (int)_Timer;
-        timerText.text ="残り時間 "+ remaining.ToString("D2")+ "秒";
-        if (remaining <= 0)
+        _RemainTime = _StageTimer - (int)_Timer;
+        timerText.text = "残り時間 " + _RemainTime.ToString("D2") + "秒";
+        if (_RemainTime <= 0)
         {
             _HouseEnter = true;
             _StageTimer = 0;
             _Timer = 0;
+            Time.timeScale = 0;
             timerText.text = "Sを押してスタート";
             if (Input.GetKeyDown(KeyCode.S))
             {
                 _HouseEnter = false;
                 _StageTimer = 3;
+                Time.timeScale = 1;
                 return;
             }
         }
     }
     public void bulletshot()
     {
-        if (_PlayerIndex == 0 && PistlInterval < _PistleTimer)
+        if (_PlayerIndex == 0 && PistleInterval < _PistleTimer)
         {
             Instantiate(PistleBullet,muzzle.transform.position,Quaternion.identity);
             PistleBullet.SetActive(true);
