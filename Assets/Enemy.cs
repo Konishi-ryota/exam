@@ -50,9 +50,7 @@ public class Enemy : MonoBehaviour
     {
         if(collision.gameObject.tag == "bullet")
         {
-            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-            _rig.constraints = RigidbodyConstraints2D.FreezePositionX;
-            E_hp = E_hp - bullet.bulletAttackPower;
+            E_hp = E_hp - _bullet.bulletAttackPower;
             Destroy(collision.gameObject); //íeä€è¡Ç∑
 
             if (E_hp <= 0)
@@ -70,6 +68,10 @@ public class Enemy : MonoBehaviour
             {
                 Debug.Log($"remain {gameObject.name} health : {E_hp}");
             }
+        }
+        if (collision.gameObject.tag == "Player")
+        {
+            _rig.constraints = RigidbodyConstraints2D.FreezePositionX;
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
