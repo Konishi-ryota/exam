@@ -590,7 +590,7 @@ GameObject:
   - component: {fileID: 313564461}
   m_Layer: 0
   m_Name: hero
-  m_TagString: Hero
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4775,6 +4775,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 313564458}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1080773211 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2537040929088310297, guid: 78d4390853a3c6f418cdae40eb534627, type: 3}
+  m_PrefabInstance: {fileID: 7755568029807191244}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1080773214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080773211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2de94ea573e6ecc48b4b723a4d6b359a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnpoint: {fileID: 1080773211}
+  enemy: {fileID: 6427843290087721240, guid: 61ba59eeccdfa3443aa4c1cfdc3af8ec, type: 3}
 --- !u!1 &1215415130 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8553489267186301253, guid: 2f2014169181c1e48b7e306c7d2d1c17, type: 3}
@@ -5780,7 +5799,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2247211399493995313, guid: 78d4390853a3c6f418cdae40eb534627, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.2
+      value: -2.51
       objectReference: {fileID: 0}
     - target: {fileID: 2247211399493995313, guid: 78d4390853a3c6f418cdae40eb534627, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5821,7 +5840,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2537040929088310297, guid: 78d4390853a3c6f418cdae40eb534627, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1080773214}
   m_SourcePrefab: {fileID: 100100000, guid: 78d4390853a3c6f418cdae40eb534627, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
