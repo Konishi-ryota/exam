@@ -24,9 +24,5 @@ public class EnemySpawnpoint : MonoBehaviour
             Instantiate(enemy, spawnpoint.transform.position, Quaternion.identity);
             enemy.SetActive(true);
         }
-        //if (_hero._RemainTime < 0)
-        //{
-        //    Destroy(enemy);
-        //}
     }
 }
