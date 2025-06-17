@@ -49,8 +49,6 @@ public class Hero : MonoBehaviour
     [SerializeField] float SMGInterval = 0.5f;
     [SerializeField] float SRInterval = 5f;
 
-    //[SerializeField] private float interval = 1f;
-
     private int _ARcount = 0;
     private int _SMGcount = 0;
     private int _SRcount = 0;
