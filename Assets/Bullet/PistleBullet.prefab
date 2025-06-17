@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: 50
-  bulletAttackPower: 10
+  bulletAttackPower: 35
   interval: 1
 --- !u!61 &1025820527733193
 BoxCollider2D:
