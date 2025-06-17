@@ -102,7 +102,7 @@ MonoBehaviour:
   spawnpoint: {fileID: 2247211399493995313, guid: 78d4390853a3c6f418cdae40eb534627, type: 3}
   enemy: {fileID: 6427843290087721240}
   E_speed: 5
-  E_attack: 0
+  E_attack: 10
   E_hp: 100
   E_exp: 0
   E_Gold: 0
