@@ -41,7 +41,7 @@ public class Hero : MonoBehaviour
     [SerializeField] int SR_gold;
     [SerializeField] int _StageTimer = 30;
     [SerializeField] GameObject[] weaponList;
-   
+
     [Header("HeroSettings")]
     [SerializeField] private int H_Gold;
     [SerializeField] private int H_hp;
@@ -62,7 +62,8 @@ public class Hero : MonoBehaviour
     private float _ARTimer;  
     private float _SMGTimer;
     private float _SRTimer;
-    private float _battleTimer = 0;
+    private float _Timer = 0;
+
     private bool _HouseEnter;
     private Enemy _enemy;
     private Bullet _bullet;
@@ -178,9 +179,20 @@ public class Hero : MonoBehaviour
     }
     private void GamesceneTimer()
     {
-        _battleTimer += Time.deltaTime;
-        int remaining = _StageTimer - (int)_battleTimer;
+        _Timer += Time.deltaTime;
+        int remaining = _StageTimer - (int)_Timer;
         timerText.text = remaining.ToString("D2");
+        if (remaining <= 0)
+        {
+            transform.position = new Vector2(10 , -2.5f);
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                transform.position = new Vector2(-1, -2.5f);
+                _StageTimer = 3;
+                _Timer = 0;
+                return;
+            }
+        }
     }
     public void bulletshot()
     {
