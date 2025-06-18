@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _hero = FindObjectOfType<Hero>();
+        _hero = FindAnyObjectByType<Hero>();
     }
 
     // Update is called once per frame
