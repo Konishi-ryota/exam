@@ -221,7 +221,7 @@ public class Hero : MonoBehaviour
             _SRTimer = Time.time + SRInterval;
         }
     }
-    private bool Checkbuy(int gold, ref int keycount)//買えるかどうかの判別をするためのbool
+    private bool Checkbuy(int gold, ref int keycount)//買えるかどうかの判別をするためのメソッド
     {
         if (H_Gold > gold && keycount == 0)
         {
@@ -243,12 +243,12 @@ public class Hero : MonoBehaviour
             return false;
     }
     
-    public void AddGold(int value)
+    public void AddGold(int value)//goldを増やすためのメソッド
     {
         H_Gold += value;
     }
 
-    public void DecreaseGold(int value)
+    public void DecreaseGold(int value)//goldを減らすためのメソッド
     {
         H_Gold -= value;
         if (H_Gold <0)
