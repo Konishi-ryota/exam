@@ -1,13 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Security.Principal;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.GraphicsBuffer;
 
 public class Hero : MonoBehaviour
 {
@@ -100,7 +93,7 @@ public class Hero : MonoBehaviour
     void Update()
     {
         GamesceneTimer();
-        if (Input.GetKeyDown(KeyCode.K) && Time.timeScale > 0)
+        if (Input.GetKeyDown(KeyCode.K) && Time.timeScale > 0)//武器切り替え
         {
             _PlayerIndex = (_PlayerIndex + 1) % weaponList.Length;
             Debug.Log($"{_PlayerIndex}");
@@ -116,13 +109,13 @@ public class Hero : MonoBehaviour
         {
             bulletshot();
         }
-        if (_HouseEnter)
+        if (_HouseEnter)//ショップを開く
         {
             ShopUI.SetActive(true);
             ShopARUI.SetActive(true);
             ShopSMGUI.SetActive(true);
             ShopSRUI.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.Alpha1) && Checkbuy(AR_gold, ref _ARcount))
+            if (Input.GetKeyDown(KeyCode.Alpha1) && Checkbuy(AR_gold, ref _ARcount))//ショップで武器を購入するためのやつ
             {
                 DecreaseGold(AR_gold);
                 Debug.Log($"{H_Gold}");
@@ -140,14 +133,14 @@ public class Hero : MonoBehaviour
                 Debug.Log($"{H_Gold}");
                 Buyweapon(SRGameSceneUI);
             }
-        } else if (!_HouseEnter)
+        } else if (!_HouseEnter)//ショップを閉じる
         {
             ShopUI.SetActive(false);
             ShopARUI.SetActive(false);
             ShopSMGUI.SetActive(false);
             ShopSRUI.SetActive(false);
         }
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P))//ポーズ
         {
             PauseUI.SetActive(true);
             Time.timeScale = 0;
@@ -156,7 +149,7 @@ public class Hero : MonoBehaviour
         {
             PauseUI.SetActive(false);
             Time.timeScale = 1;
-        }   
+        }
         if (_HeroExp > 100)
         {
             _HeroExp = _HeroExp - 100;
