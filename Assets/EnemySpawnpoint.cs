@@ -18,7 +18,7 @@ public class EnemySpawnpoint : MonoBehaviour
     void Update()
     {
         int rnd = 0;
-        if (Time.frameCount % 60 == 0 && _isSpawning)
+        if (Time.frameCount % Application.targetFrameRate == 0 && _isSpawning)
         {
             rnd = Random.Range(0, 11);
             Instantiate(enemy, spawnpoint.transform.position, Quaternion.identity);
