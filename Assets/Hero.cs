@@ -193,6 +193,9 @@ public class Hero : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// 弾を撃つ時に呼ばれるメソッド
+    /// </summary>
     public void bulletshot()
     {
         if (_PlayerIndex == 0 && _PistleTimer < Time.time)//delta.timeを足し続けるよりもtimeで必要な時だけ呼び出した方が軽い
@@ -221,7 +224,13 @@ public class Hero : MonoBehaviour
             _SRTimer = Time.time + SRInterval;
         }
     }
-    private bool Checkbuy(int gold, ref int keycount)//買えるかどうかの判別をするためのメソッド
+    /// <summary>
+    /// 買えるかどうかの判別をするためのメソッド
+    /// </summary>
+    /// <param name="gold"></param>
+    /// <param name="keycount">買うためのキーが押された回数</param>
+    /// <returns></returns>
+    private bool Checkbuy(int gold, ref int keycount)
     {
         if (H_Gold > gold && keycount == 0)
         {
@@ -242,23 +251,33 @@ public class Hero : MonoBehaviour
         }
             return false;
     }
-    
-    public void AddGold(int value)//goldを増やすためのメソッド
+    /// <summary>
+    /// goldを増やすためのメソッド
+    /// </summary>
+    /// <param name="gold"></param>
+    public void AddGold(int gold)
     {
-        H_Gold += value;
+        H_Gold += gold;
     }
-
-    public void DecreaseGold(int value)//goldを減らすためのメソッド
+    /// <summary>
+    /// goldを減らすためのメソッド
+    /// </summary>
+    /// <param name="gold"></param>
+    public void DecreaseGold(int gold)
     {
-        H_Gold -= value;
+        H_Gold -= gold;
         if (H_Gold <0)
         {
             H_Gold = 0;
         }
     }
-    public void Buyweapon(GameObject value)
+    /// <summary>
+    /// 武器が買えた時に呼び出されるやつ
+    /// </summary>
+    /// <param name="weapon"></param>
+    public void Buyweapon(GameObject weapon)
     {
-        value.gameObject.SetActive(true);
+        weapon.SetActive(true);
     }
     public void WeaponController()
     {
