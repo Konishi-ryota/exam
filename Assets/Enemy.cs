@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int E_hp =10;
     public int E_exp;
     public int E_Gold;
+
     private Hero _hero;
     private Bullet _bullet;
 
@@ -74,6 +75,10 @@ public class Enemy : MonoBehaviour
             _rig.constraints = RigidbodyConstraints2D.FreezePositionX;
             _hero.H_hp = _hero.H_hp - E_attack;
             Debug.Log($"remain {_hero.H_hp} player health");
+            Destroy(this.gameObject);
+        }
+        if (collision.gameObject.tag == "Respawn")
+        {
             Destroy(this.gameObject);
         }
     }
