@@ -13,6 +13,7 @@
 /[Aa]ssets/[Nn]avidtbt/
 /[Aa]ssets/[Pp]ixel [Aa]dventure 1/
 /[Aa]ssets/[Pp]ixel [Aa]dventure 2/
+/[Aa]ssets/[Nn]oto_[Ss]ans_[Jj][Pp]/
 *.log
 
 # By default unity supports Blender asset imports, *.blend1 blender files do not need to be commited to version control.
