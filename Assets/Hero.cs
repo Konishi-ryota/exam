@@ -17,7 +17,9 @@ public class Hero : MonoBehaviour
     [SerializeField] GameObject ARBullet;
     [SerializeField] GameObject SMGBullet;
     [SerializeField] GameObject SRBullet;
+    
     [SerializeField] GameObject muzzle;
+
     [SerializeField] GameObject ShopUI;
     [SerializeField] GameObject ShopARUI;
     [SerializeField] GameObject ShopSMGUI;
@@ -34,6 +36,8 @@ public class Hero : MonoBehaviour
     [SerializeField] GameObject ARselectUI;
     [SerializeField] GameObject SMGselectUI;
     [SerializeField] GameObject SRSelectUI;
+    [SerializeField] GameObject GameOverUI;
+    
     [SerializeField] Text timerText;
     [SerializeField] int Pistle_gold;
     [SerializeField] int AR_gold;
@@ -75,15 +79,14 @@ public class Hero : MonoBehaviour
     void Start()
     {
         _rig = GetComponent<Rigidbody2D>();
-        _enemy =FindObjectOfType<Enemy>();
-        _bullet = FindObjectOfType<Bullet>();
+        _enemy =FindAnyObjectByType<Enemy>();
+        _bullet = FindAnyObjectByType<Bullet>();
         _PistleTimer =PistleInterval;
         _ARTimer = ARInterval;
         _SMGTimer = SMGInterval;
         _SMGTimer = SRInterval;
         //H_exp = enemy.E_exp;
-        //H_Gold = enemy.E_Gold;
-        
+        //H_Gold = enemy.E_Gold;  
     }
 
     private void FixedUpdate()
@@ -168,6 +171,11 @@ public class Hero : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+    private void OnDestroy()
+    {
+        GameOverUI.SetActive(true);
+        Time.timeScale = 0;
     }
     private void GamesceneTimer()
     {
