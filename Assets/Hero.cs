@@ -99,11 +99,6 @@ public class Hero : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _PistleTimer += Time.deltaTime;
-        _ARTimer += Time.deltaTime;
-        _SMGTimer += Time.deltaTime;
-        _SRTimer += Time.deltaTime;
-
         GamesceneTimer();
         if (Input.GetKeyDown(KeyCode.K) && Time.timeScale > 0)
         {
@@ -200,32 +195,33 @@ public class Hero : MonoBehaviour
     }
     public void bulletshot()
     {
-        if (_PlayerIndex == 0 && PistleInterval < _PistleTimer)
+        if (_PlayerIndex == 0 && _PistleTimer < Time.time)//delta.timeを足し続けるよりもtimeで必要な時だけ呼び出した方が軽い
         {
             Instantiate(PistleBullet,muzzle.transform.position,Quaternion.identity);
             PistleBullet.SetActive(true);
-            _PistleTimer = 0;
+            _PistleTimer = Time.time + PistleInterval;//if文が呼ばれたら、timeにインターバルを足してピストルタイマーに代入
+            　　　　　　　　　　　　　　　　　　　　　//一時的にtimeよりもタイマーの方がインターバル時間分大きくなるため、ちゃんと機能する
         }
-        if (_PlayerIndex == 1 && ARInterval < _ARTimer && _ARcount > 0)
+        if (_PlayerIndex == 1 && _ARTimer < Time.time && _ARcount > 0)
         {
             Instantiate(ARBullet, muzzle.transform.position, Quaternion.identity);
             ARBullet.SetActive(true);
-            _ARTimer = 0;
+            _ARTimer = Time.time + ARInterval;
         }
-        if (_PlayerIndex == 2 && SMGInterval < _SMGTimer && _SMGcount > 0)
+        if (_PlayerIndex == 2 && _SMGTimer < Time.time && _SMGcount > 0)
         {
             Instantiate(SMGBullet, muzzle.transform.position, Quaternion.identity);
             SMGBullet.SetActive(true);
-            _SMGTimer = 0;
+            _SMGTimer = Time.time + SMGInterval;
         }
-        if (_PlayerIndex == 3 && SRInterval < _SRTimer && _SRcount > 0)
+        if (_PlayerIndex == 3 && _SRTimer < Time.time && _SRcount > 0)
         {
             Instantiate(SRBullet, muzzle.transform.position, Quaternion.identity);
             SRBullet.SetActive(true);
-            _SRTimer = 0;
+            _SRTimer = Time.time + SRInterval;
         }
     }
-    private bool Checkbuy(int gold, ref int keycount)
+    private bool Checkbuy(int gold, ref int keycount)//買えるかどうかの判別をするためのbool
     {
         if (H_Gold > gold && keycount == 0)
         {
