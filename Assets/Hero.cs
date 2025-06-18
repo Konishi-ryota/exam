@@ -104,13 +104,13 @@ public class Hero : MonoBehaviour
         {
             _PlayerIndex = (_PlayerIndex + 1) % weaponList.Length;
             Debug.Log($"{_PlayerIndex}");
-            WeaponController();
+            WeaponSelecter();
         }
         if (Input.GetKeyDown(KeyCode.L) && Time.timeScale > 0)
         {
             _PlayerIndex = (_PlayerIndex - 1 + weaponList.Length) % weaponList.Length;
             Debug.Log($"{_PlayerIndex}");
-            WeaponController();
+            WeaponSelecter();
         }
         if (Input.GetKey(KeyCode.Space) && Time.timeScale > 0) 
         {
@@ -240,13 +240,13 @@ public class Hero : MonoBehaviour
         else if(H_Gold < gold)
         {
             GoldWarningUI.SetActive(true);
-            StartCoroutine(UIfadeout());
+            StartCoroutine(UIfadeout(GoldWarningUI));
             return false;
         }
         else if (keycount > 0)
         {
             DupilicationWarningUI.SetActive(true);
-            StartCoroutine(UIfadeout());
+            StartCoroutine(UIfadeout(DupilicationWarningUI));
             return false;
         }
             return false;
@@ -279,7 +279,10 @@ public class Hero : MonoBehaviour
     {
         weapon.SetActive(true);
     }
-    public void WeaponController()
+    /// <summary>
+    /// 武器を選択するためのメソッド
+    /// </summary>
+    public void WeaponSelecter()
     {
         if (_PlayerIndex == 0)
         {
@@ -297,7 +300,7 @@ public class Hero : MonoBehaviour
             if (_ARcount == 0)
             {
                 NoWeaponWarningUI.SetActive(true);
-                StartCoroutine(UIfadeout());
+                StartCoroutine(UIfadeout(NoWeaponWarningUI));
             }
         }
         if (_PlayerIndex == 2)
@@ -309,7 +312,7 @@ public class Hero : MonoBehaviour
             if (_SMGcount == 0)
             {
                 NoWeaponWarningUI.SetActive(true);
-                StartCoroutine(UIfadeout());
+                StartCoroutine(UIfadeout(NoWeaponWarningUI));
             }
         }
         if (_PlayerIndex == 3)
@@ -321,15 +324,18 @@ public class Hero : MonoBehaviour
             if (_SRcount == 0)
             {
                 NoWeaponWarningUI.SetActive(true);
-                StartCoroutine(UIfadeout());
+                StartCoroutine(UIfadeout(NoWeaponWarningUI));
             }
         }
     }
-    IEnumerator UIfadeout()
+    /// <summary>
+    /// UIを非表示にするためのコルーチン
+    /// </summary>
+    /// <param name="fadeoutUI">非表示にしたいUI</param>
+    /// <returns></returns>
+    IEnumerator UIfadeout(GameObject fadeoutUI)
     {
         yield return new WaitForSeconds(3);
-        GoldWarningUI.SetActive(false);
-        DupilicationWarningUI.SetActive(false);
-        NoWeaponWarningUI.SetActive(false);
+        fadeoutUI.SetActive(false);
     }
 }
