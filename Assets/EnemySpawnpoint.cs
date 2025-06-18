@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawnpoint : MonoBehaviour
@@ -23,7 +21,7 @@ public class EnemySpawnpoint : MonoBehaviour
             rnd = Random.Range(0, 11);
             Instantiate(enemy, spawnpoint.transform.position, Quaternion.identity);
         }
-        if (_hero._RemainTime <= 0)
+        if (_hero._RemainTime <= 0@|| Time.timeScale == 0)
         {
             _isSpawning = false;
         }
