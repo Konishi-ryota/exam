@@ -14,15 +14,16 @@ public class Enemy : MonoBehaviour
 
     private Hero _hero;
     private Bullet _bullet;
+    private EnemySpawnpoint _spawn;
 
     // Start is called before the first frame update
     void Start()
     {
         _rig = GetComponent<Rigidbody2D>();
         Application.targetFrameRate = 60;
-        //E_damage = bullet.bulletAttack;
 
         _hero = FindAnyObjectByType<Hero>();
+        _spawn = FindAnyObjectByType<EnemySpawnpoint>();
         if (!_hero)
         {
             Debug.LogWarning("hero is null");
@@ -33,14 +34,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         _rig.velocity = new Vector3(E_speed, 0);
-        //int rnd = 0;
-        //if (Time.frameCount % 60 == 0 && _hero._RemainTime > 0 /*&& CompareTag("king")*/)
-        //{
-        //    rnd = Random.Range(0, 11);
-        //    Instantiate(enemy,spawnpoint.transform.position,Quaternion.identity);
-        //    enemy.SetActive(true);
-        //}
-        if (_hero._RemainTime <= 0)
+        if (_spawn._RemainTime <= 0)
         {
             Destroy(this.gameObject);
         }
@@ -49,7 +43,7 @@ public class Enemy : MonoBehaviour
     {
         if(collision.gameObject.tag == "bullet")
         {
-            _bullet = FindObjectOfType<Bullet>();
+            _bullet = FindAnyObjectByType<Bullet>();
             E_hp = E_hp - _bullet.bulletAttackPower;
             Destroy(collision.gameObject); //íeä€è¡Ç∑
 
