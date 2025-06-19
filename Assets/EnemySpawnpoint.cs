@@ -14,7 +14,6 @@ public class EnemySpawnpoint : MonoBehaviour
     private float _timer = 0;
     [NonSerialized] public int _remainTime;
     public int _stageTimer = 30;
-    private int _waveTimer => _stageTimer;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,14 +51,13 @@ public class EnemySpawnpoint : MonoBehaviour
         if (_remainTime <= 0)
         {
             _hero._HouseEnter = true;
-            _stageTimer = 0;
-            _timer = 0;
+            _timer = _stageTimer;//Sを押すまでは残り時間を0秒にする
             Time.timeScale = 0;
             timerText.text = "Sを押してスタート";
             if (Input.GetKeyDown(KeyCode.S))
             {
                 _hero._HouseEnter = false;
-                _stageTimer = 3;
+                _timer = 0;//Sを押したらタイマーを元通りに戻す
                 Time.timeScale = 1;
             }
         }
