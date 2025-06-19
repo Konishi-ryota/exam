@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 public class EnemySpawnpoint : MonoBehaviour
 {
-    [SerializeField] GameObject spawnpoint;
+    [SerializeField] GameObject[] spawnpoint;
     [SerializeField] GameObject enemy;
     [SerializeField] Text timerText;
 
@@ -28,7 +28,7 @@ public class EnemySpawnpoint : MonoBehaviour
         if (Time.frameCount % Application.targetFrameRate == 0 && _isSpawning)
         {
             rnd = Random.Range(0, 11);
-            Instantiate(enemy, spawnpoint.transform.position, Quaternion.identity);
+            Instantiate(enemy, spawnpoint[0].transform.position, Quaternion.identity);
         }
         if (_RemainTime <= 0@|| Time.timeScale == 0)
         {
