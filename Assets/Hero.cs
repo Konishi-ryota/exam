@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class Hero : MonoBehaviour
 {
     #region　変数
-    [SerializeField] GameObject[] Bullet;
-    
     [SerializeField] GameObject muzzle;
 
     [SerializeField] GameObject[] ShopUI;
@@ -15,12 +13,10 @@ public class Hero : MonoBehaviour
     [SerializeField] GameObject PauseUI;
     [SerializeField] GameObject GameOverUI;
     [SerializeField] GameObject[] WeaponGameSceneUI;
+
+    [SerializeField,Header("上からピストル、AR、SMG、SR")] int[] WeaponGold;
     [SerializeField] GameObject[] WeaponSelectUI;
-    
-    [SerializeField] int Pistle_gold;
-    [SerializeField] int AR_gold;
-    [SerializeField] int SMG_gold;
-    [SerializeField] int SR_gold;
+    [SerializeField] GameObject[] Bullet;
     [SerializeField] GameObject[] weaponList;
 
     [Header("プレイヤー設定")]
@@ -96,21 +92,21 @@ public class Hero : MonoBehaviour
             ShopUI[1].SetActive(true);
             ShopUI[2].SetActive(true);
             ShopUI[3].SetActive(true);
-            if (Input.GetKeyDown(KeyCode.Alpha1) && Checkbuy(AR_gold, ref _ARcount))//ショップで武器を購入するためのやつ
+            if (Input.GetKeyDown(KeyCode.Alpha1) && Checkbuy(WeaponGold[1], ref _ARcount))//ショップで武器を購入するためのやつ
             {
-                DecreaseGold(AR_gold);
+                DecreaseGold(WeaponGold[1]);
                 Debug.Log($"{H_Gold}");
                 Buyweapon(WeaponGameSceneUI[0]);
             }
-            if (Input.GetKeyDown(KeyCode.Alpha2) && Checkbuy(SMG_gold, ref _SMGcount))
+            if (Input.GetKeyDown(KeyCode.Alpha2) && Checkbuy(WeaponGold[2], ref _SMGcount))
             {
-                DecreaseGold(SMG_gold);
+                DecreaseGold(WeaponGold[2]);
                 Debug.Log($"{H_Gold}");
                 Buyweapon(WeaponGameSceneUI[1]);
             }
-            if (Input.GetKeyDown(KeyCode.Alpha3) && Checkbuy(SR_gold, ref _SRcount))
+            if (Input.GetKeyDown(KeyCode.Alpha3) && Checkbuy(WeaponGold[3], ref _SRcount))
             {
-                DecreaseGold(SR_gold);
+                DecreaseGold(WeaponGold[3]);
                 Debug.Log($"{H_Gold}");
                 Buyweapon(WeaponGameSceneUI[2]);
             }
