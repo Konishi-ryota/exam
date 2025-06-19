@@ -299,7 +299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &168008868
 RectTransform:
   m_ObjectHideFlags: 0
@@ -713,12 +713,10 @@ MonoBehaviour:
   SMGselectUI: {fileID: 1477202400}
   SRSelectUI: {fileID: 1856665046}
   GameOverUI: {fileID: 2090968063}
-  timerText: {fileID: 168008870}
   Pistle_gold: 510
   AR_gold: 10
   SMG_gold: 10
   SR_gold: 10
-  _StageTimer: 30
   weaponList:
   - {fileID: 480896921}
   - {fileID: 1007855818}
@@ -731,8 +729,6 @@ MonoBehaviour:
   ARInterval: 2
   SMGInterval: 0.5
   SRInterval: 5
-  _PlayerIndex: 0
-  _RemainTime: 0
 --- !u!50 &313564461
 Rigidbody2D:
   serializedVersion: 4
@@ -4850,6 +4846,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnpoint: {fileID: 1080773211}
   enemy: {fileID: 6427843290087721240, guid: 61ba59eeccdfa3443aa4c1cfdc3af8ec, type: 3}
+  timerText: {fileID: 168008870}
+  _stageTimer: 3
 --- !u!1 &1215415130 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8553489267186301253, guid: 2f2014169181c1e48b7e306c7d2d1c17, type: 3}
