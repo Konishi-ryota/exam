@@ -12,25 +12,26 @@ public class EnemySpawnpoint : MonoBehaviour
     private Hero _hero;
     private bool _isSpawning = true;
     private float _timer = 0;
-    [NonSerialized] public int _RemainTime;
+    [NonSerialized] public int _remainTime;
     public int _stageTimer = 30;
+    private int _waveTimer => _stageTimer;
     // Start is called before the first frame update
     void Start()
     {
-
+        _hero = FindAnyObjectByType<Hero>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        GamesceneTimer();
+        WaveSetting();
         int rnd = 0;
         if (Time.frameCount % Application.targetFrameRate == 0 && _isSpawning)
         {
             rnd = Random.Range(0, 11);
             Instantiate(enemy[0], spawnpoint[0].transform.position, Quaternion.identity);
         }
-        if (_RemainTime <= 0　|| Time.timeScale == 0)
+        if (Time.timeScale == 0)
         {
             _isSpawning = false;
         }
@@ -43,14 +44,13 @@ public class EnemySpawnpoint : MonoBehaviour
     /// <summary>
     /// ウェーブ切り替え機能
     /// </summary>
-    private void GamesceneTimer()
+    private void WaveSetting()
     {
         _timer += Time.deltaTime;
-        _RemainTime = _stageTimer - (int)_timer;
-        timerText.text = "残り時間 " + _RemainTime.ToString("D2") + " 秒";
-        if (_RemainTime <= 0)
+        _remainTime = _stageTimer - (int)_timer;
+        timerText.text = "残り時間 " + _remainTime.ToString("D2") + " 秒";
+        if (_remainTime <= 0)
         {
-            _hero = FindAnyObjectByType<Hero>();
             _hero._HouseEnter = true;
             _stageTimer = 0;
             _timer = 0;
@@ -61,7 +61,6 @@ public class EnemySpawnpoint : MonoBehaviour
                 _hero._HouseEnter = false;
                 _stageTimer = 3;
                 Time.timeScale = 1;
-                return;
             }
         }
     }
