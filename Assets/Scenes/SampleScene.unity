@@ -691,28 +691,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c85ed4a8bbecd814ca611fefa9039893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PistleBullet: {fileID: 2942750727778017050, guid: fd89dbea0baba28439ee201492f8f20f, type: 3}
-  ARBullet: {fileID: 5926479981425292926, guid: b77bd978f1b1eac4381e1bc89c100f01, type: 3}
-  SMGBullet: {fileID: 4131524342702767348, guid: d819419501ab0284999cc608e4d41d44, type: 3}
-  SRBullet: {fileID: 8119670483859545646, guid: ddb74927f0893e04d8a29c4bedab04eb, type: 3}
+  Bullet:
+  - {fileID: 2942750727778017050, guid: fd89dbea0baba28439ee201492f8f20f, type: 3}
+  - {fileID: 5926479981425292926, guid: b77bd978f1b1eac4381e1bc89c100f01, type: 3}
+  - {fileID: 4131524342702767348, guid: d819419501ab0284999cc608e4d41d44, type: 3}
+  - {fileID: 8119670483859545646, guid: ddb74927f0893e04d8a29c4bedab04eb, type: 3}
   muzzle: {fileID: 1020624077}
-  ShopUI: {fileID: 18326854}
-  ShopARUI: {fileID: 768080310}
-  ShopSMGUI: {fileID: 1890013503}
-  ShopSRUI: {fileID: 1006839571}
-  GoldWarningUI: {fileID: 1015908353}
-  DupilicationWarningUI: {fileID: 519068453}
-  NoWeaponWarningUI: {fileID: 776611513}
+  ShopUI:
+  - {fileID: 18326854}
+  - {fileID: 768080310}
+  - {fileID: 1890013503}
+  - {fileID: 1006839571}
+  WarningUI:
+  - {fileID: 1015908353}
+  - {fileID: 519068453}
+  - {fileID: 776611513}
   PauseUI: {fileID: 292108970}
-  PistleGameSceneUI: {fileID: 480896921}
-  ARGameSceneUI: {fileID: 1007855818}
-  SMGGameSceneUI: {fileID: 754780141}
-  SRGameSceneUI: {fileID: 404931112}
-  PistleselectUI: {fileID: 116811491}
-  ARselectUI: {fileID: 1215415130}
-  SMGselectUI: {fileID: 1477202400}
-  SRSelectUI: {fileID: 1856665046}
   GameOverUI: {fileID: 2090968063}
+  WeaponGameSceneUI:
+  - {fileID: 1007855818}
+  - {fileID: 754780141}
+  - {fileID: 404931112}
+  WeaponSelectUI:
+  - {fileID: 1856665046}
+  - {fileID: 1215415130}
+  - {fileID: 116811491}
+  - {fileID: 1477202400}
   Pistle_gold: 510
   AR_gold: 10
   SMG_gold: 10
@@ -5877,7 +5881,7 @@ SceneRoots:
   - {fileID: 7755568029807191244}
   - {fileID: 916379434}
   - {fileID: 384928724}
-  - {fileID: 1335455698}
-  - {fileID: 1482741898}
-  - {fileID: 65643547}
   - {fileID: 1559188048}
+  - {fileID: 65643547}
+  - {fileID: 1482741898}
+  - {fileID: 1335455698}
