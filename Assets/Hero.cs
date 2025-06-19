@@ -34,7 +34,10 @@ public class Hero : MonoBehaviour
     private int _SRcount = 0;
     [NonSerialized] public int _PlayerIndex = 0;
     private Rigidbody2D _rig = null;
-    [SerializeField] float[] WeaponTimer; 
+    private float _PistleTimer;
+    private float _ARTimer;  
+    private float _SMGTimer;
+    private float _SRTimer;
     private float _timer = 0;
 
     [NonSerialized] public bool _HouseEnter;
@@ -52,10 +55,10 @@ public class Hero : MonoBehaviour
         _rig = GetComponent<Rigidbody2D>();
         _enemy =FindAnyObjectByType<Enemy>();
         _bullet = FindAnyObjectByType<Bullet>();
-        WeaponTimer[0] =PistleInterval;
-        WeaponTimer[1] = ARInterval;
-        WeaponTimer[2] = SMGInterval;
-        WeaponTimer[3] = SRInterval;
+        _PistleTimer =PistleInterval;
+        _ARTimer = ARInterval;
+        _SMGTimer = SMGInterval;
+        _SMGTimer = SRInterval;
         //H_exp = enemy.E_exp;
         //H_Gold = enemy.E_Gold;  
     }
@@ -166,30 +169,30 @@ public class Hero : MonoBehaviour
     /// </summary>
     public void bulletshot()
     {
-        if (_PlayerIndex == 0 && WeaponTimer[0] < Time.time)//delta.timeを足し続けるよりもtimeで必要な時だけ呼び出した方が軽い
+        if (_PlayerIndex == 0 && _PistleTimer < Time.time)//delta.timeを足し続けるよりもtimeで必要な時だけ呼び出した方が軽い
         {
             Instantiate(Bullet[0],muzzle.transform.position,Quaternion.identity);
             Bullet[0].SetActive(true);
-            WeaponTimer[0] = Time.time + PistleInterval;//if文が呼ばれたら、timeにインターバルを足してピストルタイマーに代入
+            _PistleTimer = Time.time + PistleInterval;//if文が呼ばれたら、timeにインターバルを足してピストルタイマーに代入
             　　　　　　　　　　　　　　　　　　　　　//一時的にtimeよりもタイマーの方がインターバル時間分大きくなるため、ちゃんと機能する
         }
-        if (_PlayerIndex == 1 && WeaponTimer[1] < Time.time && _ARcount > 0)
+        if (_PlayerIndex == 1 && _ARTimer < Time.time && _ARcount > 0)
         {
             Instantiate(Bullet[1], muzzle.transform.position, Quaternion.identity);
             Bullet[1].SetActive(true);
-            WeaponTimer[1] = Time.time + ARInterval;
+            _ARTimer = Time.time + ARInterval;
         }
-        if (_PlayerIndex == 2 && WeaponTimer[2] < Time.time && _SMGcount > 0)
+        if (_PlayerIndex == 2 && _SMGTimer < Time.time && _SMGcount > 0)
         {
             Instantiate(Bullet[2], muzzle.transform.position, Quaternion.identity);
             Bullet[2].SetActive(true);
-            WeaponTimer[2] = Time.time + SMGInterval;
+            _SMGTimer = Time.time + SMGInterval;
         }
-        if (_PlayerIndex == 3 && WeaponTimer[3] < Time.time && _SRcount > 0)
+        if (_PlayerIndex == 3 && _SRTimer < Time.time && _SRcount > 0)
         {
             Instantiate(Bullet[3], muzzle.transform.position, Quaternion.identity);
             Bullet[3].SetActive(true);
-            WeaponTimer[3] = Time.time + SRInterval;
+            _SRTimer = Time.time + SRInterval;
         }
     }
     /// <summary>
