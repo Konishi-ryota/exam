@@ -691,11 +691,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c85ed4a8bbecd814ca611fefa9039893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bullet:
-  - {fileID: 2942750727778017050, guid: fd89dbea0baba28439ee201492f8f20f, type: 3}
-  - {fileID: 5926479981425292926, guid: b77bd978f1b1eac4381e1bc89c100f01, type: 3}
-  - {fileID: 4131524342702767348, guid: d819419501ab0284999cc608e4d41d44, type: 3}
-  - {fileID: 8119670483859545646, guid: ddb74927f0893e04d8a29c4bedab04eb, type: 3}
   muzzle: {fileID: 1020624077}
   ShopUI:
   - {fileID: 18326854}
@@ -708,19 +703,22 @@ MonoBehaviour:
   - {fileID: 776611513}
   PauseUI: {fileID: 292108970}
   GameOverUI: {fileID: 2090968063}
+  timerText: {fileID: 168008870}
   WeaponGameSceneUI:
   - {fileID: 1007855818}
   - {fileID: 754780141}
   - {fileID: 404931112}
+  WeaponGold: 00000000000000000000000000000000
   WeaponSelectUI:
   - {fileID: 1856665046}
   - {fileID: 1215415130}
   - {fileID: 116811491}
   - {fileID: 1477202400}
-  Pistle_gold: 510
-  AR_gold: 10
-  SMG_gold: 10
-  SR_gold: 10
+  Bullet:
+  - {fileID: 2942750727778017050, guid: fd89dbea0baba28439ee201492f8f20f, type: 3}
+  - {fileID: 5926479981425292926, guid: b77bd978f1b1eac4381e1bc89c100f01, type: 3}
+  - {fileID: 4131524342702767348, guid: d819419501ab0284999cc608e4d41d44, type: 3}
+  - {fileID: 8119670483859545646, guid: ddb74927f0893e04d8a29c4bedab04eb, type: 3}
   weaponList:
   - {fileID: 480896921}
   - {fileID: 1007855818}
@@ -733,6 +731,7 @@ MonoBehaviour:
   ARInterval: 2
   SMGInterval: 0.5
   SRInterval: 5
+  _stageTimer: 30
 --- !u!50 &313564461
 Rigidbody2D:
   serializedVersion: 4
@@ -4851,9 +4850,8 @@ MonoBehaviour:
   spawnpoint:
   - {fileID: 1080773211}
   - {fileID: 1628070809}
-  enemy: {fileID: 6427843290087721240, guid: 61ba59eeccdfa3443aa4c1cfdc3af8ec, type: 3}
-  timerText: {fileID: 168008870}
-  _stageTimer: 3
+  enemy:
+  - {fileID: 6427843290087721240, guid: 61ba59eeccdfa3443aa4c1cfdc3af8ec, type: 3}
 --- !u!1 &1215415130 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8553489267186301253, guid: 2f2014169181c1e48b7e306c7d2d1c17, type: 3}
