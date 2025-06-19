@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,38 +6,21 @@ using UnityEngine.UI;
 public class Hero : MonoBehaviour
 {
     #region　変数
-
-    [SerializeField] GameObject PistleBullet;
-    [SerializeField] GameObject ARBullet;
-    [SerializeField] GameObject SMGBullet;
-    [SerializeField] GameObject SRBullet;
+    [SerializeField] GameObject[] Bullet;
     
     [SerializeField] GameObject muzzle;
 
-    [SerializeField] GameObject ShopUI;
-    [SerializeField] GameObject ShopARUI;
-    [SerializeField] GameObject ShopSMGUI;
-    [SerializeField] GameObject ShopSRUI;
-    [SerializeField] GameObject GoldWarningUI;
-    [SerializeField] GameObject DupilicationWarningUI;
-    [SerializeField] GameObject NoWeaponWarningUI;
+    [SerializeField] GameObject[] ShopUI;
+    [SerializeField] GameObject[] WarningUI;
     [SerializeField] GameObject PauseUI;
-    [SerializeField] GameObject PistleGameSceneUI;
-    [SerializeField] GameObject ARGameSceneUI;
-    [SerializeField] GameObject SMGGameSceneUI;
-    [SerializeField] GameObject SRGameSceneUI;
-    [SerializeField] GameObject PistleselectUI;
-    [SerializeField] GameObject ARselectUI;
-    [SerializeField] GameObject SMGselectUI;
-    [SerializeField] GameObject SRSelectUI;
     [SerializeField] GameObject GameOverUI;
+    [SerializeField] GameObject[] WeaponGameSceneUI;
+    [SerializeField] GameObject[] WeaponSelectUI;
     
-    [SerializeField] Text timerText;
     [SerializeField] int Pistle_gold;
     [SerializeField] int AR_gold;
     [SerializeField] int SMG_gold;
     [SerializeField] int SR_gold;
-    [SerializeField] public int _StageTimer = 30;
     [SerializeField] GameObject[] weaponList;
 
     [Header("プレイヤー設定")]
@@ -51,7 +35,7 @@ public class Hero : MonoBehaviour
     private int _ARcount = 0;
     private int _SMGcount = 0;
     private int _SRcount = 0;
-    public int _PlayerIndex = 0;
+    [NonSerialized] public int _PlayerIndex = 0;
     private Rigidbody2D _rig = null;
     private int _Level;
     private int _HeroExp;
@@ -59,10 +43,8 @@ public class Hero : MonoBehaviour
     private float _ARTimer;  
     private float _SMGTimer;
     private float _SRTimer;
-    private float _Timer = 0;
-    public int _RemainTime;
 
-    private bool _HouseEnter;
+    [NonSerialized] public bool _HouseEnter;
     private Enemy _enemy;
     private Bullet _bullet;
     #endregion
@@ -92,7 +74,6 @@ public class Hero : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GamesceneTimer();
         if (Input.GetKeyDown(KeyCode.K) && Time.timeScale > 0)//武器切り替え
         {
             _PlayerIndex = (_PlayerIndex + 1) % weaponList.Length;
@@ -105,40 +86,41 @@ public class Hero : MonoBehaviour
             Debug.Log($"{_PlayerIndex}");
             WeaponSelecter();
         }
-        if (Input.GetKey(KeyCode.Space) && Time.timeScale > 0) 
+        if (Input.GetKey(KeyCode.Space) && Time.timeScale > 0)
         {
             bulletshot();
         }
         if (_HouseEnter)//ショップを開く
         {
-            ShopUI.SetActive(true);
-            ShopARUI.SetActive(true);
-            ShopSMGUI.SetActive(true);
-            ShopSRUI.SetActive(true);
+            ShopUI[0].SetActive(true);
+            ShopUI[1].SetActive(true);
+            ShopUI[2].SetActive(true);
+            ShopUI[3].SetActive(true);
             if (Input.GetKeyDown(KeyCode.Alpha1) && Checkbuy(AR_gold, ref _ARcount))//ショップで武器を購入するためのやつ
             {
                 DecreaseGold(AR_gold);
                 Debug.Log($"{H_Gold}");
-                Buyweapon(ARGameSceneUI);
+                Buyweapon(WeaponGameSceneUI[0]);
             }
             if (Input.GetKeyDown(KeyCode.Alpha2) && Checkbuy(SMG_gold, ref _SMGcount))
             {
                 DecreaseGold(SMG_gold);
                 Debug.Log($"{H_Gold}");
-                Buyweapon(SMGGameSceneUI);
+                Buyweapon(WeaponGameSceneUI[1]);
             }
             if (Input.GetKeyDown(KeyCode.Alpha3) && Checkbuy(SR_gold, ref _SRcount))
             {
                 DecreaseGold(SR_gold);
                 Debug.Log($"{H_Gold}");
-                Buyweapon(SRGameSceneUI);
+                Buyweapon(WeaponGameSceneUI[2]);
             }
-        } else if (!_HouseEnter)//ショップを閉じる
+        }
+        else if (!_HouseEnter)//ショップを閉じる
         {
-            ShopUI.SetActive(false);
-            ShopARUI.SetActive(false);
-            ShopSMGUI.SetActive(false);
-            ShopSRUI.SetActive(false);
+            ShopUI[0].SetActive(false);
+            ShopUI[1].SetActive(false);
+            ShopUI[2].SetActive(false);
+            ShopUI[3].SetActive(false);
         }
         if (Input.GetKeyDown(KeyCode.P))//ポーズ
         {
@@ -165,27 +147,6 @@ public class Hero : MonoBehaviour
         GameOverUI.SetActive(true);
         Time.timeScale = 0;
     }
-    private void GamesceneTimer()
-    {
-        _Timer += Time.deltaTime;
-        _RemainTime = _StageTimer - (int)_Timer;
-        timerText.text = "残り時間 " + _RemainTime.ToString("D2") + " 秒";
-        if (_RemainTime <= 0)
-        {
-            _HouseEnter = true;
-            _StageTimer = 0;
-            _Timer = 0;
-            Time.timeScale = 0;
-            timerText.text = "Sを押してスタート";
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                _HouseEnter = false;
-                _StageTimer = 3;
-                Time.timeScale = 1;
-                return;
-            }
-        }
-    }
     /// <summary>
     /// 弾を撃つ時に呼ばれるメソッド
     /// </summary>
@@ -193,27 +154,27 @@ public class Hero : MonoBehaviour
     {
         if (_PlayerIndex == 0 && _PistleTimer < Time.time)//delta.timeを足し続けるよりもtimeで必要な時だけ呼び出した方が軽い
         {
-            Instantiate(PistleBullet,muzzle.transform.position,Quaternion.identity);
-            PistleBullet.SetActive(true);
+            Instantiate(Bullet[0],muzzle.transform.position,Quaternion.identity);
+            Bullet[0].SetActive(true);
             _PistleTimer = Time.time + PistleInterval;//if文が呼ばれたら、timeにインターバルを足してピストルタイマーに代入
             　　　　　　　　　　　　　　　　　　　　　//一時的にtimeよりもタイマーの方がインターバル時間分大きくなるため、ちゃんと機能する
         }
         if (_PlayerIndex == 1 && _ARTimer < Time.time && _ARcount > 0)
         {
-            Instantiate(ARBullet, muzzle.transform.position, Quaternion.identity);
-            ARBullet.SetActive(true);
+            Instantiate(Bullet[1], muzzle.transform.position, Quaternion.identity);
+            Bullet[1].SetActive(true);
             _ARTimer = Time.time + ARInterval;
         }
         if (_PlayerIndex == 2 && _SMGTimer < Time.time && _SMGcount > 0)
         {
-            Instantiate(SMGBullet, muzzle.transform.position, Quaternion.identity);
-            SMGBullet.SetActive(true);
+            Instantiate(Bullet[2], muzzle.transform.position, Quaternion.identity);
+            Bullet[2].SetActive(true);
             _SMGTimer = Time.time + SMGInterval;
         }
         if (_PlayerIndex == 3 && _SRTimer < Time.time && _SRcount > 0)
         {
-            Instantiate(SRBullet, muzzle.transform.position, Quaternion.identity);
-            SRBullet.SetActive(true);
+            Instantiate(Bullet[3], muzzle.transform.position, Quaternion.identity);
+            Bullet[3].SetActive(true);
             _SRTimer = Time.time + SRInterval;
         }
     }
@@ -232,14 +193,14 @@ public class Hero : MonoBehaviour
         }
         else if(H_Gold < gold)
         {
-            GoldWarningUI.SetActive(true);
-            StartCoroutine(UIfadeout(GoldWarningUI));
+            WarningUI[0].SetActive(true);
+            StartCoroutine(UIfadeout(WarningUI[0]));
             return false;
         }
         else if (keycount > 0)
         {
-            DupilicationWarningUI.SetActive(true);
-            StartCoroutine(UIfadeout(DupilicationWarningUI));
+            WarningUI[1].SetActive(true);
+            StartCoroutine(UIfadeout(WarningUI[1]));
             return false;
         }
             return false;
@@ -265,7 +226,7 @@ public class Hero : MonoBehaviour
         }
     }
     /// <summary>
-    /// 武器が買えた時に呼び出されるやつ
+    /// 武器が買う時に呼び出されるやつ
     /// </summary>
     /// <param name="weapon"></param>
     public void Buyweapon(GameObject weapon)
@@ -279,45 +240,45 @@ public class Hero : MonoBehaviour
     {
         if (_PlayerIndex == 0)
         {
-            PistleselectUI.SetActive(true);
-            ARselectUI.SetActive(false);
-            SMGselectUI.SetActive(false);
-            SRSelectUI.SetActive(false);
+            WeaponSelectUI[0].SetActive(true);
+            WeaponSelectUI[1].SetActive(false);
+            WeaponSelectUI[2].SetActive(false);
+            WeaponSelectUI[3].SetActive(false);
         }
         if (_PlayerIndex == 1)
         {
-            PistleselectUI.SetActive(false);
-            ARselectUI.SetActive(true);
-            SMGselectUI.SetActive(false);
-            SRSelectUI.SetActive(false);
+            WeaponSelectUI[0].SetActive(false);
+            WeaponSelectUI[1].SetActive(true);
+            WeaponSelectUI[2].SetActive(false);
+            WeaponSelectUI[3].SetActive(false);
             if (_ARcount == 0)
             {
-                NoWeaponWarningUI.SetActive(true);
-                StartCoroutine(UIfadeout(NoWeaponWarningUI));
+                WarningUI[2].SetActive(true);
+                StartCoroutine(UIfadeout(WarningUI[2]));
             }
         }
         if (_PlayerIndex == 2)
         {
-            PistleselectUI.SetActive(false);
-            SMGselectUI.SetActive(true);
-            ARselectUI.SetActive(false);
-            SRSelectUI.SetActive(false);
+            WeaponSelectUI[0].SetActive(false);
+            WeaponSelectUI[1].SetActive(false);
+            WeaponSelectUI[2].SetActive(true);
+            WeaponSelectUI[3].SetActive(false);
             if (_SMGcount == 0)
             {
-                NoWeaponWarningUI.SetActive(true);
-                StartCoroutine(UIfadeout(NoWeaponWarningUI));
+                WarningUI[2].SetActive(true);
+                StartCoroutine(UIfadeout(WarningUI[2]));
             }
         }
         if (_PlayerIndex == 3)
         {
-            PistleselectUI.SetActive(false);
-            SRSelectUI.SetActive(true);
-            ARselectUI.SetActive(false);
-            SMGselectUI.SetActive(false);
+            WeaponSelectUI[0].SetActive(false);
+            WeaponSelectUI[1].SetActive(false);
+            WeaponSelectUI[2].SetActive(false);
+            WeaponSelectUI[3].SetActive(true);
             if (_SRcount == 0)
             {
-                NoWeaponWarningUI.SetActive(true);
-                StartCoroutine(UIfadeout(NoWeaponWarningUI));
+                WarningUI[2].SetActive(true);
+                StartCoroutine(UIfadeout(WarningUI[2]));
             }
         }
     }
