@@ -17,6 +17,7 @@ public class EnemySpawnpoint : MonoBehaviour
     public int _stageTimer = 30;
     [SerializeField] Text timerText;
     private Hero _hero;
+    private int _enemySpawnFrequency;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,14 +43,27 @@ public class EnemySpawnpoint : MonoBehaviour
     }
     private void EnemySpawn()
     {
-        if (waveCount == 1)
+        if(waveCount == 1)
         {
-           _spawnrnd = Random.Range(0, 5);
-           for (int i = 0; i < _spawnrnd; i++)
-           {
+            _enemySpawnFrequency = Random.Range(2,5);
+            Debug.Log($"{_enemySpawnFrequency}");
+            if (Time.frameCount % (Application.targetFrameRate * _enemySpawnFrequency) == 0)
+            {
               Instantiate(enemy[0], spawnpoint[0].transform.position, Quaternion.identity);
+            }
+        }
+        if (waveCount == 2)
+        {
+            _enemySpawnFrequency= Random.Range(2,4);
+            Debug.Log($"{_enemySpawnFrequency}");
+            if (Time.frameCount % (Application.targetFrameRate * _enemySpawnFrequency) == 0)
+            {
+                Instantiate(enemy[0], spawnpoint[0].transform.position,Quaternion.identity);
+            }
+        }
+        if (waveCount == 3)
+        {
 
-           }
         }
     }
     /// <summary>
