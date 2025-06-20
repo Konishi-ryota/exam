@@ -73,6 +73,7 @@ public class Hero : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        WaveSetting();
         if (Input.GetKeyDown(KeyCode.K) && Time.timeScale > 0)//•ŠíØ‚è‘Ö‚¦
         {
             _PlayerIndex = (_PlayerIndex + 1) % weaponList.Length;
