@@ -14,10 +14,13 @@ public class EnemySpawnpoint : MonoBehaviour
     private float _timer = 0;
     [NonSerialized] public int _remainTime;
     private int waveCount = 1;
+    private int RemainWaveCount;
+    [SerializeField] int MaxWaveCount = 7;
     public int _stageTimer = 30;
     [SerializeField] Text timerText;
     private Hero _hero;
     private int _enemySpawnFrequency;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,28 +46,59 @@ public class EnemySpawnpoint : MonoBehaviour
     }
     private void EnemySpawn()
     {
-        if(waveCount == 1)
+        if (waveCount < 3)
         {
-            _enemySpawnFrequency = Random.Range(2,5);
-            Debug.Log($"{_enemySpawnFrequency}");
-            if (Time.frameCount % (Application.targetFrameRate * _enemySpawnFrequency) == 0)
-            {
-              Instantiate(enemy[0], spawnpoint[0].transform.position, Quaternion.identity);
-            }
-        }
-        if (waveCount == 2)
-        {
-            _enemySpawnFrequency= Random.Range(2,4);
-            Debug.Log($"{_enemySpawnFrequency}");
-            if (Time.frameCount % (Application.targetFrameRate * _enemySpawnFrequency) == 0)
-            {
-                Instantiate(enemy[0], spawnpoint[0].transform.position,Quaternion.identity);
-            }
+           RemainWaveCount = MaxWaveCount - waveCount;
+           _enemySpawnFrequency = Random.Range(2, RemainWaveCount);
+           Debug.Log($"{_enemySpawnFrequency}");
+              if (Time.frameCount % (Application.targetFrameRate * _enemySpawnFrequency) == 0)
+              {
+
+                  Instantiate(enemy[0], spawnpoint[0].transform.position, Quaternion.identity);
+              }
         }
         if (waveCount == 3)
         {
-
+            _enemySpawnFrequency = Random.Range(2, 4);
+            Debug.Log($"{_enemySpawnFrequency}");
+            if (Time.frameCount % (Application.targetFrameRate * _enemySpawnFrequency) == 0)
+            { 
+                Instantiate(enemy[1], spawnpoint[1].transform.position, Quaternion.identity);
+            }
         }
+        if (waveCount > 3)
+        {
+            if (Time.frameCount % (Application.targetFrameRate * _enemySpawnFrequency) == 0)
+            {
+                Instantiate(enemy[0], spawnpoint[0].transform.position, Quaternion.identity);
+            }
+            if (Time.frameCount % (Application.targetFrameRate / 2) == 0)
+            {
+                Instantiate(enemy[1], spawnpoint[1].transform.position, Quaternion.identity);
+            }
+        }
+        //if(waveCount == 1)
+        //{
+        //    _enemySpawnFrequency = Random.Range(2,5);
+        //    Debug.Log($"{_enemySpawnFrequency}");
+        //    if (Time.frameCount % (Application.targetFrameRate * _enemySpawnFrequency) == 0)
+        //    {
+        //      Instantiate(enemy[0], spawnpoint[0].transform.position, Quaternion.identity);
+        //    }
+        //}
+        //if (waveCount == 2)
+        //{
+        //    _enemySpawnFrequency= Random.Range(2,4);
+        //    Debug.Log($"{_enemySpawnFrequency}");
+        //    if (Time.frameCount % (Application.targetFrameRate * _enemySpawnFrequency) == 0)
+        //    {
+        //        Instantiate(enemy[0], spawnpoint[0].transform.position,Quaternion.identity);
+        //    }
+        //}
+        //if (waveCount == 3)
+        //{
+
+        //}
     }
     /// <summary>
     /// ウェーブ切り替え機能
