@@ -12,7 +12,6 @@ public class Hero : MonoBehaviour
     [SerializeField] GameObject[] WarningUI;
     [SerializeField] GameObject PauseUI;
     [SerializeField] GameObject GameOverUI;
-    [SerializeField] Text timerText;
     [SerializeField] GameObject[] WeaponGameSceneUI;
 
     [SerializeField,Header("上からピストル、AR、SMG、SR")] int[] WeaponGold;
@@ -38,12 +37,8 @@ public class Hero : MonoBehaviour
     private float _ARTimer;  
     private float _SMGTimer;
     private float _SRTimer;
-    private float _timer = 0;
 
     [NonSerialized] public bool _HouseEnter;
-    [NonSerialized] public int _remainTime;
-    public int _stageTimer = 30;
-    private int waveCount = 1;
     private Enemy _enemy;
     private Bullet _bullet;
     #endregion
@@ -73,7 +68,6 @@ public class Hero : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        WaveSetting();
         if (Input.GetKeyDown(KeyCode.K) && Time.timeScale > 0)//武器切り替え
         {
             _PlayerIndex = (_PlayerIndex + 1) % weaponList.Length;
@@ -141,29 +135,6 @@ public class Hero : MonoBehaviour
     {
         GameOverUI.SetActive(true);
         Time.timeScale = 0;
-    }
-    /// <summary>
-    /// ウェーブ切り替え機能
-    /// </summary>
-    private void WaveSetting()
-    {
-        _timer += Time.deltaTime;
-        _remainTime = _stageTimer - (int)_timer;
-        timerText.text = "残り時間 " + _remainTime.ToString("D2") + " 秒";
-        if (_remainTime <= 0)
-        {
-            _HouseEnter = true;
-            _timer = _stageTimer;//Sを押すまでは残り時間を0秒にする
-            Time.timeScale = 0;
-            timerText.text = "Sを押してスタート";
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                _HouseEnter = false;
-                _timer = 0;//Sを押したらタイマーを元通りに戻す
-                waveCount++;
-                Time.timeScale = 1;
-            }
-        }
     }
     /// <summary>
     /// 弾を撃つ時に呼ばれるメソッド
