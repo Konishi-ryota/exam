@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         _rig.velocity = new Vector3(E_speed, 0);
-        if (_hero._remainTime <= 0)
+        if (_spawn._remainTime <= 0)
         {
             Destroy(this.gameObject);
         }
