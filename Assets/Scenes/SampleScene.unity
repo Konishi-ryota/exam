@@ -4850,8 +4850,9 @@ MonoBehaviour:
   - {fileID: 1628070809}
   enemy:
   - {fileID: 6427843290087721240, guid: 61ba59eeccdfa3443aa4c1cfdc3af8ec, type: 3}
+  - {fileID: 6427843290087721240, guid: 61ba59eeccdfa3443aa4c1cfdc3af8ec, type: 3}
   MaxWaveCount: 7
-  _stageTimer: 3
+  _stageTimer: 10
   timerText: {fileID: 168008870}
 --- !u!1 &1215415130 stripped
 GameObject:
