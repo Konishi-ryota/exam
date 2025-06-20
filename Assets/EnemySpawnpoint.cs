@@ -42,11 +42,14 @@ public class EnemySpawnpoint : MonoBehaviour
     }
     private void EnemySpawn()
     {
-        _spawnrnd = Random.Range(0, 5);
-        for (int i = 0; i < _spawnrnd; i++)
+        if (waveCount == 1)
         {
-        Instantiate(enemy[0], spawnpoint[0].transform.position, Quaternion.identity);
+           _spawnrnd = Random.Range(0, 5);
+           for (int i = 0; i < _spawnrnd; i++)
+           {
+              Instantiate(enemy[0], spawnpoint[0].transform.position, Quaternion.identity);
 
+           }
         }
     }
     /// <summary>
