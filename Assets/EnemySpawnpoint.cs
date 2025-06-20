@@ -53,7 +53,6 @@ public class EnemySpawnpoint : MonoBehaviour
            Debug.Log($"{_enemySpawnFrequency}");
               if (Time.frameCount % (Application.targetFrameRate * _enemySpawnFrequency) == 0)
               {
-
                   Instantiate(enemy[0], spawnpoint[0].transform.position, Quaternion.identity);
               }
         }
