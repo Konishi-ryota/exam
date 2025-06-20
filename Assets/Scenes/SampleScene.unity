@@ -672,7 +672,7 @@ Transform:
   m_GameObject: {fileID: 313564455}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: -2.44, z: 0}
+  m_LocalPosition: {x: 6.96, y: -2.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -703,7 +703,6 @@ MonoBehaviour:
   - {fileID: 776611513}
   PauseUI: {fileID: 292108970}
   GameOverUI: {fileID: 2090968063}
-  timerText: {fileID: 168008870}
   WeaponGameSceneUI:
   - {fileID: 1007855818}
   - {fileID: 754780141}
@@ -731,7 +730,6 @@ MonoBehaviour:
   ARInterval: 2
   SMGInterval: 0.5
   SRInterval: 5
-  _stageTimer: 30
 --- !u!50 &313564461
 Rigidbody2D:
   serializedVersion: 4
@@ -4852,6 +4850,9 @@ MonoBehaviour:
   - {fileID: 1628070809}
   enemy:
   - {fileID: 6427843290087721240, guid: 61ba59eeccdfa3443aa4c1cfdc3af8ec, type: 3}
+  MaxWaveCount: 7
+  _stageTimer: 3
+  timerText: {fileID: 168008870}
 --- !u!1 &1215415130 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8553489267186301253, guid: 2f2014169181c1e48b7e306c7d2d1c17, type: 3}
