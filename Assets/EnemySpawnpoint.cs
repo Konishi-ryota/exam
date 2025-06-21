@@ -9,7 +9,9 @@ public class EnemySpawnpoint : MonoBehaviour
     [SerializeField] GameObject[] spawnpoint;
     [SerializeField] GameObject[] enemy;
 
-    private bool _isSpawning = true;
+    private bool _isSpawning1 = true;
+    private bool _isSpawning2 = true;
+    private bool _isSpawning3 = true;
     private int _spawnrnd;
     private float _timer = 0;
     [NonSerialized] public int _remainTime;
@@ -31,73 +33,42 @@ public class EnemySpawnpoint : MonoBehaviour
     void Update()
     {
         WaveSetting();
-        if (Time.frameCount % Application.targetFrameRate == 0 && _isSpawning)
-        {
-            EnemySpawn();
-        }
+        EnemySpawn();
         if (Time.timeScale == 0)
         {
-            _isSpawning = false;
+            _isSpawning1= false;
+            _isSpawning2= false;
+            _isSpawning3 = false;
         }
         else
         {
-            _isSpawning= true;
+            _isSpawning1= true;
+            _isSpawning2= true;
+            _isSpawning3 = true;
         }
     }
     private void EnemySpawn()
     {
-        if (waveCount < 3)
+        if (_hero.transform.position.x > spawnpoint[0].transform.position.x && Time.frameCount % (Application.targetFrameRate *3) == 0)
         {
-           RemainWaveCount = MaxWaveCount - waveCount;
-           _enemySpawnFrequency = Random.Range(2, RemainWaveCount);
-           Debug.Log($"{_enemySpawnFrequency}");
-              if (Time.frameCount % (Application.targetFrameRate * _enemySpawnFrequency) == 0)
-              {
-                  Instantiate(enemy[0], spawnpoint[0].transform.position, Quaternion.identity);
-              }
+            Instantiate(enemy[0],spawnpoint[0].transform.position,Quaternion.identity);
         }
-        if (waveCount == 3)
+        if (_hero.transform.position.x < spawnpoint[0].transform.position.x)
         {
-            _enemySpawnFrequency = Random.Range(2, 4);
-            Debug.Log($"{_enemySpawnFrequency}");
-            if (Time.frameCount % (Application.targetFrameRate * _enemySpawnFrequency) == 0)
-            { 
-                Instantiate(enemy[1], spawnpoint[1].transform.position, Quaternion.identity);
-            }
+            _isSpawning1 = false;
         }
-        if (waveCount > 3)
+        if (!_isSpawning1 && _hero.transform.position.x > spawnpoint[1].transform.position.x && Time.frameCount % (Application.targetFrameRate * 2) == 0)
         {
-            if (Time.frameCount % (Application.targetFrameRate * _enemySpawnFrequency) == 0)
-            {
-                Instantiate(enemy[0], spawnpoint[0].transform.position, Quaternion.identity);
-            }
-            if (Time.frameCount % (Application.targetFrameRate / 2) == 0)
-            {
-                Instantiate(enemy[1], spawnpoint[1].transform.position, Quaternion.identity);
-            }
+            Instantiate(enemy[1],spawnpoint[1].transform.position, Quaternion.identity);
         }
-        //if(waveCount == 1)
-        //{
-        //    _enemySpawnFrequency = Random.Range(2,5);
-        //    Debug.Log($"{_enemySpawnFrequency}");
-        //    if (Time.frameCount % (Application.targetFrameRate * _enemySpawnFrequency) == 0)
-        //    {
-        //      Instantiate(enemy[0], spawnpoint[0].transform.position, Quaternion.identity);
-        //    }
-        //}
-        //if (waveCount == 2)
-        //{
-        //    _enemySpawnFrequency= Random.Range(2,4);
-        //    Debug.Log($"{_enemySpawnFrequency}");
-        //    if (Time.frameCount % (Application.targetFrameRate * _enemySpawnFrequency) == 0)
-        //    {
-        //        Instantiate(enemy[0], spawnpoint[0].transform.position,Quaternion.identity);
-        //    }
-        //}
-        //if (waveCount == 3)
-        //{
-
-        //}
+        if (_hero.transform.position.x < spawnpoint[1].transform.position.x)
+        {
+            _isSpawning2 = false;
+        }
+        if (!_isSpawning1 && !_isSpawning2 && _hero.transform.position.x > spawnpoint[2].transform.position.x && Time.frameCount % (Application.targetFrameRate * 2) == 0)
+        {
+            Instantiate(enemy[2], spawnpoint[2].transform.position, Quaternion.identity);
+        }
     }
     /// <summary>
     /// ウェーブ切り替え機能
@@ -109,13 +80,11 @@ public class EnemySpawnpoint : MonoBehaviour
         timerText.text = "残り時間 " + _remainTime.ToString("D2") + " 秒";
         if (_remainTime <= 0)
         {
-            _hero._HouseEnter = true;
             _timer = _stageTimer;//Sを押すまでは残り時間を0秒にする
             Time.timeScale = 0;
             timerText.text = "Sを押してスタート";
             if (Input.GetKeyDown(KeyCode.S))
             {
-                _hero._HouseEnter = false;
                 _timer = 0;//Sを押したらタイマーを元通りに戻す
                 waveCount++;
                 Time.timeScale = 1;
