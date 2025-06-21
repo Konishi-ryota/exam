@@ -136,6 +136,20 @@ public class Hero : MonoBehaviour
         GameOverUI.SetActive(true);
         Time.timeScale = 0;
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Respawn")
+        {
+            _HouseEnter = true;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Respawn")
+        {
+            _HouseEnter = false;
+        }
+    }
     /// <summary>
     /// ’e‚ğŒ‚‚Â‚ÉŒÄ‚Î‚ê‚éƒƒ\ƒbƒh
     /// </summary>
