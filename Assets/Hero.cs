@@ -17,6 +17,7 @@ public class Hero : MonoBehaviour
     [SerializeField,Header("上からピストル、AR、SMG、SR")] int[] WeaponGold;
     [SerializeField] GameObject[] WeaponSelectUI;
     [SerializeField] GameObject[] Bullet;
+    [Header("上からピストル、AR、SMG、SR、回復")]
     [SerializeField] GameObject[] weaponList;
 
     [Header("プレイヤー設定")]
@@ -39,6 +40,7 @@ public class Hero : MonoBehaviour
     private float _SRTimer;
 
     [NonSerialized] public bool _HouseEnter;
+    private bool _isGround;
     private Enemy _enemy;
     private Bullet _bullet;
     #endregion
@@ -60,14 +62,27 @@ public class Hero : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
-        {
-            _rig.velocity = new Vector2(Input.GetAxis("Horizontal"), 0) * H_speed;
-        }
+
     }
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.D))
+        {
+            _rig.velocity += new Vector2(H_speed * Time.deltaTime, 0);
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            _rig.velocity -= new Vector2(H_speed * Time.deltaTime, 0); 
+        }
+        if (Input.GetKeyDown(KeyCode.W)&& _isGround)
+        {
+            _rig.velocity = new Vector2(0, 1);
+        }
+        if (Input.GetKeyDown(KeyCode.W) && _isGround)
+        {
+            _rig.AddForce(new Vector2(0, 350));
+        }
         if (Input.GetKeyDown(KeyCode.K) && Time.timeScale > 0)//武器切り替え
         {
             _PlayerIndex = (_PlayerIndex + 1) % weaponList.Length;
@@ -138,16 +153,16 @@ public class Hero : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Respawn")
+        if (collision.gameObject.tag == "Ground")
         {
-            _HouseEnter = true;
+            _isGround = true;
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Respawn")
+        if (collision.gameObject.tag == "Ground")
         {
-            _HouseEnter = false;
+            _isGround = false;
         }
     }
     /// <summary>
@@ -189,7 +204,7 @@ public class Hero : MonoBehaviour
     /// <returns></returns>
     private bool Checkbuy(int gold, ref int keycount)
     {
-        if (H_Gold > gold && keycount == 0)
+        if (H_Gold >= gold && keycount == 0)
         {
             keycount++;
             return true;
@@ -292,7 +307,7 @@ public class Hero : MonoBehaviour
     /// <returns></returns>
     IEnumerator UIfadeout(GameObject fadeoutUI)
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSecondsRealtime(3);
         fadeoutUI.SetActive(false);
     }
 }
