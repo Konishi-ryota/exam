@@ -9,7 +9,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int E_speed;
     [SerializeField] private int E_attack;
     [SerializeField] private int E_hp =10;
-    public int E_exp;
     public int E_Gold;
 
     private Hero _hero;
