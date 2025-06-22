@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 public class Hero : MonoBehaviour
@@ -58,13 +59,9 @@ public class Hero : MonoBehaviour
         _ARTimer = ARInterval;
         _SMGTimer = SMGInterval;
         _SMGTimer = SRInterval;
+        SetGold();
         //H_exp = enemy.E_exp;
         //H_Gold = enemy.E_Gold;  
-    }
-
-    private void FixedUpdate()
-    {
-
     }
     // Update is called once per frame
     void Update()
@@ -103,6 +100,7 @@ public class Hero : MonoBehaviour
         }
         if (_HouseEnter)//ショップを開く
         {
+            GoldUI.gameObject.SetActive(true);
             ShopUI[0].SetActive(true);
             ShopUI[1].SetActive(true);
             ShopUI[2].SetActive(true);
@@ -128,6 +126,7 @@ public class Hero : MonoBehaviour
         }
         else if (!_HouseEnter)//ショップを閉じる
         {
+            GoldUI.gameObject.SetActive(false);
             ShopUI[0].SetActive(false);
             ShopUI[1].SetActive(false);
             ShopUI[2].SetActive(false);
@@ -199,9 +198,8 @@ public class Hero : MonoBehaviour
         }
     }
     private void SetGold()
-    {
-        string st = H_Gold.ToString();
-        GoldUI.text = st;
+    { 
+        GoldUI.text ="所持金: " + H_Gold.ToString();
     }
     /// <summary>
     /// 買えるかどうかの判別をするためのメソッド
@@ -237,6 +235,7 @@ public class Hero : MonoBehaviour
     public void AddGold(int gold)
     {
         H_Gold += gold;
+        SetGold();
     }
     /// <summary>
     /// goldを減らすためのメソッド
@@ -245,6 +244,7 @@ public class Hero : MonoBehaviour
     public void DecreaseGold(int gold)
     {
         H_Gold -= gold;
+        SetGold();
         if (H_Gold <0)
         {
             H_Gold = 0;
