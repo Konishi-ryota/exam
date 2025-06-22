@@ -8,6 +8,8 @@ public class Hero : MonoBehaviour
     #region　変数
     [SerializeField] GameObject muzzle;
 
+
+    [SerializeField] Text GoldUI;
     [SerializeField] GameObject[] ShopUI;
     [SerializeField] GameObject[] WarningUI;
     [SerializeField] GameObject PauseUI;
@@ -195,6 +197,11 @@ public class Hero : MonoBehaviour
             Bullet[3].SetActive(true);
             _SRTimer = Time.time + SRInterval;
         }
+    }
+    private void SetGold()
+    {
+        string st = H_Gold.ToString();
+        GoldUI.text = st;
     }
     /// <summary>
     /// 買えるかどうかの判別をするためのメソッド
