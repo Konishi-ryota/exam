@@ -69,15 +69,15 @@ public class Hero : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.D))
         {
-            _rig.velocity += new Vector2(H_speed * Time.deltaTime, 0);
+            transform.position += new Vector3(H_speed * Time.deltaTime, 0);
         }
         if (Input.GetKey(KeyCode.A))
         {
-            _rig.velocity -= new Vector2(H_speed * Time.deltaTime, 0); 
+            transform.position -= new Vector3(H_speed * Time.deltaTime, 0); 
         }
         if (Input.GetKeyDown(KeyCode.W)&& _isGround)
         {
-            _rig.velocity = new Vector2(0, 1);
+            _rig.AddForce(new Vector2(0, 1));
         }
         if (Input.GetKeyDown(KeyCode.W) && _isGround)
         {
