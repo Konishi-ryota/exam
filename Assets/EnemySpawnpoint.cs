@@ -13,7 +13,7 @@ public class EnemySpawnpoint : MonoBehaviour
     private int _spawnrnd;
     private float _timer = 0;
     [NonSerialized] public int _remainTime;
-    private int waveCount = 1;
+    [SerializeField] private int waveCount = 1;
     private int RemainWaveCount;
     [SerializeField] int MaxWaveCount = 7;
     public int _stageTimer = 30;
@@ -46,7 +46,7 @@ public class EnemySpawnpoint : MonoBehaviour
     }
     private void EnemySpawn()
     {
-        if (waveCount == 1 || waveCount == 2)
+        if (waveCount == 1)
         {
             if (Time.frameCount % (Application.targetFrameRate * 2) == 0)
             {
@@ -54,38 +54,46 @@ public class EnemySpawnpoint : MonoBehaviour
                 Instantiate(enemy[0], spawnpoint[0].transform.position, Quaternion.identity);
             }
         }
-        if (waveCount == 3)
+        if (waveCount == 2)
         {
-            _enemySpawnFrequency = Random.Range(2, 5);
-            Debug.Log($"{_enemySpawnFrequency}");
-            if (Time.frameCount % (Application.targetFrameRate * _enemySpawnFrequency) == 0)
-            { 
+            if (Time.frameCount % (Application.targetFrameRate * 2) == 0)
+            {
+                Debug.Log("“G¶¬");
                 Instantiate(enemy[1], spawnpoint[1].transform.position, Quaternion.identity);
             }
         }
-        if (waveCount > 3 && MaxWaveCount != waveCount)
+        if (waveCount == 3)
         {
-            _enemySpawnFrequency = Random.Range(2, 5);
+            _enemySpawnFrequency = Random.Range(40,60);
             Debug.Log($"{_enemySpawnFrequency}");
-            if (Time.frameCount % (Application.targetFrameRate * _enemySpawnFrequency) == 0)
+            if (Time.frameCount % (Application.targetFrameRate /1.5) == 0)
             {
                 Instantiate(enemy[0], spawnpoint[0].transform.position, Quaternion.identity);
             }
-            if (Time.frameCount % (Application.targetFrameRate * _enemySpawnFrequency + 1) == 0)
+            if (Time.frameCount %  Application.targetFrameRate == 0)
             {
                 Instantiate(enemy[1], spawnpoint[1].transform.position, Quaternion.identity);
+            }
+        }
+        if (waveCount >= 4 && waveCount != MaxWaveCount)
+        {
+            if (Time.frameCount * _spawnrnd % Application.targetFrameRate == 0)
+            {
+                _spawnrnd = Random.Range(0, 2);
+                Instantiate(enemy[_spawnrnd], spawnpoint[0].transform.position, Quaternion.identity);
+            }
+            if ((Time.frameCount + 30) % Application.targetFrameRate == 0)
+            {
+                _spawnrnd = Random.Range(0, 3);
+                for (int i = 0; i < _spawnrnd; i++)
+                {
+                    Instantiate(enemy[1], spawnpoint[1].transform.position, Quaternion.identity);
+                }
             }
         }
         if (MaxWaveCount == waveCount)
         {
-            if (Time.frameCount % (Application.targetFrameRate * 0.5f) == 0)
-            {
-                Instantiate(enemy[0], spawnpoint[0].transform.position,Quaternion.identity);
-            }
-            if ((Time.frameCount + 1) % Application.targetFrameRate == 0)
-            {
-                Instantiate(enemy[1], spawnpoint[1].transform.position, Quaternion.identity);
-            }
+
         }
         //if(waveCount == 1)
         //{
