@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: 50
-  bulletAttackPower: 35
+  bulletAttackPower: 40
 --- !u!70 &-5615070431033467506
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
