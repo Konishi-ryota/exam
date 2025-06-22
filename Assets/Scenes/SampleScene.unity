@@ -724,12 +724,12 @@ MonoBehaviour:
   - {fileID: 754780141}
   - {fileID: 404931112}
   H_Gold: 0
-  H_hp: 1
+  H_hp: 100
   H_speed: 10
-  PistleInterval: 1
-  ARInterval: 0.5
+  PistleInterval: 0.8
+  ARInterval: 0.3
   SMGInterval: 0.1
-  SRInterval: 5
+  SRInterval: 1
 --- !u!50 &313564461
 Rigidbody2D:
   serializedVersion: 4
@@ -8441,6 +8441,7 @@ MonoBehaviour:
   enemy:
   - {fileID: 6427843290087721240, guid: 61ba59eeccdfa3443aa4c1cfdc3af8ec, type: 3}
   - {fileID: 6427843290087721240, guid: 61ba59eeccdfa3443aa4c1cfdc3af8ec, type: 3}
+  waveCount: 1
   MaxWaveCount: 7
   _stageTimer: 10
   timerText: {fileID: 168008870}
@@ -8977,7 +8978,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2247211399493995313, guid: 78d4390853a3c6f418cdae40eb534627, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.43
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 2247211399493995313, guid: 78d4390853a3c6f418cdae40eb534627, type: 3}
       propertyPath: m_LocalPosition.z
