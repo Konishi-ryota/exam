@@ -104,7 +104,7 @@ MonoBehaviour:
   E_speed: 5
   E_attack: 10
   E_hp: 100
-  E_Gold: 30
+  E_Gold: 35
 --- !u!50 &7949939924760103728
 Rigidbody2D:
   serializedVersion: 4
