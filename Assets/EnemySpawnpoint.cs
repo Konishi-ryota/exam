@@ -54,16 +54,6 @@ public class EnemySpawnpoint : MonoBehaviour
                 Instantiate(enemy[0], spawnpoint[0].transform.position, Quaternion.identity);
             }
         }
-        //if (waveCount < 3)
-        //{
-        //   RemainWaveCount = MaxWaveCount - waveCount;
-        //   _enemySpawnFrequency = Random.Range(2, RemainWaveCount);
-        //   Debug.Log($"{_enemySpawnFrequency}");
-        //      if (Time.frameCount % (Application.targetFrameRate * _enemySpawnFrequency) == 0)
-        //      {
-        //          Instantiate(enemy[0], spawnpoint[0].transform.position, Quaternion.identity);
-        //      }
-        //}
         if (waveCount == 3)
         {
             _enemySpawnFrequency = Random.Range(2, 5);
