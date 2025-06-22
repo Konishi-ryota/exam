@@ -79,8 +79,12 @@ public class EnemySpawnpoint : MonoBehaviour
         {
             if (Time.frameCount * _spawnrnd % Application.targetFrameRate == 0)
             {
+                _enemySpawnFrequency = Random.Range(1, 5);
                 _spawnrnd = Random.Range(0, 2);
-                Instantiate(enemy[_spawnrnd], spawnpoint[0].transform.position, Quaternion.identity);
+                for (int i = 0; i < _enemySpawnFrequency; i++)
+                {
+                    Instantiate(enemy[_spawnrnd], spawnpoint[0].transform.position, Quaternion.identity);
+                }
             }
             if ((Time.frameCount + 30) % Application.targetFrameRate == 0)
             {
@@ -131,7 +135,7 @@ public class EnemySpawnpoint : MonoBehaviour
             _hero._HouseEnter = true;
             _timer = _stageTimer;//Sを押すまでは残り時間を0秒にする
             Time.timeScale = 0;
-            timerText.text = "Sを押してスタート";
+            timerText.text = "Sを押して\nスタート";
             if (Input.GetKeyDown(KeyCode.S))
             {
                 _hero._HouseEnter = false;
