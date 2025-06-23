@@ -3,8 +3,6 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Rigidbody2D _rig = null;
-    public Transform spawnpoint = null;
-    [SerializeField] private GameObject enemy;
     [Header("EnemySettings")]
     [SerializeField] private int E_speed;
     [SerializeField] private int E_attack;
