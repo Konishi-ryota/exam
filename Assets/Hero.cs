@@ -18,10 +18,10 @@ public class Hero : MonoBehaviour
     [SerializeField] GameObject GameOverUI;
     [SerializeField] GameObject[] WeaponGameSceneUI;
 
-    [SerializeField,Header("上からピストル、AR、SMG、SR")] int[] WeaponGold;
+    [SerializeField,Header("上から、AR、SMG、SR、回復")] int[] WeaponGold;
     [SerializeField] GameObject[] WeaponSelectUI;
     [SerializeField] GameObject[] Bullet;
-    [Header("上からピストル、AR、SMG、SR、回復")]
+    [Header("上からピストル、AR、SMG、SR")]
     [SerializeField] GameObject[] weaponList;
 
     [Header("プレイヤー設定")]
@@ -43,6 +43,7 @@ public class Hero : MonoBehaviour
     private float _SMGTimer;
     private float _SRTimer;
 
+    Animator _animator;
     [NonSerialized] public bool _HouseEnter;
     private bool _isGround;
     private bool _isPause;
@@ -61,6 +62,7 @@ public class Hero : MonoBehaviour
         _ARTimer = ARInterval;
         _SMGTimer = SMGInterval;
         _SMGTimer = SRInterval;
+        _animator = GetComponent<Animator>();
         SetGold();
         //H_exp = enemy.E_exp;
         //H_Gold = enemy.E_Gold;  
@@ -68,20 +70,23 @@ public class Hero : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!Input.anyKey)
+        {
+            _animator.SetBool("Player_anim",false);
+        }
         if (Input.GetKey(KeyCode.D))
         {
             transform.position += new Vector3(H_speed * Time.deltaTime, 0);
+            _animator.SetBool("Player_anim", true);
         }
         if (Input.GetKey(KeyCode.A))
         {
-            transform.position -= new Vector3(H_speed * Time.deltaTime, 0); 
-        }
-        if (Input.GetKeyDown(KeyCode.W)&& _isGround)
-        {
-            _rig.AddForce(new Vector2(0, 1));
+            transform.position -= new Vector3(H_speed * Time.deltaTime, 0);
+            _animator.SetBool("Player_anim", true);
         }
         if (Input.GetKeyDown(KeyCode.W) && _isGround)
         {
+            _animator.SetTrigger("Jump");
             _rig.AddForce(new Vector2(0, 350));
         }
         if (Input.GetKeyDown(KeyCode.K) && Time.timeScale > 0)//武器切り替え
@@ -107,21 +112,21 @@ public class Hero : MonoBehaviour
             ShopUI[1].SetActive(true);
             ShopUI[2].SetActive(true);
             ShopUI[3].SetActive(true);
-            if (Input.GetKeyDown(KeyCode.Alpha1) && Checkbuy(WeaponGold[1], ref _ARcount))//ショップで武器を購入するためのやつ
+            if (Input.GetKeyDown(KeyCode.Alpha1) && Checkbuy(WeaponGold[0], ref _ARcount))//ショップで武器を購入するためのやつ
             {
-                DecreaseGold(WeaponGold[1]);
+                DecreaseGold(WeaponGold[0]);
                 Debug.Log($"{H_Gold}");
                 Buyweapon(WeaponGameSceneUI[0]);
             }
-            if (Input.GetKeyDown(KeyCode.Alpha2) && Checkbuy(WeaponGold[2], ref _SMGcount))
+            if (Input.GetKeyDown(KeyCode.Alpha2) && Checkbuy(WeaponGold[1], ref _SMGcount))
             {
-                DecreaseGold(WeaponGold[2]);
+                DecreaseGold(WeaponGold[1]);
                 Debug.Log($"{H_Gold}");
                 Buyweapon(WeaponGameSceneUI[1]);
             }
-            if (Input.GetKeyDown(KeyCode.Alpha3) && Checkbuy(WeaponGold[3], ref _SRcount))
+            if (Input.GetKeyDown(KeyCode.Alpha3) && Checkbuy(WeaponGold[2], ref _SRcount))
             {
-                DecreaseGold(WeaponGold[3]);
+                DecreaseGold(WeaponGold[2]);
                 Debug.Log($"{H_Gold}");
                 Buyweapon(WeaponGameSceneUI[2]);
             }
@@ -175,6 +180,7 @@ public class Hero : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             _isGround = false;
+            _animator.SetBool("Player_Jump", true);
         }
     }
     /// <summary>
