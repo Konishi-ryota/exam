@@ -18,6 +18,7 @@ public class EnemySpawnpoint : MonoBehaviour
     [SerializeField] int MaxWaveCount = 7;
     public int _stageTimer = 30;
     [SerializeField] Text timerText;
+    [SerializeField] Text WaveText;
     private Hero _hero;
     private int _enemySpawnFrequency;
 
@@ -25,6 +26,7 @@ public class EnemySpawnpoint : MonoBehaviour
     void Start()
     {
         _hero = FindAnyObjectByType<Hero>();
+        WaveText.text = $"今は{waveCount}ウェーブ目"; 
     }
 
     // Update is called once per frame
@@ -135,13 +137,23 @@ public class EnemySpawnpoint : MonoBehaviour
             _hero._HouseEnter = true;
             _timer = _stageTimer;//Sを押すまでは残り時間を0秒にする
             Time.timeScale = 0;
+            WaveText.text = $"次は{waveCount + 1}ウェーブ目";
             timerText.text = "Sを押して\nスタート";
+            if (waveCount == MaxWaveCount - 1)
+            {
+                WaveText.text = "次は最終ウェーブ";
+            }
             if (Input.GetKeyDown(KeyCode.S))
             {
                 _hero._HouseEnter = false;
                 _timer = 0;//Sを押したらタイマーを元通りに戻す
                 waveCount++;
+                WaveText.text = $"今は{waveCount}ウェーブ目";
                 Time.timeScale = 1;
+                if (waveCount == MaxWaveCount)
+                {
+                    WaveText.text = "今は最終ウェーブ";
+                }
             }
         }
     }
