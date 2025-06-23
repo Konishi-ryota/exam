@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Hero : MonoBehaviour
 {
@@ -44,6 +45,7 @@ public class Hero : MonoBehaviour
 
     [NonSerialized] public bool _HouseEnter;
     private bool _isGround;
+    private bool _isPause;
     private Enemy _enemy;
     private Bullet _bullet;
     #endregion
@@ -136,15 +138,24 @@ public class Hero : MonoBehaviour
         {
             PauseUI.SetActive(true);
             Time.timeScale = 0;
+            _isPause = true;
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
             PauseUI.SetActive(false);
             Time.timeScale = 1;
+            _isPause = false;
         }
         if (H_hp <= 0)
         {
             Destroy(this.gameObject);
+        }
+        if (_isPause)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                SceneManager.LoadScene("StartScene");
+            }
         }
     }
     private void OnDestroy()
