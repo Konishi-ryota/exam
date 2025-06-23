@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using TMPro;
 
 public class StartScene : MonoBehaviour
 {
-    [SerializeField] Text GameStartUI;
+    [SerializeField] TextMeshProUGUI GameStartUI;
+    [SerializeField] TextMeshProUGUI[] GameModeUI;
+    public static int Maxwave; 
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +19,24 @@ public class StartScene : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
+            GameStartUI.gameObject.SetActive(false);
+            GameModeUI[0].gameObject.SetActive(true);
+            GameModeUI[1].gameObject.SetActive(true);
+            GameModeUI[2].gameObject.SetActive(true);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Maxwave = 3;
+            SceneManager.LoadScene("SampleScene");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Maxwave = 5;
+            SceneManager.LoadScene("SampleScene");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Maxwave = 7;
             SceneManager.LoadScene("SampleScene");
         }
     }
