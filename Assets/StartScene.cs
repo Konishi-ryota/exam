@@ -17,12 +17,7 @@ public class StartScene : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            StartCoroutine(GameScene());
             SceneManager.LoadScene("SampleScene");
         }
-    }
-    IEnumerator GameScene()
-    {
-        yield return new WaitForSeconds(3);
     }
 }
