@@ -15,7 +15,7 @@ public class EnemySpawnpoint : MonoBehaviour
     [NonSerialized] public int _remainTime;
     [SerializeField] private int waveCount = 1;
     private int RemainWaveCount;
-    [SerializeField] int MaxWaveCount = 7;
+    private int MaxWaveCount = StartScene.Maxwave;
     public int _stageTimer = 30;
     [SerializeField] Text timerText;
     [SerializeField] Text WaveText;
@@ -26,6 +26,7 @@ public class EnemySpawnpoint : MonoBehaviour
     void Start()
     {
         _hero = FindAnyObjectByType<Hero>();
+        Debug.Log($"{MaxWaveCount}");
         WaveText.text = $"今は{waveCount}ウェーブ目"; 
     }
 
@@ -97,7 +98,7 @@ public class EnemySpawnpoint : MonoBehaviour
                 }
             }
         }
-        if (MaxWaveCount == waveCount)
+        if (MaxWaveCount == waveCount && MaxWaveCount == 7)
         {
 
         }
