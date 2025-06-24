@@ -11,7 +11,8 @@ public class Hero : MonoBehaviour
 
     [SerializeField] GameObject[] ShopUI;
     [SerializeField] GameObject[] WarningUI;
-    [SerializeField] Text GoldUI;
+    [SerializeField] Text GoldText;
+    [SerializeField] Text HPText;
     [SerializeField] GameObject PauseUI;
     [SerializeField] GameObject GameOverUI;
 
@@ -99,7 +100,7 @@ public class Hero : MonoBehaviour
         }
         if (_HouseEnter)//ショップを開く
         {
-            GoldUI.gameObject.SetActive(true);
+            GoldText.gameObject.SetActive(true);
             ShopUI[0].SetActive(true);
             ShopUI[1].SetActive(true);
             ShopUI[2].SetActive(true);
@@ -125,7 +126,7 @@ public class Hero : MonoBehaviour
         }
         else if (!_HouseEnter)//ショップを閉じる
         {
-            GoldUI.gameObject.SetActive(false);
+            GoldText.gameObject.SetActive(false);
             ShopUI[0].SetActive(false);
             ShopUI[1].SetActive(false);
             ShopUI[2].SetActive(false);
@@ -208,7 +209,7 @@ public class Hero : MonoBehaviour
     }
     private void SetGold()
     { 
-        GoldUI.text ="所持金: " + H_Gold.ToString();
+        GoldText.text ="所持金: " + H_Gold.ToString();
     }
     /// <summary>
     /// 買えるかどうかの判別をするためのメソッド
