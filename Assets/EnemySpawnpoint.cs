@@ -11,6 +11,7 @@ public class EnemySpawnpoint : MonoBehaviour
 
     private bool _isSpawning = true;
     private int _spawnrnd;
+    private int _secondSpawnrnd;
     private float _timer = 0;
     [NonSerialized] public int _remainTime;
     [SerializeField] private int waveCount = 1;
@@ -62,39 +63,33 @@ public class EnemySpawnpoint : MonoBehaviour
             if (Time.frameCount % (Application.targetFrameRate * 2) == 0)
             {
                 Debug.Log("“G¶¬");
-                Instantiate(enemy[1], spawnpoint[1].transform.position, Quaternion.identity);
+                Instantiate(enemy[2], spawnpoint[1].transform.position, Quaternion.identity);
             }
         }
         if (waveCount == 3)
         {
-            _enemySpawnFrequency = Random.Range(40,60);
-            Debug.Log($"{_enemySpawnFrequency}");
-            if (Time.frameCount % (Application.targetFrameRate /1.5) == 0)
+            if (Time.frameCount % (Application.targetFrameRate * 2) == 0)
             {
                 Instantiate(enemy[0], spawnpoint[0].transform.position, Quaternion.identity);
             }
-            if (Time.frameCount %  Application.targetFrameRate == 0)
+            if (Time.frameCount %  (Application.targetFrameRate * 2) == 0)
             {
-                Instantiate(enemy[1], spawnpoint[1].transform.position, Quaternion.identity);
+                Instantiate(enemy[2], spawnpoint[1].transform.position, Quaternion.identity);
             }
         }
         if (waveCount >= 4 && waveCount != MaxWaveCount)
         {
-            if (Time.frameCount * _spawnrnd % Application.targetFrameRate == 0)
+            if (Time.frameCount % Application.targetFrameRate == 0)
             {
-                _enemySpawnFrequency = Random.Range(1, 5);
                 _spawnrnd = Random.Range(0, 2);
-                for (int i = 0; i < _enemySpawnFrequency; i++)
-                {
-                    Instantiate(enemy[_spawnrnd], spawnpoint[0].transform.position, Quaternion.identity);
-                }
+                Instantiate(enemy[_spawnrnd], spawnpoint[0].transform.position, Quaternion.identity);
             }
-            if ((Time.frameCount + 30) % Application.targetFrameRate == 0)
+            if (Time.frameCount % (Application.targetFrameRate + 30) == 0)
             {
-                _spawnrnd = Random.Range(0, 3);
+                _secondSpawnrnd = Random.Range(0, 3);
                 for (int i = 0; i < _spawnrnd; i++)
                 {
-                    Instantiate(enemy[1], spawnpoint[1].transform.position, Quaternion.identity);
+                    Instantiate(enemy[_secondSpawnrnd], spawnpoint[1].transform.position, Quaternion.identity);
                 }
             }
         }
