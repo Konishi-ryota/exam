@@ -72,8 +72,4 @@ public class Enemy : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        _rig.constraints = RigidbodyConstraints2D.None;
-    }
 }
