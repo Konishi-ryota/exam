@@ -18,7 +18,7 @@
 /[Aa]ssets/[Ll]aser[Ww]eapons[Ss]ound[Pp]ack/
 /[Aa]ssets/[Aa]rcade[Gg]ame[Bb][Gg][Mm]/
 /[Aa]ssets/[Ss]kymonicon[Pp]ack[Ff]ree/
-/[Aa]ssets/[Ww]arped[Ss]ooting[Ff]x/
+/[Aa]ssets/[Ww]arped[Ss]hooting[Ff]x/
 *.log
 
 # By default unity supports Blender asset imports, *.blend1 blender files do not need to be commited to version control.
