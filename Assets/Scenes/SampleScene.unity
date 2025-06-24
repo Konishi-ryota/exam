@@ -8324,7 +8324,6 @@ RectTransform:
   - {fileID: 768080311}
   - {fileID: 1890013504}
   - {fileID: 1006839572}
-  - {fileID: 292108971}
   - {fileID: 1015908354}
   - {fileID: 519068454}
   - {fileID: 776611514}
@@ -8332,6 +8331,7 @@ RectTransform:
   - {fileID: 168008868}
   - {fileID: 2090968064}
   - {fileID: 554835482}
+  - {fileID: 292108971}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -8623,7 +8623,9 @@ MonoBehaviour:
   - {fileID: 1628070809}
   enemy:
   - {fileID: 6427843290087721240, guid: 61ba59eeccdfa3443aa4c1cfdc3af8ec, type: 3}
-  - {fileID: 6427843290087721240, guid: 61ba59eeccdfa3443aa4c1cfdc3af8ec, type: 3}
+  - {fileID: 930629086366423101, guid: 85035ea0bb8ed434e80412470f96b882, type: 3}
+  - {fileID: 6053770471605341738, guid: 77cd3d5e4639f694ea08a53eaac8a253, type: 3}
+  - {fileID: 7743772630491680418, guid: 8d438e386e63e104c94036d3b1132e53, type: 3}
   waveCount: 1
   _stageTimer: 10
   timerText: {fileID: 168008870}
