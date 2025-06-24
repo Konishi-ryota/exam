@@ -59,6 +59,7 @@ public class Hero : MonoBehaviour
         _SMGTimer = SRInterval;
         _animator = GetComponent<Animator>();
         SetGold(); 
+        SetHP();
     }
     // Update is called once per frame
     void Update()
@@ -210,6 +211,10 @@ public class Hero : MonoBehaviour
     private void SetGold()
     { 
         GoldText.text ="所持金: " + H_Gold.ToString();
+    }
+    public void SetHP()
+    {
+        HPText.text = "残りHP" + H_hp.ToString();
     }
     /// <summary>
     /// 買えるかどうかの判別をするためのメソッド
