@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -8607102791526403449}
   m_Layer: 0
   m_Name: Enemy2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,6 +104,8 @@ MonoBehaviour:
   E_attack: 30
   E_hp: 10
   E_Gold: 0
+  HouseHPText: {fileID: 0}
+  MaxHouseHP: 0
 --- !u!95 &-2333669996264385260
 Animator:
   serializedVersion: 5

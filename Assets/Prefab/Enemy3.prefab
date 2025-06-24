@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -2052292502679485113}
   m_Layer: 0
   m_Name: Enemy3
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,6 +104,8 @@ MonoBehaviour:
   E_attack: 25
   E_hp: 10
   E_Gold: 0
+  HouseHPText: {fileID: 0}
+  MaxHouseHP: 0
 --- !u!61 &5541068245705949941
 BoxCollider2D:
   m_ObjectHideFlags: 0
