@@ -100,10 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 490d1f57a69ebd044af7b5d6a17cbb87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnpoint: {fileID: 0}
-  enemy: {fileID: 6053770471605341738}
   E_speed: 3
-  E_attack: 0
+  E_attack: 25
   E_hp: 10
   E_Gold: 0
 --- !u!61 &5541068245705949941
