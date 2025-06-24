@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -10,15 +9,14 @@ public class Hero : MonoBehaviour
     #region　変数
     [SerializeField] GameObject muzzle;
 
-
-    [SerializeField] Text GoldUI;
     [SerializeField] GameObject[] ShopUI;
     [SerializeField] GameObject[] WarningUI;
+    [SerializeField] Text GoldUI;
     [SerializeField] GameObject PauseUI;
     [SerializeField] GameObject GameOverUI;
-    [SerializeField] GameObject[] WeaponGameSceneUI;
 
     [SerializeField,Header("上から、AR、SMG、SR、回復")] int[] WeaponGold;
+    [SerializeField] GameObject[] WeaponGameSceneUI;
     [SerializeField] GameObject[] WeaponSelectUI;
     [SerializeField] GameObject[] Bullet;
     [Header("上からピストル、AR、SMG、SR")]
@@ -26,7 +24,7 @@ public class Hero : MonoBehaviour
 
     [Header("プレイヤー設定")]
     [SerializeField] private int H_Gold;
-    [SerializeField] public int H_hp;
+    public int H_hp;
     [SerializeField] private int H_speed;
     [SerializeField] float PistleInterval;
     [SerializeField] float ARInterval;
@@ -37,18 +35,16 @@ public class Hero : MonoBehaviour
     private int _SMGcount = 0;
     private int _SRcount = 0;
     [NonSerialized] public int _PlayerIndex = 0;
-    private Rigidbody2D _rig = null;
     private float _PistleTimer;
     private float _ARTimer;  
     private float _SMGTimer;
     private float _SRTimer;
 
-    Animator _animator;
+    private Rigidbody2D _rig = null;
+    private Animator _animator;
     [NonSerialized] public bool _HouseEnter;
     private bool _isGround;
     private bool _isPause;
-    private Enemy _enemy;
-    private Bullet _bullet;
     #endregion
 
 
@@ -56,16 +52,12 @@ public class Hero : MonoBehaviour
     void Start()
     {
         _rig = GetComponent<Rigidbody2D>();
-        _enemy =FindAnyObjectByType<Enemy>();
-        _bullet = FindAnyObjectByType<Bullet>();
         _PistleTimer =PistleInterval;
         _ARTimer = ARInterval;
         _SMGTimer = SMGInterval;
         _SMGTimer = SRInterval;
         _animator = GetComponent<Animator>();
-        SetGold();
-        //H_exp = enemy.E_exp;
-        //H_Gold = enemy.E_Gold;  
+        SetGold(); 
     }
     // Update is called once per frame
     void Update()
