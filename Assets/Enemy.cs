@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private Rigidbody2D _rig = null;
     [Header("EnemySettings")]
     [SerializeField] private int E_speed;
     [SerializeField] private int E_attack;
     [SerializeField] private int E_hp =10;
     public int E_Gold;
 
+    private Rigidbody2D _rig = null;
     private Hero _hero;
     private Bullet _bullet;
     private EnemySpawnpoint _spawn;
