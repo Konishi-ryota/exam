@@ -7,6 +7,7 @@ TagManager:
   - Hero
   - bullet
   - Ground
+  - Enemy
   layers:
   - Default
   - TransparentFX
