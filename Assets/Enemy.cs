@@ -65,6 +65,7 @@ public class Enemy : MonoBehaviour
             _rig.constraints = RigidbodyConstraints2D.FreezePositionX;
             _hero.H_hp = _hero.H_hp - E_attack;
             Debug.Log($"remain {_hero.H_hp} player health");
+            _hero.SetHP();
             Destroy(this.gameObject);
         }
         if (collision.gameObject.tag == "Respawn")
