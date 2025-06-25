@@ -28,7 +28,7 @@ public class EnemySpawnpoint : MonoBehaviour
     {
         _isCleared = false;
         _hero = FindAnyObjectByType<Hero>();
-        Debug.Log($"{MaxWaveCount}");
+        Debug.Log($"{MaxWaveCount}+ 1");
         Debug.Log($"{Application.targetFrameRate}");
         WaveText.text = $"今は{waveCount}ウェーブ目"; 
     }
@@ -50,14 +50,19 @@ public class EnemySpawnpoint : MonoBehaviour
             _isSpawning= true;
         }
     }
+    /// <summary>
+    /// 敵生成の処理
+    /// </summary>
     private void EnemySpawn()
     {
+        //本当は１～４、4～7くらいでまとめたかったけど断念
         if (waveCount == 1)
         {
-            if (Time.frameCount % (Application.targetFrameRate * 6) == 0)
+            if (Time.frameCount % (Application.targetFrameRate * 6) == 0)//6秒ごとに一体
             {
                 Debug.Log("敵生成");
                 Instantiate(enemy[0], spawnpoint[0].transform.position, Quaternion.identity);
+                //enemy配列の最初の敵を、spawnpointの最初の場所から、回転させずに生成
             }
         }
         if (waveCount == 2)
@@ -83,7 +88,7 @@ public class EnemySpawnpoint : MonoBehaviour
         {
             if (Time.frameCount % (Application.targetFrameRate * 4) == 0)
             {
-                _spawnrnd = Random.Range(0, 2);
+                _spawnrnd = Random.Range(0, 2);//出てくる敵をランダムで決定
                 Instantiate(enemy[_spawnrnd], spawnpoint[0].transform.position, Quaternion.identity);
             }
             if (Time.frameCount % (Application.targetFrameRate * 5) == 0)
@@ -137,40 +142,47 @@ public class EnemySpawnpoint : MonoBehaviour
     /// </summary>
     private void WaveSetting()
     {
-        _timer += Time.deltaTime;
-        _remainTime = _stageTimer - (int)_timer;
+        _timer += Time.deltaTime; //タイマーに1f分の秒数を足す
+        _remainTime = _stageTimer - (int)_timer;//(int)でfloatをint型に(キャスト)
+        //1ウェーブの秒数から引いていく
         timerText.text = "残り時間 " + _remainTime.ToString("D2") + " 秒";
-        if (_remainTime <= 0 && waveCount != MaxWaveCount)
+        //それを表示することでタイマーにになる
+        if (_remainTime <= 0 && waveCount != MaxWaveCount)//残り時間が0の時
         {
-            _hero._HouseEnter = true;
-            _timer = _stageTimer;//Sを押すまでは残り時間を0秒にする
-            Time.timeScale = 0;
-            WaveText.text = $"次は{waveCount + 1}ウェーブ目";
-            timerText.text = "Sを押して\nスタート";
+            //if (waveCount == MaxWaveCount)
+            //{
+            //    GameClearUI.SetActive(true);ゲームクリア処理を行う
+            //    _isCleared = true;
+            //    Time.timeScale = 0;
+            //}
+            //このやり方だとSキーを押して元に戻っちゃうから駄目だった
+                _hero._HouseEnter = true;//ショップを開く
+                Time.timeScale = 0;
+                WaveText.text = $"次は{waveCount + 1}ウェーブ目";
+                timerText.text = "Sを押して\nスタート";//\nで改行
             if (waveCount == MaxWaveCount - 1)
             {
-                WaveText.text = "次は最終ウェーブ";
+                WaveText.text = "次は最終ウェーブ";//ウェーブ数が最大より一個少なかったら文字変更
             }
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.S))//Sを押したらリスタート
             {
                 _hero._HouseEnter = false;
-                _timer = 0;//Sを押したらタイマーを元通りに戻す
-                waveCount++;
-                WaveText.text = $"今は{waveCount}ウェーブ目";
+                _timer = 0;//足したdeltaTimeを0にし、また最初から
+                waveCount++;//ウェーブ数を一個増やす
                 Time.timeScale = 1;
+                WaveText.text = $"今は{waveCount}ウェーブ目";
                 if (waveCount == MaxWaveCount)
+                //Sを押したタイミングでウェーブ数が最大ウェーブ数と同じになったら
                 {
                     WaveText.text = "今は最終ウェーブ";
-                    StartCoroutine(EndGame());
                 }
             }
         }
-    }
-    IEnumerator EndGame()
-    {
-        yield return new WaitForSeconds(_stageTimer);
-        GameClearUI.SetActive(true);
-        _isCleared = true;
-        Time.timeScale = 0;
+        else if(_remainTime <= 0 && waveCount == MaxWaveCount)
+        {
+            GameClearUI.SetActive(true);//ゲームクリア処理を行う
+            _isCleared = true;
+            Time.timeScale = 0;
+        }
     }
 }
