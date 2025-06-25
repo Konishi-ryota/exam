@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class House : MonoBehaviour
@@ -10,12 +11,10 @@ public class House : MonoBehaviour
     public int _enemyIn;
 
     private Hero _hero;
-    private EnemySpawnpoint _enemySpawnpoint;
 
     void Start()
     {
         _hero = FindAnyObjectByType<Hero>();
-        _enemySpawnpoint = FindAnyObjectByType<EnemySpawnpoint>();
         SetHouseHP();
     }
     void Update()
@@ -28,6 +27,19 @@ public class House : MonoBehaviour
         {
             HouseHPText.gameObject.SetActive(true);
         }
+        if (_hero._isDead)
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                Debug.Log("Back StartScene");
+                SceneManager.LoadScene("StartScene");
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                Time.timeScale = 1;
+            }
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -39,6 +51,6 @@ public class House : MonoBehaviour
     }
     public void SetHouseHP()
     {
-        HouseHPText.text = "Žc‚è‚Ì‘Ï‹v’l " + $"{HouseHP - _enemyIn}";
+        HouseHPText.text = "‰Æ‚Ì‘Ï‹v’l " + $"{HouseHP - _enemyIn}";
     }
 }
