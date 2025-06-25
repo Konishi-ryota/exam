@@ -1,21 +1,14 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public class StartScene : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI GameStartUI;
-    [SerializeField] TextMeshProUGUI[] GameModeUI;
+    [SerializeField] GameObject GameStartUI;
+    [SerializeField] GameObject[] GameModeUI;
     [SerializeField] GameObject StartImage;
     [SerializeField] GameObject SetExplainUI;
     [SerializeField] GameObject ExplainImage;
     public static int Maxwave; 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -23,23 +16,25 @@ public class StartScene : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W))
         {
             ExplainImage.SetActive(true);
+            GameStartUI.SetActive(false);
+            SetExplainUI.SetActive(false);
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
             ExplainImage.SetActive(false);
-            GameModeUI[0].gameObject.SetActive(false);
-            GameModeUI[1].gameObject.SetActive(false);
-            GameModeUI[2].gameObject.SetActive(false);
-            GameStartUI.gameObject.SetActive(true);
-            SetExplainUI.gameObject.SetActive(true);
+            GameModeUI[0].SetActive(false);
+            GameModeUI[1].SetActive(false);
+            GameModeUI[2].SetActive(false);
+            GameStartUI.SetActive(true);
+            SetExplainUI.SetActive(true);
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            GameStartUI.gameObject.SetActive(false);
-            SetExplainUI.gameObject.SetActive(false);
-            GameModeUI[0].gameObject.SetActive(true);
-            GameModeUI[1].gameObject.SetActive(true);
-            GameModeUI[2].gameObject.SetActive(true);
+            GameStartUI.SetActive(false);
+            SetExplainUI.SetActive(false);
+            GameModeUI[0].SetActive(true);
+            GameModeUI[1].SetActive(true);
+            GameModeUI[2].SetActive(true);
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
