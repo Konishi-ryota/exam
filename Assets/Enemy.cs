@@ -43,34 +43,38 @@ public class Enemy : MonoBehaviour
             _bullet = FindAnyObjectByType<Bullet>();
             E_hp = E_hp - _bullet.bulletAttackPower;
             Destroy(collision.gameObject); //íeä€è¡Ç∑
-
-            if (E_hp <= 0)
-            {
-                Debug.Log($"death {gameObject.name}");
-
-                if (_hero)
-                {
-                    _hero.AddGold(E_Gold); //ÉSÅ[ÉãÉhÇëùÇ‚Ç∑
-                }
-
-                Destroy(this.gameObject);
-            }
-            else
-            {
-                Debug.Log($"remain {gameObject.name} health : {E_hp}");
-            }
+            EnemyDeath();
+        }
+        if (collision.gameObject.tag == "Pulse")
+        {
+            _bullet = FindAnyObjectByType<Bullet>();
+            E_hp = E_hp - _bullet.bulletAttackPower;
+            EnemyDeath();
         }
         if (collision.gameObject.tag == "Player")
         {
-            _rig.constraints = RigidbodyConstraints2D.FreezePositionX;
-            _hero.H_hp = _hero.H_hp - E_attack;
-            Debug.Log($"remain {_hero.H_hp} player health");
+            _hero.H_HP -= E_attack;
+            E_hp -=E_hp;
+            Debug.Log($"remain {_hero.H_HP} player health");
             _hero.SetHP();
-            Destroy(this.gameObject);
+            EnemyDeath();
         }
         if (collision.gameObject.tag == "Respawn")
         {
             Destroy(this.gameObject);
+        }
+    }
+    private void EnemyDeath()
+    {
+        if (E_hp <= 0)
+        {
+            Debug.Log($"death {gameObject.name}");
+            Destroy(this.gameObject);
+            _hero.AddGold(E_Gold);//ÉSÅ[ÉãÉhëùÇ‚Ç∑
+        }
+        else
+        {
+            Debug.Log($"remain {gameObject.name} health : {E_hp}");
         }
     }
 }
