@@ -3,7 +3,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [Header("EnemySettings")]
-    [SerializeField] private int E_speed;
+    [SerializeField] private float E_speed;
     [SerializeField] private int E_attack;
     [SerializeField] private int E_hp =10;
     public int E_Gold;
