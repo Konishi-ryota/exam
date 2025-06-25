@@ -7,15 +7,11 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
-
+        Destroy(gameObject,2);
     }
     // Update is called once per frame
     void Update()
     {
         transform.Translate(-bulletSpeed * Time.deltaTime, 0,0);
-    }
-    private void OnBecameInvisible()
-    {
-        Destroy(gameObject);
     }
 }
