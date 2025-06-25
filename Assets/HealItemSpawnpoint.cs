@@ -33,7 +33,7 @@ public class HealItemSpawnpoint : MonoBehaviour
     }
     IEnumerator Spawnbool()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(_enemySpawnpoint._stageTimer);
         _isSpawned = false;
     }
 }
