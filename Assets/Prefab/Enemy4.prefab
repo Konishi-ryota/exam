@@ -172,9 +172,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 490d1f57a69ebd044af7b5d6a17cbb87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  E_speed: 6
+  E_speed: 4
   E_attack: 10
-  E_hp: 75
+  E_hp: 40
   E_Gold: 30
 --- !u!95 &5855560429819692842
 Animator:

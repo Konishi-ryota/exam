@@ -100,10 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 490d1f57a69ebd044af7b5d6a17cbb87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  E_speed: 5
+  E_speed: 3
   E_attack: 30
-  E_hp: 150
-  E_Gold: 50
+  E_hp: 120
+  E_Gold: 40
 --- !u!95 &-2333669996264385260
 Animator:
   serializedVersion: 5
