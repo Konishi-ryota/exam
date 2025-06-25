@@ -48,6 +48,8 @@ public class Hero : MonoBehaviour
     private Rigidbody2D _rig = null;
     private Animator _animator;
     private AudioSource _audio;
+    private House _house;
+    private EnemySpawnpoint _enemySpawnpoint;
     [NonSerialized] public bool _HouseEnter;
     private bool _isGround;
     private bool _isPause;
@@ -59,11 +61,13 @@ public class Hero : MonoBehaviour
     {
         _rig = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _audio = GetComponent<AudioSource>();
+        _house = FindAnyObjectByType<House>();
+        _enemySpawnpoint = FindAnyObjectByType<EnemySpawnpoint>();
         _PistleTimer =PistleInterval;
         _ARTimer = ARInterval;
         _SMGTimer = SMGInterval;
         _SMGTimer = SRInterval;
-        _audio = GetComponent<AudioSource>();
         SetGold(); 
         SetHP();
     }
@@ -153,9 +157,12 @@ public class Hero : MonoBehaviour
             Time.timeScale = 1;
             _isPause = false;
         }
-        if (H_HP <= 0)
+        if (H_HP <= 0 || _house.HouseHP == _house._enemyIn)
         {
             Destroy(this.gameObject);
+            GameOverUI.SetActive(true);
+            Time.timeScale = 0;
+            GameOverWaveText.text = $"{_enemySpawnpoint.waveCount}" + "ウェーブクリア！！";
         }
         if (_isPause)
         {
