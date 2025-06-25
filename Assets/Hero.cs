@@ -16,7 +16,6 @@ public class Hero : MonoBehaviour
     [SerializeField] Text GoldText;
     [SerializeField] Text HPText;
     [SerializeField] Text GameOverWaveText;
-    [SerializeField] GameObject PauseUI;
     [SerializeField] GameObject GameOverUI;
     [SerializeField] GameObject GameClearUI;
 
@@ -52,7 +51,7 @@ public class Hero : MonoBehaviour
     private EnemySpawnpoint _enemySpawnpoint;
     [NonSerialized] public bool _HouseEnter;
     private bool _isGround;
-    private bool _isPause;
+    public bool _isDead;
     #endregion
 
 
@@ -64,6 +63,7 @@ public class Hero : MonoBehaviour
         _audio = GetComponent<AudioSource>();
         _house = FindAnyObjectByType<House>();
         _enemySpawnpoint = FindAnyObjectByType<EnemySpawnpoint>();
+        Time.timeScale = 1;
         _PistleTimer =PistleInterval;
         _ARTimer = ARInterval;
         _SMGTimer = SMGInterval;
@@ -145,30 +145,24 @@ public class Hero : MonoBehaviour
             ShopUI[2].SetActive(false);
             ShopUI[3].SetActive(false);
         }
-        if (Input.GetKeyDown(KeyCode.P))//ポーズ
-        {
-            PauseUI.SetActive(true);
-            Time.timeScale = 0;
-            _isPause = true;
-        }
-        if (Input.GetKeyDown(KeyCode.S) && _isPause)
-        {
-            PauseUI.SetActive(false);
-            Time.timeScale = 1;
-            _isPause = false;
-        }
         if (H_HP <= 0 || _house.HouseHP == _house._enemyIn)
         {
             Destroy(this.gameObject);
             GameOverUI.SetActive(true);
             Time.timeScale = 0;
-            GameOverWaveText.text = $"{_enemySpawnpoint.waveCount}" + "ウェーブクリア！！";
+            GameOverWaveText.text = $"{_enemySpawnpoint.waveCount - 1}" + "ウェーブクリア！！";
+            _isDead = true;
         }
-        if (_isPause)
+
+        if (_enemySpawnpoint._isCleared)
         {
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 SceneManager.LoadScene("StartScene");
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
         }
     }
@@ -264,7 +258,7 @@ public class Hero : MonoBehaviour
     public void AddGold(int gold)
     {
         H_Gold += gold;
-        Debug.Log($"{H_Gold}");
+        Debug.Log($"今の所持金:{H_Gold}");
         SetGold();
     }
     /// <summary>
@@ -344,7 +338,7 @@ public class Hero : MonoBehaviour
     /// <returns></returns>
     IEnumerator UIfadeout(GameObject fadeoutUI)
     {
-        yield return new WaitForSecondsRealtime(3);
+        yield return new WaitForSecondsRealtime(2);
         fadeoutUI.SetActive(false);
     }
 }
