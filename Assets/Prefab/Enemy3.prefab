@@ -102,10 +102,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   E_speed: 3
   E_attack: 25
-  E_hp: 10
-  E_Gold: 0
-  HouseHPText: {fileID: 0}
-  MaxHouseHP: 0
+  E_hp: 75
+  E_Gold: 20
 --- !u!61 &5541068245705949941
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -177,7 +175,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 6
 --- !u!95 &-2052292502679485113
 Animator:
   serializedVersion: 5
