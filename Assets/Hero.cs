@@ -9,23 +9,27 @@ public class Hero : MonoBehaviour
     #region　変数
     [SerializeField] GameObject muzzle;
 
+    [SerializeField] AudioClip[] ShotSE;
+
     [SerializeField] GameObject[] ShopUI;
     [SerializeField] GameObject[] WarningUI;
     [SerializeField] Text GoldText;
     [SerializeField] Text HPText;
+    [SerializeField] Text GameOverWaveText;
     [SerializeField] GameObject PauseUI;
     [SerializeField] GameObject GameOverUI;
+    [SerializeField] GameObject GameClearUI;
 
-    [SerializeField,Header("上から、AR、SMG、SR、回復")] int[] WeaponGold;
+    [SerializeField,Header("上から、Spark、Waveform、Pulse")] int[] WeaponGold;
     [SerializeField] GameObject[] WeaponGameSceneUI;
     [SerializeField] GameObject[] WeaponSelectUI;
     [SerializeField] GameObject[] Bullet;
-    [Header("上からピストル、AR、SMG、SR")]
+    [Header("上からBolt、Spark、Waveform、Pulse")]
     [SerializeField] GameObject[] weaponList;
 
     [Header("プレイヤー設定")]
+    public int H_HP;
     [SerializeField] private int H_Gold;
-    public int H_hp;
     [SerializeField] private int H_speed;
     [SerializeField] float PistleInterval;
     [SerializeField] float ARInterval;
@@ -43,6 +47,7 @@ public class Hero : MonoBehaviour
 
     private Rigidbody2D _rig = null;
     private Animator _animator;
+    private AudioSource _audio;
     [NonSerialized] public bool _HouseEnter;
     private bool _isGround;
     private bool _isPause;
@@ -53,18 +58,19 @@ public class Hero : MonoBehaviour
     void Start()
     {
         _rig = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
         _PistleTimer =PistleInterval;
         _ARTimer = ARInterval;
         _SMGTimer = SMGInterval;
         _SMGTimer = SRInterval;
-        _animator = GetComponent<Animator>();
+        _audio = GetComponent<AudioSource>();
         SetGold(); 
         SetHP();
     }
     // Update is called once per frame
     void Update()
     {
-        if (!Input.anyKey)
+        if (!Input.GetKey(KeyCode.D) || !Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.W))
         {
             _animator.SetBool("Player_anim",false);
         }
@@ -72,13 +78,15 @@ public class Hero : MonoBehaviour
         {
             transform.position += new Vector3(H_speed * Time.deltaTime, 0);
             _animator.SetBool("Player_anim", true);
+            transform.rotation = Quaternion.Euler(0,180,0);
         }
         if (Input.GetKey(KeyCode.A))
         {
             transform.position -= new Vector3(H_speed * Time.deltaTime, 0);
             _animator.SetBool("Player_anim", true);
+            transform.rotation = Quaternion.Euler(0,0,0);
         }
-        if (Input.GetKeyDown(KeyCode.W) && _isGround)
+        if (Input.GetKeyDown(KeyCode.W) && _isGround && Time.timeScale != 0)
         {
             _animator.SetTrigger("Jump");
             _rig.AddForce(new Vector2(0, 350));
@@ -139,13 +147,13 @@ public class Hero : MonoBehaviour
             Time.timeScale = 0;
             _isPause = true;
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) && _isPause)
         {
             PauseUI.SetActive(false);
             Time.timeScale = 1;
             _isPause = false;
         }
-        if (H_hp <= 0)
+        if (H_HP <= 0)
         {
             Destroy(this.gameObject);
         }
@@ -156,11 +164,6 @@ public class Hero : MonoBehaviour
                 SceneManager.LoadScene("StartScene");
             }
         }
-    }
-    private void OnDestroy()
-    {
-        GameOverUI.SetActive(true);
-        Time.timeScale = 0;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -184,26 +187,30 @@ public class Hero : MonoBehaviour
     {
         if (_PlayerIndex == 0 && _PistleTimer < Time.time)//delta.timeを足し続けるよりもtimeで必要な時だけ呼び出した方が軽い
         {
-            Instantiate(Bullet[0],muzzle.transform.position,Quaternion.identity);
+            Instantiate(Bullet[0],muzzle.transform.position,transform.rotation);
+            _audio.PlayOneShot(ShotSE[0]);
             Bullet[0].SetActive(true);
             _PistleTimer = Time.time + PistleInterval;//if文が呼ばれたら、timeにインターバルを足してピストルタイマーに代入
             　　　　　　　　　　　　　　　　　　　　　//一時的にtimeよりもタイマーの方がインターバル時間分大きくなるため、ちゃんと機能する
         }
         if (_PlayerIndex == 1 && _ARTimer < Time.time && _ARcount > 0)
         {
-            Instantiate(Bullet[1], muzzle.transform.position, Quaternion.identity);
+            Instantiate(Bullet[1], muzzle.transform.position, transform.rotation);//キャラが向いている方向に弾を発射
+            _audio.PlayOneShot(ShotSE[1]);
             Bullet[1].SetActive(true);
             _ARTimer = Time.time + ARInterval;
         }
         if (_PlayerIndex == 2 && _SMGTimer < Time.time && _SMGcount > 0)
         {
-            Instantiate(Bullet[2], muzzle.transform.position, Quaternion.identity);
+            Instantiate(Bullet[2], muzzle.transform.position, transform.rotation);
+            _audio.PlayOneShot(ShotSE[2]);
             Bullet[2].SetActive(true);
             _SMGTimer = Time.time + SMGInterval;
         }
         if (_PlayerIndex == 3 && _SRTimer < Time.time && _SRcount > 0)
         {
-            Instantiate(Bullet[3], muzzle.transform.position, Quaternion.identity);
+            Instantiate(Bullet[3], muzzle.transform.position, transform.rotation);
+            _audio.PlayOneShot(ShotSE[3]);
             Bullet[3].SetActive(true);
             _SRTimer = Time.time + SRInterval;
         }
@@ -214,7 +221,7 @@ public class Hero : MonoBehaviour
     }
     public void SetHP()
     {
-        HPText.text = "残りHP" + H_hp.ToString();
+        HPText.text = "残りHP:" + H_HP.ToString();
     }
     /// <summary>
     /// 買えるかどうかの判別をするためのメソッド
@@ -250,6 +257,7 @@ public class Hero : MonoBehaviour
     public void AddGold(int gold)
     {
         H_Gold += gold;
+        Debug.Log($"{H_Gold}");
         SetGold();
     }
     /// <summary>
