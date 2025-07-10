@@ -19,9 +19,9 @@ public class House : MonoBehaviour
     }
     void Update()
     {
-        if (_hero._HouseEnter)
+        if (_hero._HouseEnter)//ショップを開いたら
         {
-            HouseHPText.gameObject.SetActive(false);
+            HouseHPText.gameObject.SetActive(false);//家の耐久値を見えなくする
         }
         else
         {
@@ -32,16 +32,15 @@ public class House : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 Debug.Log("Back StartScene");
-                SceneManager.LoadScene("StartScene");
+                SceneManager.LoadScene("StartScene");//シーン遷移
             }
             if (Input.GetKeyDown(KeyCode.R))
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                Time.timeScale = 1;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);//シーンを再ロード
             }
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
@@ -49,6 +48,9 @@ public class House : MonoBehaviour
             SetHouseHP();
         }
     }
+    /// <summary>
+    /// 家の耐久値を決めるメソッド
+    /// </summary>
     public void SetHouseHP()
     {
         HouseHPText.text = "家の耐久値 " + $"{HouseHP - _enemyIn}";
