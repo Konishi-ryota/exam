@@ -119,7 +119,7 @@ public class Hero : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && Time.timeScale > 0)
             //スペースを押したときに時間が止まってなかったら
         {
-            bulletshot();//弾を撃つ
+            BulletShot();//弾を撃つ
         }
         if (_HouseEnter)//ショップを開く
         {
@@ -192,7 +192,7 @@ public class Hero : MonoBehaviour
     /// <summary>
     /// 弾を撃つ時に呼ばれるメソッド
     /// </summary>
-    public void bulletshot()
+    public void BulletShot()
     {
         if (_bulletIndex == 0 && _PistleTimer < Time.time)
             //delta.timeを足し続けるよりもtimeで必要な時だけ呼び出した方が軽い
@@ -304,9 +304,9 @@ public class Hero : MonoBehaviour
     /// </summary>
     public void WeaponSelecter()
     {
-        if (_bulletIndex == 0)
+        if (_bulletIndex == 0)//0の時
         {
-            WeaponSelectUI[0].SetActive(true);
+            WeaponSelectUI[0].SetActive(true);//一個目の選択UIを表示、それ以外を非表示
             WeaponSelectUI[1].SetActive(false);
             WeaponSelectUI[2].SetActive(false);
             WeaponSelectUI[3].SetActive(false);
@@ -317,10 +317,10 @@ public class Hero : MonoBehaviour
             WeaponSelectUI[1].SetActive(true);
             WeaponSelectUI[2].SetActive(false);
             WeaponSelectUI[3].SetActive(false);
-            if (_ARcount == 0)
+            if (_ARcount == 0)//購入していなかったら
             {
                 WarningUI[2].SetActive(true);
-                StartCoroutine(UIfadeout(WarningUI[2]));
+                StartCoroutine(UIfadeout(WarningUI[2]));//警告UIを表示、2秒後に非表示
             }
         }
         if (_bulletIndex == 2)
