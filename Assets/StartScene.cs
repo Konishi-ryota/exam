@@ -8,7 +8,8 @@ public class StartScene : MonoBehaviour
     [SerializeField] GameObject StartImage;
     [SerializeField] GameObject SetExplainUI;
     [SerializeField] GameObject ExplainImage;
-    public static int Maxwave; 
+    public static int Maxwave;
+    //static:別シーンのスクリプトから変数を持ってきたいときに使う
 
     // Update is called once per frame
     void Update()
