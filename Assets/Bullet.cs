@@ -13,5 +13,6 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         transform.Translate(-bulletSpeed * Time.deltaTime, 0,0);
+        //•¨‘Ì‚ÌŒü‚«Šî€‚Å‚Ç‚Ì•ûŒü‚Éi‚Ş‚©Œˆ’è
     }
 }
