@@ -146,16 +146,9 @@ public class EnemySpawnpoint : MonoBehaviour
         _remainTime = _stageTimer - (int)_timer;//(int)でfloatをint型に(キャスト)
         //1ウェーブの秒数から引いていく
         timerText.text = "残り時間 " + _remainTime.ToString("D2") + " 秒";
-        //それを表示することでタイマーにになる
+        //それを表示することでタイマーになる
         if (_remainTime <= 0 && waveCount != MaxWaveCount)//残り時間が0の時
         {
-            //if (waveCount == MaxWaveCount)
-            //{
-            //    GameClearUI.SetActive(true);ゲームクリア処理を行う
-            //    _isCleared = true;
-            //    Time.timeScale = 0;
-            //}
-            //このやり方だとSキーを押して元に戻っちゃうから駄目だった
                 _hero._HouseEnter = true;//ショップを開く
                 Time.timeScale = 0;
                 WaveText.text = $"次は{waveCount + 1}ウェーブ目";
